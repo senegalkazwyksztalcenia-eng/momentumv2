@@ -11,4 +11,4 @@ Standard commands are documented in `README.md` and `package.json` scripts:
 - `npm run preview` — preview the production build.
 
 Notes:
-- The hero plays a one-time entrance→flash→dark→cta animation over several seconds; wait ~8-10s after page load for the Polish CTA buttons ("Kup Momentum", "Poznaj ebook", "Zamów teraz") to fade in. The sequence is shortened/softened when `prefers-reduced-motion: reduce` is set.
+- The hero plays a one-time entrance→strike→surge→dark→cta animation; wait ~6-8s after page load for the Polish CTA buttons ("Kup Momentum", "Poznaj ebook", "Zamów teraz") to fade in. The sequence is shortened/softened when `prefers-reduced-motion: reduce` is set.

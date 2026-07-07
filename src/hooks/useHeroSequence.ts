@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 export type HeroPhase =
   | "entrance"
   | "levitating"
-  | "converging"
-  | "flash"
+  | "strike"
+  | "surge"
   | "dark"
   | "cta";
 
@@ -15,17 +15,17 @@ interface PhaseStep {
 
 const FULL_SEQUENCE: PhaseStep[] = [
   { phase: "levitating", at: 200 },
-  { phase: "converging", at: 4000 },
-  { phase: "flash", at: 5000 },
-  { phase: "dark", at: 5300 },
-  { phase: "cta", at: 6200 },
+  { phase: "strike", at: 2000 },
+  { phase: "surge", at: 2950 },
+  { phase: "dark", at: 4300 },
+  { phase: "cta", at: 5100 },
 ];
 
 const REDUCED_SEQUENCE: PhaseStep[] = [
   { phase: "levitating", at: 100 },
-  { phase: "converging", at: 1500 },
-  { phase: "dark", at: 2000 },
-  { phase: "cta", at: 2500 },
+  { phase: "surge", at: 1200 },
+  { phase: "dark", at: 1800 },
+  { phase: "cta", at: 2300 },
 ];
 
 export function useHeroSequence(reducedMotion: boolean): HeroPhase {

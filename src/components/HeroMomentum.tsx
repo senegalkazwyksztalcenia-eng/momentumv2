@@ -11,12 +11,8 @@ export function HeroMomentum() {
   const reducedMotion = useReducedMotion();
   const phase = useHeroSequence(reducedMotion);
 
-  const isConverging =
-    phase === "converging" ||
-    phase === "flash" ||
-    phase === "dark" ||
-    phase === "cta";
-  const isFlashing = phase === "flash";
+  const isStriking = phase === "strike";
+  const isSurging = phase === "surge" || phase === "dark" || phase === "cta";
   const isDark = phase === "dark" || phase === "cta";
   const showCta = phase === "cta";
 
@@ -27,10 +23,13 @@ export function HeroMomentum() {
       aria-label="Momentum — hero ebooka"
     >
       <CosmicBackground />
-      <LightningLayer active={phase !== "entrance"} intensified={isFlashing} />
+      <LightningLayer
+        active={phase !== "entrance"}
+        intensified={isStriking || phase === "surge"}
+      />
       <PhantomEntity
-        converging={isConverging}
-        flashing={isFlashing}
+        striking={isStriking}
+        surging={isSurging}
         settled={isDark}
       />
       <DarknessOverlay visible={isDark} />

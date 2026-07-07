@@ -93,20 +93,34 @@
   animation-name: bolt-flicker-main;
 }
 
-.lightning-layer__path {
+/* Realistic double-stroke: wide soft glow beneath a thin near-white core. */
+.lightning-layer__glow {
   fill: none;
-  stroke: #d8f4ff;
-  stroke-width: 3.4;
+  stroke: rgba(0, 150, 255, 0.55);
+  stroke-width: 7.5;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 7px rgba(232, 251, 255, 1))
-    drop-shadow(0 0 20px rgba(0, 183, 255, 1))
-    drop-shadow(0 0 52px rgba(0, 61, 255, 0.9));
+  filter: blur(4px) drop-shadow(0 0 18px rgba(0, 100, 255, 0.9));
 }
 
-.lightning-layer__path--branch {
-  stroke-width: 1.7;
-  opacity: 0.8;
+.lightning-layer__glow--branch {
+  stroke-width: 4.5;
+  opacity: 0.7;
+}
+
+.lightning-layer__core {
+  fill: none;
+  stroke: #eef9ff;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 5px rgba(210, 240, 255, 1))
+    drop-shadow(0 0 14px rgba(0, 183, 255, 0.9));
+}
+
+.lightning-layer__core--branch {
+  stroke-width: 1.1;
+  opacity: 0.85;
 }
 
 .lightning-layer--intensified .lightning-layer__bolt {
@@ -114,11 +128,10 @@
   animation-delay: 0s !important;
 }
 
-.lightning-layer--intensified .lightning-layer__path {
-  stroke-width: 3.6;
-  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 1))
-    drop-shadow(0 0 30px rgba(0, 183, 255, 1))
-    drop-shadow(0 0 64px rgba(0, 61, 255, 0.9));
+.lightning-layer--intensified .lightning-layer__core {
+  stroke-width: 2.4;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 26px rgba(0, 183, 255, 1));
 }
 
 .lightning-layer__ambient {
