@@ -2,7 +2,7 @@
   position: absolute;
   top: 38%;
   left: 50%;
-  z-index: 2;
+  z-index: 3;
   width: clamp(435px, 55vw, 812px);
   aspect-ratio: 2 / 3;
   transform: translate(-50%, -50%);
@@ -10,9 +10,9 @@
   opacity: 0;
   visibility: hidden;
   transition:
-    opacity 0.9s ease,
-    visibility 0.9s ease,
-    transform 1s ease;
+    opacity 0.45s ease,
+    visibility 0.45s ease,
+    transform 0.8s ease;
 }
 
 .phantom-entity--visible {

@@ -1,18 +1,16 @@
 import "./PhantomEntity.css";
 
+const PHANTOM_SRC = `${import.meta.env.BASE_URL}phantom/phantom-lightning.webp?v=restore1`;
+
 interface PhantomEntityProps {
   visible: boolean;
-  dissolving?: boolean;
 }
 
-export function PhantomEntity({ visible, dissolving = false }: PhantomEntityProps) {
+export function PhantomEntity({ visible }: PhantomEntityProps) {
   const classNames = [
     "phantom-entity",
     visible ? "phantom-entity--visible" : "phantom-entity--hidden",
-    dissolving ? "phantom-entity--dissolving" : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
+  ].join(" ");
 
   return (
     <div className={classNames} aria-hidden="true">
@@ -21,7 +19,7 @@ export function PhantomEntity({ visible, dissolving = false }: PhantomEntityProp
         <div className="phantom-entity__mist" />
         <img
           className="phantom-entity__figure"
-          src="/phantom/phantom-lightning.webp?v=restore1"
+          src={PHANTOM_SRC}
           alt=""
           width={595}
           height={1353}

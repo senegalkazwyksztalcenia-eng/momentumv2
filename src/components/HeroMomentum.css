@@ -19,22 +19,19 @@
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 2;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse 90% 70% at 50% 38%, transparent 42%, rgba(1, 2, 8, 0.28) 100%),
-    radial-gradient(circle at 50% 0%, rgba(0, 183, 255, 0.04), transparent 48%);
-  opacity: 0.85;
+  opacity: 0;
   transition: opacity 1.6s ease;
+}
+
+.hero-momentum--storm::after {
+  display: none;
 }
 
 .hero-momentum--content::after,
 .hero-momentum--empowered::after {
-  z-index: 2;
   opacity: 0.55;
-}
-
-.hero-momentum--content::after {
   background:
     radial-gradient(ellipse 88% 72% at 50% 36%, transparent 40%, rgba(1, 2, 8, 0.22) 100%),
     radial-gradient(circle at 50% 18%, rgba(255, 170, 80, 0.07), transparent 52%),
