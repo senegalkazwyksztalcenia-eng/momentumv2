@@ -14,7 +14,8 @@ export function HeroMomentum() {
 
   const isStorm = phase === "storm";
   const isForge = phase === "forge";
-  const showContent = phase === "content";
+  const showContent = phase === "content" || phase === "empowered";
+  const isEmpowered = phase === "empowered";
   const showHeader = isForge || showContent;
 
   return (
@@ -31,10 +32,19 @@ export function HeroMomentum() {
         Przejdź do treści
       </a>
 
-      <CosmicBackground enhanced={showContent} showSunrise={showContent} />
+      <CosmicBackground
+        enhanced={showContent}
+        showSunrise={showContent}
+        sunCharged={isEmpowered}
+      />
       {isStorm ? <LightningLayer mega /> : null}
       <PhantomEntity visible={isStorm || isForge} dissolving={isForge} />
-      <SalesCTA visible={isForge || showContent} forging={isForge} />
+      <SalesCTA
+        visible={isForge || showContent}
+        forging={isForge}
+        charging={showContent && !isEmpowered}
+        empowered={isEmpowered}
+      />
 
       <header
         className={`hero-momentum__header ${showHeader ? "hero-momentum__header--visible" : ""}`}

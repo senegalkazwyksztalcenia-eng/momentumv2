@@ -49,11 +49,13 @@ function generateCityLights(count: number): CityLight[] {
 interface CosmicBackgroundProps {
   enhanced?: boolean;
   showSunrise?: boolean;
+  sunCharged?: boolean;
 }
 
 export function CosmicBackground({
   enhanced = false,
   showSunrise = false,
+  sunCharged = false,
 }: CosmicBackgroundProps) {
   const isDesktop = useBreakpoint();
 
@@ -76,6 +78,7 @@ export function CosmicBackground({
     isDesktop ? "cosmic-background--desktop" : "",
     enhanced ? "cosmic-background--enhanced" : "",
     showSunrise ? "cosmic-background--sunrise" : "",
+    sunCharged ? "cosmic-background--charged" : "",
   ]
     .filter(Boolean)
     .join(" ");

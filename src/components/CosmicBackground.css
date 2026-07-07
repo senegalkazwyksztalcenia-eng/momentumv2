@@ -139,7 +139,7 @@
 .cosmic-background--sunrise .cosmic-background__space-light {
   background:
     radial-gradient(
-      circle at 58% 62%,
+      circle at 50% 58%,
       rgba(255, 230, 190, 0.58) 0%,
       rgba(255, 195, 130, 0.32) 20%,
       rgba(255, 155, 85, 0.14) 38%,
@@ -147,7 +147,7 @@
       transparent 70%
     ),
     radial-gradient(
-      circle at 56% 52%,
+      circle at 50% 48%,
       rgba(255, 245, 230, 0.34) 0%,
       rgba(255, 210, 150, 0.14) 32%,
       transparent 58%
@@ -176,62 +176,73 @@
   }
 }
 
-/* Sun — rises in upper sky, offset from center CTA */
+/* Sun — ascends to CTA sun level, then merges into it */
 .cosmic-background--sunrise {
-  --sun-anchor-x: 62%;
-  --sun-rise-end: -50vmin;
+  --sun-cta-top: 36%;
+  --sun-merge-duration: 4.2s;
 }
 
 .cosmic-background__sun-scene {
   position: absolute;
   left: 50%;
-  bottom: 64vmin;
   z-index: 1;
   width: 0;
   height: 0;
   pointer-events: none;
   opacity: 0;
-  transform: translateX(-50%) translateY(10vmin);
+  top: 110%;
+  transform: translate(-50%, -50%);
 }
 
 .cosmic-background--sunrise .cosmic-background__sun-scene {
-  left: var(--sun-anchor-x);
+  left: 50%;
 }
 
 .cosmic-background__sun-scene--active {
-  animation: sun-rise var(--rise-duration) var(--rise-ease) forwards;
+  animation: sun-ascend-to-cta var(--sun-merge-duration) var(--rise-ease) forwards;
 }
 
-@keyframes sun-rise {
+@keyframes sun-ascend-to-cta {
   0% {
+    top: 108%;
     opacity: 0;
-    transform: translateX(-50%) translateY(10vmin);
+    transform: translate(-50%, -50%) scale(0.7);
   }
-  10% {
+
+  8% {
     opacity: 1;
   }
+
+  70% {
+    top: var(--sun-cta-top);
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.36);
+  }
+
+  82% {
+    top: var(--sun-cta-top);
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.34);
+  }
+
   100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(-32vmin);
+    top: var(--sun-cta-top);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.12);
   }
 }
 
-.cosmic-background--sunrise .cosmic-background__sun-scene--active {
-  animation-name: sun-rise-offset;
+.cosmic-background--charged .cosmic-background__sun-scene,
+.cosmic-background--charged .cosmic-background__sun-scene--active {
+  animation: none !important;
+  opacity: 0 !important;
+  visibility: hidden;
 }
 
-@keyframes sun-rise-offset {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(10vmin);
-  }
-  10% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(var(--sun-rise-end, -50vmin));
-  }
+.cosmic-background--charged .cosmic-background__sun-scene .cosmic-background__sun-core,
+.cosmic-background--charged .cosmic-background__sun-scene .cosmic-background__sun-bloom,
+.cosmic-background--charged .cosmic-background__sun-scene .cosmic-background__sun-corona {
+  opacity: 0 !important;
 }
 
 .cosmic-background__sunrise-haze {
@@ -791,6 +802,10 @@
 
 /* Mobile: lighter compositing than full desktop effects */
 @media (max-width: 767px) {
+  .cosmic-background--sunrise {
+    --sun-cta-top: 34%;
+  }
+
   .cosmic-background:not(.cosmic-background--desktop) .cosmic-background__nebula {
     filter: blur(40px);
     opacity: 0.36;
@@ -900,12 +915,13 @@
   .cosmic-background__sun-scene--active {
     animation: none;
     opacity: 1;
-    transform: translateX(-50%) translateY(-32vmin);
+    top: var(--sun-cta-top, 36%);
+    transform: translate(-50%, -50%) scale(0.34);
   }
 
-  .cosmic-background--sunrise .cosmic-background__sun-scene--active {
-    left: var(--sun-anchor-x);
-    transform: translateX(-50%) translateY(var(--sun-rise-end, -50vmin));
+  .cosmic-background--charged .cosmic-background__sun-scene--active {
+    opacity: 0 !important;
+    visibility: hidden;
   }
 
   .cosmic-background__sun-scene--active .cosmic-background__sun-core,

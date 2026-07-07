@@ -6,11 +6,11 @@
   z-index: 4;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  transition: top 1.2s cubic-bezier(0.25, 0.46, 0.35, 0.98);
 }
 
-.hero-momentum--content .sales-cta {
-  top: 46%;
+.hero-momentum--content .sales-cta,
+.hero-momentum--empowered .sales-cta {
+  top: 38%;
 }
 
 .sales-cta:not(.sales-cta--visible):not(.sales-cta--forging) .solar-cta {
@@ -377,7 +377,7 @@
 }
 
 @media (min-width: 768px) {
-  .hero-momentum--desktop .solar-cta__sun-disc {
+  .hero-momentum--desktop .sales-cta:not(.sales-cta--empowered):not(.sales-cta--charging) .solar-cta__sun-disc {
     animation: none;
     filter:
       drop-shadow(0 0 20px rgba(255, 195, 0, 0.95))
@@ -395,20 +395,14 @@
   }
 }
 
-@media (max-width: 767px) {
-  .cosmic-background--sunrise {
-    --sun-anchor-x: 56%;
-    --sun-rise-end: -44vmin;
-  }
-}
-
 @media (max-width: 520px) {
   .sales-cta {
     top: 36%;
   }
 
-  .hero-momentum--content .sales-cta {
-    top: 43%;
+  .hero-momentum--content .sales-cta,
+  .hero-momentum--empowered .sales-cta {
+    top: 36%;
   }
 
   .solar-cta {
@@ -460,8 +454,19 @@
 @media (prefers-reduced-motion: reduce) {
   .solar-cta__sun-disc,
   .solar-cta__rays,
-  .solar-cta__sun-halo {
+  .solar-cta__sun-halo,
+  .solar-cta__charge-ring,
+  .solar-cta__charge-burst {
     animation: none !important;
+  }
+
+  .sales-cta--empowered .solar-cta__rays {
+    opacity: 0.96;
+    transform: translateX(-50%) scale(1.12);
+  }
+
+  .sales-cta--empowered .solar-cta__sun-disc {
+    transform: translateX(-50%) scale(1.08);
   }
 
   .sales-cta__handoff-glow {

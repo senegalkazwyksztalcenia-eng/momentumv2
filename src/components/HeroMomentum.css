@@ -19,12 +19,23 @@
   transition: opacity 1.6s ease;
 }
 
+.hero-momentum--content::after,
+.hero-momentum--empowered::after {
+  opacity: 1;
+}
+
 .hero-momentum--content::after {
   background:
     radial-gradient(ellipse 88% 72% at 50% 36%, transparent 40%, rgba(1, 2, 8, 0.22) 100%),
     radial-gradient(circle at 50% 18%, rgba(255, 170, 80, 0.07), transparent 52%),
     radial-gradient(circle at 50% 0%, rgba(0, 183, 255, 0.05), transparent 48%);
-  opacity: 1;
+}
+
+.hero-momentum--empowered::after {
+  background:
+    radial-gradient(ellipse 88% 72% at 50% 36%, transparent 38%, rgba(1, 2, 8, 0.18) 100%),
+    radial-gradient(circle at 50% 32%, rgba(255, 190, 100, 0.12), transparent 48%),
+    radial-gradient(circle at 50% 0%, rgba(0, 183, 255, 0.05), transparent 48%);
 }
 
 .hero-momentum__skip {

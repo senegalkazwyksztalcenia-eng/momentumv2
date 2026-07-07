@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export type HeroPhase = "storm" | "forge" | "content";
+export type HeroPhase = "storm" | "forge" | "content" | "empowered";
 
 interface PhaseStep {
   phase: HeroPhase;
@@ -10,11 +10,13 @@ interface PhaseStep {
 const FULL_SEQUENCE: PhaseStep[] = [
   { phase: "forge", at: 2400 },
   { phase: "content", at: 3200 },
+  { phase: "empowered", at: 7400 },
 ];
 
 const REDUCED_SEQUENCE: PhaseStep[] = [
   { phase: "forge", at: 650 },
   { phase: "content", at: 1000 },
+  { phase: "empowered", at: 1500 },
 ];
 
 export function useHeroSequence(reducedMotion: boolean): HeroPhase {
