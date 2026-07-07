@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Momentum — an animated blue phantom with a glowing aura." />
+  <title>Momentum · Phantom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Drifting particle / aura background -->
+  <canvas id="aura-canvas" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Momentum
+    </a>
+    <nav class="site-nav">
+      <a href="#phantom">Phantom</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO: the animated blue phantom with aura -->
+    <section class="hero" id="phantom">
+      <div class="hero-copy">
+        <p class="eyebrow">Blue Phantom</p>
+        <h1>An aura that<br /><span class="glow-text">never rests.</span></h1>
+        <p class="lede">
+          A restless spirit rendered in living light — floating, breathing,
+          and glowing against the dark. Built to move.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#about">Enter the void</a>
+          <a class="btn btn-ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+
+      <!-- The phantom stage -->
+      <div class="phantom-stage" aria-label="Animated blue phantom with a glowing aura">
+        <div class="aura-glow"></div>
+        <div class="aura-ring"></div>
+        <div class="phantom-float">
+          <svg class="phantom" viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Blue phantom">
+            <defs>
+              <linearGradient id="ghostBody" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#bff3ff" stop-opacity="0.95" />
+                <stop offset="45%" stop-color="#4fc3ff" stop-opacity="0.85" />
+                <stop offset="100%" stop-color="#1b6bff" stop-opacity="0.55" />
+              </linearGradient>
+              <radialGradient id="ghostCore" cx="50%" cy="35%" r="65%">
+                <stop offset="0%" stop-color="#eaffff" stop-opacity="0.9" />
+                <stop offset="100%" stop-color="#3aa8ff" stop-opacity="0" />
+              </radialGradient>
+              <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- Body: rounded head + wavy tail -->
+            <path class="phantom-body" filter="url(#softGlow)" fill="url(#ghostBody)" d="
+              M120 20
+              C68 20 38 62 38 116
+              L38 250
+              C38 262 52 266 60 256
+              C68 246 78 246 86 256
+              C94 266 106 266 114 256
+              C121 247 131 247 138 256
+              C146 266 158 266 166 256
+              C174 246 184 246 192 256
+              C200 266 202 258 202 250
+              L202 116
+              C202 62 172 20 120 20
+              Z" />
+
+            <!-- Inner core light -->
+            <ellipse class="phantom-core" cx="120" cy="120" rx="82" ry="100" fill="url(#ghostCore)" />
+
+            <!-- Eyes -->
+            <ellipse class="eye" cx="96" cy="112" rx="12" ry="18" fill="#04203f" />
+            <ellipse class="eye" cx="150" cy="112" rx="12" ry="18" fill="#04203f" />
+            <circle class="eye-shine" cx="92" cy="106" r="4" fill="#d7f6ff" />
+            <circle class="eye-shine" cx="146" cy="106" r="4" fill="#d7f6ff" />
+          </svg>
+          <div class="phantom-shadow" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="about">
+      <div class="panel-inner">
+        <h2>Made of motion</h2>
+        <p>
+          The phantom is pure vector and light — an SVG figure driven by CSS
+          animation and a canvas particle field. No images, no video, no build
+          step. It floats, its aura pulses, and embers drift up through the dark.
+        </p>
+        <div class="feature-grid">
+          <div class="feature">
+            <h3>Floating spirit</h3>
+            <p>A gentle bob and sway keeps the phantom alive on the page.</p>
+          </div>
+          <div class="feature">
+            <h3>Pulsing aura</h3>
+            <p>Layered radial glows breathe behind the figure for depth.</p>
+          </div>
+          <div class="feature">
+            <h3>Drifting particles</h3>
+            <p>A lightweight canvas field of blue embers reacts to your cursor.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel contact" id="contact">
+      <div class="panel-inner">
+        <h2>Summon it anywhere</h2>
+        <p>Drop the phantom into any page — it's self-contained and responsive.</p>
+        <a class="btn btn-primary" href="#top">Back to the phantom</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Momentum. Blue phantom conjured in code.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
