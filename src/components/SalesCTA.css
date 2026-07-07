@@ -197,7 +197,7 @@
   opacity: 0.78;
   filter: blur(0.6px);
   z-index: -2;
-  animation: raysRotate 18s linear infinite, raysPulse 3.2s ease-in-out infinite;
+  animation: none;
 }
 
 .solar-cta__text {
@@ -339,29 +339,13 @@
   }
 }
 
-@keyframes raysRotate {
-  from {
-    transform: translateX(-50%) rotate(0deg);
-  }
-
-  to {
-    transform: translateX(-50%) rotate(360deg);
-  }
-}
-
-/* Desktop: stop infinite GPU-heavy sun/rays animations — button sun stays focal */
+/* Desktop: stop infinite GPU-heavy sun pulse on button */
 @media (min-width: 768px) {
   .hero-momentum--desktop .solar-cta::before {
     animation: none;
     filter:
       drop-shadow(0 0 20px rgba(255, 195, 0, 0.95))
       drop-shadow(0 0 48px rgba(255, 110, 0, 0.78));
-  }
-
-  .hero-momentum--desktop .solar-cta::after {
-    animation: none;
-    opacity: 0.76;
-    transform: translateX(-50%) rotate(12deg);
   }
 
   .hero-momentum--desktop .solar-cta__sun-halo {

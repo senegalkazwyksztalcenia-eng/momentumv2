@@ -757,10 +757,10 @@
   }
 }
 
-/* Desktop: lighter GPU load — fewer blurs, paused ambient motion, no duplicate sun */
+/* Desktop: lighter GPU load — fewer blurs, paused ambient motion */
 @media (min-width: 768px) {
   .cosmic-background--desktop {
-    contain: layout style paint;
+    contain: layout style;
   }
 
   .cosmic-background--desktop .cosmic-background__void,
@@ -813,10 +813,6 @@
   .cosmic-background--desktop .cosmic-background__sun-core {
     animation: sun-layer-in 1.2s ease forwards !important;
     filter: blur(1px);
-  }
-
-  .cosmic-background--desktop.cosmic-background--sunrise .cosmic-background__sun-scene {
-    display: none;
   }
 
   .cosmic-background--desktop .cosmic-background__depth {
