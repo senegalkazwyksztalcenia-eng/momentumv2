@@ -172,22 +172,22 @@
   opacity: 1;
 }
 
-/* Horizontal corona streak — real sunrise glare along terminator. */
+/* Round sun disk — planet surface occludes the half below the horizon. */
 .cosmic-background__sun-corona {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 190vmin;
-  height: 46vmin;
-  transform: translate(-50%, -58%) scale(0.7);
+  width: 120vmin;
+  height: 120vmin;
+  transform: translate(-50%, -50%) scale(0.7);
   border-radius: 50%;
-  clip-path: inset(0 0 42% 0);
+  aspect-ratio: 1;
   background: radial-gradient(
-    ellipse 100% 55% at 50% 100%,
-    rgba(255, 250, 235, 0.72) 0%,
-    rgba(255, 210, 140, 0.42) 28%,
-    rgba(255, 150, 60, 0.16) 52%,
-    transparent 76%
+    circle,
+    rgba(255, 250, 235, 0.55) 0%,
+    rgba(255, 210, 140, 0.32) 32%,
+    rgba(255, 150, 60, 0.12) 55%,
+    transparent 72%
   );
   filter: blur(18px);
   opacity: 0;
@@ -199,7 +199,7 @@
 
 .cosmic-background__planet--visible .cosmic-background__sun-corona {
   opacity: 1;
-  transform: translate(-50%, -58%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .cosmic-background__sun-core {
@@ -208,9 +208,9 @@
   top: 0;
   width: 34vmin;
   height: 34vmin;
-  transform: translate(-50%, -36%) scale(0.55);
+  transform: translate(-50%, -50%) scale(0.55);
   border-radius: 50%;
-  clip-path: inset(0 0 58% 0);
+  aspect-ratio: 1;
   background: radial-gradient(
     circle,
     #ffffff 0%,
@@ -235,7 +235,7 @@
 
 .cosmic-background__planet--visible .cosmic-background__sun-core {
   opacity: 1;
-  transform: translate(-50%, -36%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
   animation: sun-pulse 7s ease-in-out infinite 2.4s;
 }
 
@@ -245,9 +245,9 @@
   top: 0;
   width: 100vmin;
   height: 100vmin;
-  transform: translate(-50%, -38%) scale(0.55);
+  transform: translate(-50%, -50%) scale(0.55);
   border-radius: 50%;
-  clip-path: inset(0 0 56% 0);
+  aspect-ratio: 1;
   background: radial-gradient(
     circle,
     rgba(255, 255, 255, 0.88) 0%,
@@ -266,7 +266,7 @@
 
 .cosmic-background__planet--visible .cosmic-background__sun-bloom {
   opacity: 1;
-  transform: translate(-50%, -38%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .cosmic-background__terminator {
