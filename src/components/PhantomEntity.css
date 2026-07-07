@@ -1,9 +1,14 @@
 .phantom-entity {
+  /* Anchor for the chest light, measured from the figure asset. */
+  --chest-x: 49.5%;
+  --chest-y: 38%;
+
   position: absolute;
-  top: 38%;
+  top: 42%;
   left: 50%;
   z-index: 2;
-  width: clamp(230px, 27vw, 420px);
+  height: min(104vh, 168vw);
+  width: auto;
   aspect-ratio: 2 / 3;
   transform: translate(-50%, -50%);
   transition: transform 1.4s ease;
@@ -11,7 +16,7 @@
 }
 
 .phantom-entity--settled {
-  transform: translate(-50%, -50%) scale(0.94);
+  transform: translate(-50%, -50%) scale(0.96);
 }
 
 .phantom-entity__float {
@@ -27,8 +32,8 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 0 26px rgba(0, 183, 255, 0.55))
-    drop-shadow(0 0 64px rgba(0, 61, 255, 0.4));
+  filter: drop-shadow(0 0 30px rgba(0, 183, 255, 0.5))
+    drop-shadow(0 0 78px rgba(0, 61, 255, 0.38));
   transition:
     filter 500ms ease,
     transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -37,34 +42,36 @@
 }
 
 .phantom-entity--converging .phantom-entity__figure {
-  transform: scaleX(0.97) scaleY(1.01);
-  filter: drop-shadow(0 0 34px rgba(0, 183, 255, 0.8))
-    drop-shadow(0 0 90px rgba(0, 61, 255, 0.6)) brightness(1.22);
+  transform: scaleX(0.985) scaleY(1.012);
+  filter: drop-shadow(0 0 40px rgba(0, 183, 255, 0.85))
+    drop-shadow(0 0 108px rgba(0, 61, 255, 0.62)) brightness(1.28)
+    saturate(1.15);
 }
 
 .phantom-entity--flash .phantom-entity__figure {
-  filter: drop-shadow(0 0 44px rgba(232, 251, 255, 0.95))
-    drop-shadow(0 0 120px rgba(0, 183, 255, 0.75)) brightness(1.5);
+  filter: drop-shadow(0 0 54px rgba(232, 251, 255, 0.98))
+    drop-shadow(0 0 150px rgba(0, 183, 255, 0.78)) brightness(1.65)
+    saturate(1.2);
 }
 
 .phantom-entity--settled .phantom-entity__figure {
-  opacity: 0.6;
-  filter: drop-shadow(0 0 18px rgba(0, 183, 255, 0.4))
-    drop-shadow(0 0 46px rgba(0, 61, 255, 0.3));
+  opacity: 0.62;
+  filter: drop-shadow(0 0 20px rgba(0, 183, 255, 0.4))
+    drop-shadow(0 0 52px rgba(0, 61, 255, 0.3));
 }
 
 .phantom-entity__mist {
   position: absolute;
   left: 12%;
   right: 12%;
-  bottom: -4%;
-  height: 22%;
+  bottom: -3%;
+  height: 20%;
   background: radial-gradient(
     ellipse at 50% 30%,
     rgba(0, 183, 255, 0.3),
     transparent 74%
   );
-  filter: blur(16px);
+  filter: blur(18px);
   opacity: 0.8;
   transition: opacity 1.2s ease;
 }
@@ -73,30 +80,78 @@
   opacity: 0.4;
 }
 
-.phantom-entity__core {
+/* Soft radiant bloom emitted from the chest. */
+.phantom-entity__aura {
   position: absolute;
-  top: 37.5%;
-  left: 48%;
-  width: 11%;
+  top: var(--chest-y);
+  left: var(--chest-x);
+  width: 52%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    var(--blue-core) 0%,
-    var(--blue-electric) 45%,
-    transparent 78%
+    rgba(232, 251, 255, 0.85) 0%,
+    rgba(0, 183, 255, 0.5) 26%,
+    rgba(0, 61, 255, 0.22) 52%,
+    transparent 72%
   );
-  filter: blur(1px) drop-shadow(0 0 18px rgba(232, 251, 255, 0.9));
+  filter: blur(14px);
+  mix-blend-mode: screen;
+  opacity: 0.85;
+  animation: aura-breathe 3.4s ease-in-out infinite;
+  transition:
+    opacity 400ms ease,
+    filter 400ms ease;
+  will-change: transform, opacity;
+}
+
+.phantom-entity--converging .phantom-entity__aura {
+  animation-duration: 0.7s;
+  filter: blur(10px) brightness(1.35);
+  opacity: 1;
+}
+
+.phantom-entity--flash .phantom-entity__aura {
+  opacity: 1;
+  filter: blur(8px) brightness(1.8);
+}
+
+.phantom-entity--settled .phantom-entity__aura {
+  animation-duration: 4.6s;
+  opacity: 0.5;
+}
+
+/* Concentrated bright core, pinned exactly to the chest. */
+.phantom-entity__core {
+  position: absolute;
+  top: var(--chest-y);
+  left: var(--chest-x);
+  width: 15%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #ffffff 0%,
+    var(--blue-core) 30%,
+    var(--blue-electric) 58%,
+    transparent 76%
+  );
+  filter: blur(0.5px) drop-shadow(0 0 22px rgba(232, 251, 255, 0.95))
+    drop-shadow(0 0 46px rgba(0, 183, 255, 0.8));
+  mix-blend-mode: screen;
   animation: core-pulse 3.4s ease-in-out infinite;
   transition:
     opacity 300ms ease,
     filter 400ms ease;
+  will-change: transform, opacity;
 }
 
 .phantom-entity--converging .phantom-entity__core {
-  animation-duration: 0.6s;
-  filter: blur(0.5px) drop-shadow(0 0 30px rgba(232, 251, 255, 1));
+  animation-duration: 0.55s;
+  filter: blur(0.3px) drop-shadow(0 0 34px rgba(232, 251, 255, 1))
+    drop-shadow(0 0 70px rgba(0, 183, 255, 0.95));
 }
 
 .phantom-entity--flash .phantom-entity__core {
@@ -104,15 +159,59 @@
 }
 
 .phantom-entity--settled .phantom-entity__core {
-  animation-duration: 4.2s;
-  opacity: 0.7;
+  animation-duration: 4.6s;
+  opacity: 0.72;
+}
+
+/* Slowly rotating star rays radiating from the core. */
+.phantom-entity__rays {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 340%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background:
+    conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(232, 251, 255, 0.5) 3deg,
+      transparent 8deg,
+      transparent 86deg,
+      rgba(0, 183, 255, 0.4) 90deg,
+      transparent 96deg,
+      transparent 174deg,
+      rgba(232, 251, 255, 0.5) 180deg,
+      transparent 186deg,
+      transparent 264deg,
+      rgba(0, 183, 255, 0.4) 270deg,
+      transparent 276deg,
+      transparent 360deg
+    );
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  filter: blur(1px);
+  animation: rays-rotate 26s linear infinite;
+  -webkit-mask-image: radial-gradient(circle, #000 6%, transparent 62%);
+  mask-image: radial-gradient(circle, #000 6%, transparent 62%);
+}
+
+.phantom-entity--converging .phantom-entity__rays {
+  opacity: 0.85;
+  animation-duration: 8s;
+}
+
+.phantom-entity--flash .phantom-entity__rays,
+.phantom-entity--settled .phantom-entity__rays {
+  opacity: 0.3;
 }
 
 .phantom-entity__flash {
   position: absolute;
-  top: 37.5%;
-  left: 48%;
-  width: 9%;
+  top: var(--chest-y);
+  left: var(--chest-x);
+  width: 12%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%) scale(0.3);
   border-radius: 50%;
@@ -123,11 +222,12 @@
     var(--blue-electric) 58%,
     transparent 80%
   );
+  mix-blend-mode: screen;
   opacity: 0;
 }
 
 .phantom-entity--flash .phantom-entity__flash {
-  animation: flash-burst 480ms ease-out forwards;
+  animation: flash-burst 520ms ease-out forwards;
 }
 
 .phantom-entity__wisp {
@@ -167,10 +267,10 @@
 @keyframes phantom-float {
   0%,
   100% {
-    transform: translateY(-3%);
+    transform: translateY(-2.4%);
   }
   50% {
-    transform: translateY(3%);
+    transform: translateY(2.4%);
   }
 }
 
@@ -178,11 +278,29 @@
   0%,
   100% {
     transform: translate(-50%, -50%) scale(0.9);
-    opacity: 0.75;
+    opacity: 0.82;
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.14);
+    transform: translate(-50%, -50%) scale(1.12);
     opacity: 1;
+  }
+}
+
+@keyframes aura-breathe {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.62;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+    opacity: 0.9;
+  }
+}
+
+@keyframes rays-rotate {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 
@@ -193,11 +311,11 @@
   }
   25% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(2.4);
+    transform: translate(-50%, -50%) scale(2.6);
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(5);
+    transform: translate(-50%, -50%) scale(5.4);
   }
 }
 
@@ -215,7 +333,7 @@
 
 @media (max-width: 640px) {
   .phantom-entity {
-    top: 32%;
-    width: clamp(160px, 48vw, 250px);
+    top: 40%;
+    height: min(78vh, 172vw);
   }
 }
