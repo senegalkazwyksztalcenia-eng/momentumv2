@@ -22,6 +22,7 @@ export function HeroMomentum() {
       <CosmicBackground enhanced={showContent} />
       <LightningLayer visible={isStorm} mega={isStorm} />
       <PhantomEntity visible={isStorm} />
+      <SalesCTA visible={showContent} />
 
       <header
         className={`hero-momentum__header ${showContent ? "hero-momentum__header--visible" : ""}`}
@@ -35,7 +36,6 @@ export function HeroMomentum() {
         <h1 className="hero-momentum__title">Odblokuj swój potencjał</h1>
         <p className="hero-momentum__subtitle">na każdej płaszczyźnie życia</p>
         <p className="hero-momentum__tagline">Twój Czas Nadszedł.</p>
-        <SalesCTA visible={showContent} />
       </div>
     </section>
   );
