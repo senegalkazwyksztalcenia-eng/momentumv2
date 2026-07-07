@@ -7,6 +7,7 @@ const BOLT_HEIGHT = 72;
 
 interface SalesCTAProps {
   visible: boolean;
+  forging?: boolean;
 }
 
 function BoltSvg({
@@ -48,7 +49,7 @@ function BoltSvg({
   );
 }
 
-export function SalesCTA({ visible }: SalesCTAProps) {
+export function SalesCTA({ visible, forging = false }: SalesCTAProps) {
   const leftBolts = useMemo(
     () => [
       {
@@ -95,9 +96,16 @@ export function SalesCTA({ visible }: SalesCTAProps) {
 
   return (
     <div
-      className={`sales-cta ${visible ? "sales-cta--visible" : ""}`}
+      className={[
+        "sales-cta",
+        visible ? "sales-cta--visible" : "",
+        forging ? "sales-cta--forging" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
       aria-hidden={!visible}
     >
+      {forging ? <span className="sales-cta__forge-burst" aria-hidden="true" /> : null}
       <a
         className="sales-cta__pill"
         href="#teraz"

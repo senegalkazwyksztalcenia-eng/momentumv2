@@ -11,6 +11,7 @@ export function HeroMomentum() {
   const phase = useHeroSequence(reducedMotion);
 
   const isStorm = phase === "storm";
+  const isForge = phase === "forge";
   const showContent = phase === "content";
 
   return (
@@ -21,8 +22,8 @@ export function HeroMomentum() {
     >
       <CosmicBackground enhanced={showContent} showSunrise={showContent} />
       <LightningLayer visible={isStorm} mega={isStorm} />
-      <PhantomEntity visible={isStorm} />
-      <SalesCTA visible={showContent} />
+      <PhantomEntity visible={isStorm || isForge} dissolving={isForge} />
+      <SalesCTA visible={isForge || showContent} forging={isForge} />
 
       <header
         className={`hero-momentum__header ${showContent ? "hero-momentum__header--visible" : ""}`}

@@ -2,13 +2,17 @@ import "./PhantomEntity.css";
 
 interface PhantomEntityProps {
   visible: boolean;
+  dissolving?: boolean;
 }
 
-export function PhantomEntity({ visible }: PhantomEntityProps) {
+export function PhantomEntity({ visible, dissolving = false }: PhantomEntityProps) {
   const classNames = [
     "phantom-entity",
     visible ? "phantom-entity--visible" : "phantom-entity--hidden",
-  ].join(" ");
+    dissolving ? "phantom-entity--dissolving" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className={classNames} aria-hidden="true">
