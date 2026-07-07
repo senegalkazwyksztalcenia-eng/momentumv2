@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useIsDesktop } from "../hooks/useIsDesktop";
+import { useBreakpoint } from "../contexts/BreakpointContext";
 import { generateBolt } from "../lib/lightning";
 import "./LightningLayer.css";
 
@@ -70,17 +70,16 @@ function buildBolts(mega: boolean, lite: boolean): Bolt[] {
 }
 
 interface LightningLayerProps {
-  visible: boolean;
   mega: boolean;
 }
 
-export function LightningLayer({ visible, mega }: LightningLayerProps) {
-  const isDesktop = useIsDesktop();
+export function LightningLayer({ mega }: LightningLayerProps) {
+  const isDesktop = useBreakpoint();
   const bolts = useMemo(() => buildBolts(mega, isDesktop), [mega, isDesktop]);
 
   const classNames = [
     "lightning-layer",
-    visible ? "lightning-layer--visible" : "lightning-layer--hidden",
+    "lightning-layer--visible",
     mega ? "lightning-layer--mega" : "",
   ]
     .filter(Boolean)

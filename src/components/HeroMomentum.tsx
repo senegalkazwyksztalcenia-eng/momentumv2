@@ -1,5 +1,5 @@
 import { useHeroSequence } from "../hooks/useHeroSequence";
-import { useIsDesktop } from "../hooks/useIsDesktop";
+import { useBreakpoint } from "../contexts/BreakpointContext";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import { CosmicBackground } from "./CosmicBackground";
 import { LightningLayer } from "./LightningLayer";
@@ -9,12 +9,13 @@ import "./HeroMomentum.css";
 
 export function HeroMomentum() {
   const reducedMotion = useReducedMotion();
-  const isDesktop = useIsDesktop();
+  const isDesktop = useBreakpoint();
   const phase = useHeroSequence(reducedMotion);
 
   const isStorm = phase === "storm";
   const isForge = phase === "forge";
   const showContent = phase === "content";
+  const showHeader = isForge || showContent;
 
   return (
     <section
@@ -26,19 +27,25 @@ export function HeroMomentum() {
       data-phase={phase}
       aria-label="Momentum — hero ebooka"
     >
+      <a className="hero-momentum__skip" href="#odkryj">
+        Przejdź do treści
+      </a>
+
       <CosmicBackground enhanced={showContent} showSunrise={showContent} />
-      <LightningLayer visible={isStorm} mega={isStorm} />
+      {isStorm ? <LightningLayer mega /> : null}
       <PhantomEntity visible={isStorm || isForge} dissolving={isForge} />
       <SalesCTA visible={isForge || showContent} forging={isForge} />
 
       <header
-        className={`hero-momentum__header ${showContent ? "hero-momentum__header--visible" : ""}`}
+        className={`hero-momentum__header ${showHeader ? "hero-momentum__header--visible" : ""}`}
       >
         <p className="hero-momentum__eyebrow">Momentum — ebook</p>
       </header>
 
       <div
+        id="odkryj"
         className={`hero-momentum__content ${showContent ? "hero-momentum__content--visible" : ""}`}
+        aria-live="polite"
       >
         <h1 className="hero-momentum__title">Odblokuj swój potencjał</h1>
         <p className="hero-momentum__subtitle">na każdej płaszczyźnie życia</p>

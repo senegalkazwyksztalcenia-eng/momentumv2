@@ -3,7 +3,6 @@
   --blue-electric: #00b7ff;
   --blue-deep: #003dff;
   --navy-black: #020611;
-  --glass-white: rgba(255, 255, 255, 0.12);
 
   color-scheme: dark;
 }
@@ -24,7 +23,6 @@ body {
   background: var(--navy-black);
   color: var(--blue-core);
   font-family:
-    Inter,
     ui-sans-serif,
     system-ui,
     -apple-system,

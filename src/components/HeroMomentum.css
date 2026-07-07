@@ -6,6 +6,30 @@
   background: var(--navy-black);
 }
 
+.hero-momentum__skip {
+  position: absolute;
+  top: 0.75rem;
+  left: 50%;
+  z-index: 10;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  background: rgba(2, 6, 17, 0.92);
+  border: 1px solid rgba(0, 183, 255, 0.45);
+  color: var(--blue-core);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transform: translate(-50%, -140%);
+  transition: transform 0.2s ease;
+}
+
+.hero-momentum__skip:focus-visible {
+  transform: translate(-50%, 0);
+  outline: 2px solid var(--blue-electric);
+  outline-offset: 2px;
+}
+
 .hero-momentum__header {
   position: absolute;
   top: 0;

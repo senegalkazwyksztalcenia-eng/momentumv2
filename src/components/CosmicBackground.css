@@ -731,6 +731,32 @@
   }
 }
 
+/* Mobile: lighter compositing than full desktop effects */
+@media (max-width: 767px) {
+  .cosmic-background:not(.cosmic-background--desktop) .cosmic-background__nebula {
+    filter: blur(40px);
+    opacity: 0.36;
+  }
+
+  .cosmic-background:not(.cosmic-background--desktop) .cosmic-background__fog {
+    filter: blur(36px);
+    opacity: 0.24;
+  }
+
+  .cosmic-background:not(.cosmic-background--desktop) .cosmic-background__fog--two {
+    display: none;
+  }
+
+  .cosmic-background:not(.cosmic-background--desktop) .cosmic-background__star--far {
+    animation: none;
+    opacity: 0.2;
+  }
+
+  .cosmic-background:not(.cosmic-background--desktop) .cosmic-background__depth {
+    display: none;
+  }
+}
+
 /* Desktop: lighter GPU load — fewer blurs, paused ambient motion, no duplicate sun */
 @media (min-width: 768px) {
   .cosmic-background--desktop {

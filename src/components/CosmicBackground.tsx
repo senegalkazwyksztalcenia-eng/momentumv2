@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useIsDesktop } from "../hooks/useIsDesktop";
+import { useBreakpoint } from "../contexts/BreakpointContext";
 import "./CosmicBackground.css";
 
 interface Star {
@@ -55,21 +55,21 @@ export function CosmicBackground({
   enhanced = false,
   showSunrise = false,
 }: CosmicBackgroundProps) {
-  const isDesktop = useIsDesktop();
+  const isDesktop = useBreakpoint();
 
   const farStars = useMemo(
-    () => generateStars(isDesktop ? 52 : 120, "far", [0.4, 1.1]),
+    () => generateStars(isDesktop ? 52 : 44, "far", [0.4, 1.1]),
     [isDesktop],
   );
   const midStars = useMemo(
-    () => generateStars(isDesktop ? 30 : 70, "mid", [0.8, 1.8]),
+    () => generateStars(isDesktop ? 30 : 24, "mid", [0.8, 1.8]),
     [isDesktop],
   );
   const nearStars = useMemo(
-    () => generateStars(isDesktop ? 14 : 35, "near", [1.4, 2.8]),
+    () => generateStars(isDesktop ? 14 : 10, "near", [1.4, 2.8]),
     [isDesktop],
   );
-  const cityLights = useMemo(() => generateCityLights(isDesktop ? 28 : 48), [isDesktop]);
+  const cityLights = useMemo(() => generateCityLights(isDesktop ? 28 : 20), [isDesktop]);
 
   const classNames = [
     "cosmic-background",

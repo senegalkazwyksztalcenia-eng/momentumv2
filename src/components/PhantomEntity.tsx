@@ -23,6 +23,10 @@ export function PhantomEntity({ visible, dissolving = false }: PhantomEntityProp
           className="phantom-entity__figure"
           src="/phantom/phantom-lightning.webp"
           alt=""
+          width={595}
+          height={1353}
+          decoding="async"
+          fetchPriority="high"
           draggable={false}
         />
         <div className="phantom-entity__chest-light" aria-hidden="true">

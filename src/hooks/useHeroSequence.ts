@@ -9,7 +9,7 @@ interface PhaseStep {
 
 const FULL_SEQUENCE: PhaseStep[] = [
   { phase: "forge", at: 2400 },
-  { phase: "content", at: 3650 },
+  { phase: "content", at: 3200 },
 ];
 
 const REDUCED_SEQUENCE: PhaseStep[] = [
