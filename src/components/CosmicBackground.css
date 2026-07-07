@@ -1,0 +1,100 @@
+.cosmic-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(0, 61, 255, 0.16), transparent 46%),
+    radial-gradient(circle at 78% 68%, rgba(0, 183, 255, 0.1), transparent 40%),
+    linear-gradient(180deg, #05081a 0%, var(--navy-black) 45%, #010208 100%);
+}
+
+.cosmic-background__depth {
+  position: absolute;
+  inset: -10%;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+}
+
+.cosmic-background__fog {
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+  mix-blend-mode: screen;
+}
+
+.cosmic-background__fog--one {
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(0, 61, 255, 0.28), transparent 68%);
+  animation: fog-drift-one 34s ease-in-out infinite;
+}
+
+.cosmic-background__fog--two {
+  right: -14%;
+  bottom: -18%;
+  background: radial-gradient(circle, rgba(0, 183, 255, 0.22), transparent 70%);
+  animation: fog-drift-two 28s ease-in-out infinite;
+}
+
+.cosmic-background__stars {
+  position: absolute;
+  inset: 0;
+}
+
+.cosmic-background__star {
+  position: absolute;
+  background: var(--blue-core);
+  border-radius: 50%;
+  opacity: 0.15;
+  animation-name: star-twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.cosmic-background__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 46%,
+    transparent 30%,
+    rgba(2, 6, 17, 0.55) 78%,
+    rgba(2, 6, 17, 0.92) 100%
+  );
+}
+
+@keyframes fog-drift-one {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(6%, 4%) scale(1.08);
+  }
+}
+
+@keyframes fog-drift-two {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-5%, -6%) scale(1.06);
+  }
+}
+
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}

@@ -1,0 +1,96 @@
+.lightning-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
+.lightning-layer--active {
+  opacity: 1;
+}
+
+.lightning-layer__bolt {
+  position: absolute;
+  top: 0;
+  width: 16vw;
+  max-width: 220px;
+  min-width: 120px;
+  opacity: 0;
+  overflow: visible;
+  animation-name: bolt-flicker;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.lightning-layer__path {
+  fill: none;
+  stroke: var(--blue-electric);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(0, 183, 255, 0.9))
+    drop-shadow(0 0 18px rgba(0, 61, 255, 0.6));
+}
+
+.lightning-layer--intensified .lightning-layer__bolt {
+  animation-duration: 0.5s !important;
+  animation-delay: 0s !important;
+}
+
+.lightning-layer--intensified .lightning-layer__path {
+  stroke-width: 3;
+  filter: drop-shadow(0 0 10px rgba(232, 251, 255, 1))
+    drop-shadow(0 0 30px rgba(0, 183, 255, 0.9));
+}
+
+.lightning-layer__ambient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 183, 255, 0.08),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.lightning-layer--active .lightning-layer__ambient {
+  opacity: 0.6;
+}
+
+@keyframes bolt-flicker {
+  0%,
+  6%,
+  56%,
+  100% {
+    opacity: 0;
+  }
+  7% {
+    opacity: 0.9;
+  }
+  9% {
+    opacity: 0.15;
+  }
+  11% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0;
+  }
+  58% {
+    opacity: 0.75;
+  }
+  60% {
+    opacity: 0.1;
+  }
+  63% {
+    opacity: 0.95;
+  }
+  67% {
+    opacity: 0;
+  }
+}
