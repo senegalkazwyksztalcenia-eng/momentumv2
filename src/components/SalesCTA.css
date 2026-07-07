@@ -130,21 +130,21 @@
   background:
     repeating-conic-gradient(
       from -92deg at 50% 100%,
-      rgba(255, 220, 140, 0.55) 0deg,
+      rgba(255, 230, 160, 0.62) 0deg,
       transparent 2.2deg,
       transparent 7.5deg
     ),
     repeating-conic-gradient(
       from -88deg at 50% 100%,
-      rgba(255, 180, 60, 0.28) 0deg,
+      rgba(255, 195, 80, 0.34) 0deg,
       transparent 4deg,
       transparent 11deg
     );
 
-  mask-image: linear-gradient(180deg, black 0%, black 58%, transparent 92%);
-  -webkit-mask-image: linear-gradient(180deg, black 0%, black 58%, transparent 92%);
+  mask-image: linear-gradient(180deg, black 0%, black 62%, transparent 94%);
+  -webkit-mask-image: linear-gradient(180deg, black 0%, black 62%, transparent 94%);
 
-  opacity: 0.78;
+  opacity: 0.84;
   filter: blur(0.6px);
   animation: raysShimmer 4.8s ease-in-out infinite;
 }
@@ -222,11 +222,13 @@
   height: var(--pill-height);
   border-radius: 999px;
   background: #050505;
-  border: 2px solid rgba(255, 176, 0, 0.9);
+  border: 2px solid rgba(255, 190, 60, 0.95);
   box-shadow:
-    0 0 10px rgba(255, 176, 0, 0.98),
-    0 0 28px rgba(255, 132, 0, 0.78),
-    inset 0 0 18px rgba(255, 176, 0, 0.18),
+    0 0 12px rgba(255, 176, 0, 1),
+    0 0 32px rgba(255, 132, 0, 0.82),
+    0 0 64px rgba(255, 90, 0, 0.18),
+    inset 0 1px 0 rgba(255, 220, 140, 0.12),
+    inset 0 0 20px rgba(255, 176, 0, 0.2),
     inset 0 12px 28px rgba(255, 190, 80, 0.1);
   transition:
     transform 0.25s ease,

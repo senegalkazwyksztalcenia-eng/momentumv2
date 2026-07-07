@@ -165,18 +165,18 @@
   background:
     radial-gradient(
       ellipse 58% 52% at 50% 34%,
-      rgba(180, 235, 255, 0.12),
-      rgba(0, 140, 255, 0.06) 46%,
+      rgba(200, 245, 255, 0.18),
+      rgba(0, 160, 255, 0.1) 46%,
       transparent 72%
     ),
     radial-gradient(
       ellipse 64% 62% at 50% 50%,
-      rgba(0, 183, 255, 0.07),
+      rgba(0, 183, 255, 0.12),
       transparent 68%
     );
   filter: blur(14px);
-  opacity: 0.72;
-  animation: aura-breathe 8.2s ease-in-out infinite;
+  opacity: 0.88;
+  animation: aura-breathe 6.8s ease-in-out infinite;
 }
 
 .phantom-entity__aura::after {
@@ -217,12 +217,12 @@
   z-index: 1;
   background: transparent;
   filter:
-    contrast(1.06)
-    saturate(1.1)
-    brightness(1.05)
-    drop-shadow(0 0 8px rgba(180, 235, 255, 0.28))
-    drop-shadow(0 0 18px rgba(0, 183, 255, 0.2))
-    drop-shadow(0 0 32px rgba(0, 61, 255, 0.12));
+    contrast(1.1)
+    saturate(1.18)
+    brightness(1.08)
+    drop-shadow(0 0 12px rgba(200, 245, 255, 0.38))
+    drop-shadow(0 0 24px rgba(0, 183, 255, 0.32))
+    drop-shadow(0 0 48px rgba(0, 61, 255, 0.18));
   transition:
     filter 600ms ease,
     opacity 1.2s ease;
@@ -322,8 +322,8 @@
   height: 100%;
   background: radial-gradient(
     circle,
-    rgba(0, 183, 255, 0.18) 0%,
-    rgba(0, 100, 255, 0.08) 42%,
+    rgba(0, 200, 255, 0.24) 0%,
+    rgba(0, 100, 255, 0.12) 42%,
     transparent 72%
   );
   filter: blur(8px);
@@ -335,8 +335,8 @@
   height: 58%;
   background: radial-gradient(
     circle,
-    rgba(200, 240, 255, 0.45) 0%,
-    rgba(0, 183, 255, 0.22) 48%,
+    rgba(220, 248, 255, 0.58) 0%,
+    rgba(0, 200, 255, 0.3) 48%,
     transparent 78%
   );
   filter: blur(4px);
@@ -450,12 +450,12 @@
 @keyframes aura-breathe {
   0%,
   100% {
-    opacity: 0.78;
-    transform: scale(0.98);
+    opacity: 0.82;
+    transform: scale(0.97);
   }
   50% {
-    opacity: 0.95;
-    transform: scale(1.03);
+    opacity: 1;
+    transform: scale(1.04);
   }
 }
 
@@ -627,20 +627,21 @@
 
 @media (min-width: 768px) {
   .hero-momentum--desktop .phantom-entity__aura {
-    filter: blur(10px);
-    animation: none;
-    opacity: 0.6;
+    filter: blur(12px);
+    animation: aura-breathe 7.2s ease-in-out infinite;
+    opacity: 0.82;
   }
 
   .hero-momentum--desktop .phantom-entity__chest-halo--outer,
   .hero-momentum--desktop .phantom-entity__chest-halo--mid,
   .hero-momentum--desktop .phantom-entity__chest-halo--inner,
   .hero-momentum--desktop .phantom-entity__chest-hotspot {
-    animation: none;
+    animation-play-state: running;
   }
 
   .hero-momentum--desktop .phantom-entity__wisp {
-    display: none;
+    display: block;
+    opacity: 0.55;
   }
 }
 
