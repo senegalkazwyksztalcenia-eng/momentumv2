@@ -69,8 +69,12 @@ export function PhantomEntity({
           alt=""
           draggable={false}
         />
-        <div className="phantom-entity__core" />
-        <div className="phantom-entity__bloom" />
+        <div className="phantom-entity__chest-light" aria-hidden="true">
+          <span className="phantom-entity__chest-halo phantom-entity__chest-halo--outer" />
+          <span className="phantom-entity__chest-halo phantom-entity__chest-halo--mid" />
+          <span className="phantom-entity__chest-halo phantom-entity__chest-halo--inner" />
+          <span className="phantom-entity__chest-hotspot" />
+        </div>
         <span className="phantom-entity__wisp phantom-entity__wisp--one" />
         <span className="phantom-entity__wisp phantom-entity__wisp--two" />
         <span className="phantom-entity__wisp phantom-entity__wisp--three" />

@@ -34,8 +34,11 @@ export function HeroMomentum() {
       />
       <DarknessOverlay visible={isDark} />
 
-      <div className="hero-momentum__content">
+      <header className="hero-momentum__header">
         <p className="hero-momentum__eyebrow">Momentum — ebook</p>
+      </header>
+
+      <div className="hero-momentum__content">
         <h1 className="hero-momentum__title">
           Obudź energię, która już w Tobie jest.
         </h1>

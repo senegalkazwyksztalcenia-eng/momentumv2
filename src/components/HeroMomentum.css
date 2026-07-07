@@ -6,6 +6,28 @@
   background: var(--navy-black);
 }
 
+.hero-momentum__header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  padding: clamp(1.1rem, 3.5vh, 2rem) clamp(1.5rem, 5vw, 3rem) 0;
+  pointer-events: none;
+}
+
+.hero-momentum__eyebrow {
+  margin: 0;
+  color: rgba(180, 230, 255, 0.82);
+  font-size: clamp(0.72rem, 1.4vw, 0.82rem);
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(0, 183, 255, 0.35);
+}
+
 .hero-momentum__content {
   position: absolute;
   inset: 0;
@@ -36,16 +58,6 @@
   pointer-events: none;
 }
 
-.hero-momentum__eyebrow {
-  margin: 0 0 0.9rem;
-  color: var(--blue-electric);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  text-shadow: 0 0 18px rgba(0, 183, 255, 0.5);
-}
-
 .hero-momentum__title {
   max-width: 16ch;
   margin: 0;
@@ -69,6 +81,14 @@
 }
 
 @media (max-width: 640px) {
+  .hero-momentum__header {
+    padding-top: clamp(0.9rem, 3vh, 1.4rem);
+  }
+
+  .hero-momentum__eyebrow {
+    letter-spacing: 0.26em;
+  }
+
   .hero-momentum__content {
     justify-content: flex-end;
     padding-bottom: clamp(2.4rem, 8vh, 4rem);
