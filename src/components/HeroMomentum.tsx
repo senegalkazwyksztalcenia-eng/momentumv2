@@ -33,7 +33,7 @@ export function HeroMomentum() {
         showPlanet={isNight || isRising}
         showSunrise={isRising}
       />
-      <HeroSun rising={isRising} empowered={isEmpowered} />
+      <HeroSun phase={phase} />
       <SalesCTA visible={showContent} empowered={isEmpowered} />
 
       <header

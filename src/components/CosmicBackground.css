@@ -5,7 +5,7 @@
   overflow: hidden;
   background: #010208;
   --rise-duration: 6s;
-  --rise-ease: cubic-bezier(0.33, 0, 0.15, 1);
+  --rise-ease: cubic-bezier(0.37, 0, 0.13, 1);
 }
 
 .cosmic-background__void {
@@ -220,9 +220,16 @@
     transform: translateX(-50%) translateY(0);
     opacity: 1;
   }
-  70% {
-    opacity: 0.55;
+
+  35% {
+    opacity: 0.85;
   }
+
+  70% {
+    opacity: 0.4;
+    transform: translateX(-50%) translateY(14vmin);
+  }
+
   100% {
     transform: translateX(-50%) translateY(22vmin);
     opacity: 0;
