@@ -139,7 +139,7 @@
 .cosmic-background--sunrise .cosmic-background__space-light {
   background:
     radial-gradient(
-      circle at 50% 68%,
+      circle at 58% 62%,
       rgba(255, 230, 190, 0.58) 0%,
       rgba(255, 195, 130, 0.32) 20%,
       rgba(255, 155, 85, 0.14) 38%,
@@ -147,7 +147,7 @@
       transparent 70%
     ),
     radial-gradient(
-      circle at 50% 58%,
+      circle at 56% 52%,
       rgba(255, 245, 230, 0.34) 0%,
       rgba(255, 210, 150, 0.14) 32%,
       transparent 58%
@@ -176,7 +176,12 @@
   }
 }
 
-/* Sun — rises on its own, stays in the sky */
+/* Sun — rises in upper sky, offset from center CTA */
+.cosmic-background--sunrise {
+  --sun-anchor-x: 62%;
+  --sun-rise-end: -50vmin;
+}
+
 .cosmic-background__sun-scene {
   position: absolute;
   left: 50%;
@@ -187,6 +192,10 @@
   pointer-events: none;
   opacity: 0;
   transform: translateX(-50%) translateY(10vmin);
+}
+
+.cosmic-background--sunrise .cosmic-background__sun-scene {
+  left: var(--sun-anchor-x);
 }
 
 .cosmic-background__sun-scene--active {
@@ -204,6 +213,24 @@
   100% {
     opacity: 1;
     transform: translateX(-50%) translateY(-32vmin);
+  }
+}
+
+.cosmic-background--sunrise .cosmic-background__sun-scene--active {
+  animation-name: sun-rise-offset;
+}
+
+@keyframes sun-rise-offset {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10vmin);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(var(--sun-rise-end, -50vmin));
   }
 }
 
@@ -874,6 +901,11 @@
     animation: none;
     opacity: 1;
     transform: translateX(-50%) translateY(-32vmin);
+  }
+
+  .cosmic-background--sunrise .cosmic-background__sun-scene--active {
+    left: var(--sun-anchor-x);
+    transform: translateX(-50%) translateY(var(--sun-rise-end, -50vmin));
   }
 
   .cosmic-background__sun-scene--active .cosmic-background__sun-core,
