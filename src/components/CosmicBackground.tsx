@@ -94,14 +94,22 @@ export function CosmicBackground({
       <div className="cosmic-background__depth" />
 
       <div
-        className={`cosmic-background__planet ${showSunrise ? "cosmic-background__planet--visible" : ""}`}
+        className={`cosmic-background__space-light ${showSunrise ? "cosmic-background__space-light--active" : ""}`}
+      />
+
+      <div
+        className={`cosmic-background__sun-scene ${showSunrise ? "cosmic-background__sun-scene--active" : ""}`}
       >
-        <div className="cosmic-background__space-light" />
         <div className="cosmic-background__sunrise-haze" />
+        <div className="cosmic-background__sun-corona" />
+        <div className="cosmic-background__sun-bloom" />
+        <div className="cosmic-background__sun-core" />
+      </div>
+
+      <div
+        className={`cosmic-background__planet-scene ${showSunrise ? "cosmic-background__planet-scene--active" : ""}`}
+      >
         <div className="cosmic-background__planet-body">
-          <div className="cosmic-background__sun-corona" />
-          <div className="cosmic-background__sun-bloom" />
-          <div className="cosmic-background__sun-core" />
           <div className="cosmic-background__planet-surface" />
           <div className="cosmic-background__horizon-blend" />
           <div className="cosmic-background__atmosphere" />

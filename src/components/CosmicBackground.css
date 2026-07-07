@@ -98,23 +98,13 @@
   z-index: 2;
 }
 
-.cosmic-background__planet {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 1.8s ease 0.35s;
-}
+/* ── Sunrise: sun and planet are independent objects ── */
 
-.cosmic-background__planet--visible {
-  opacity: 1;
-}
-
-/* Warm light spilling into space above the horizon. */
 .cosmic-background__space-light {
   position: absolute;
   inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background:
     radial-gradient(
       circle at 50% 100%,
@@ -138,48 +128,93 @@
       rgba(255, 180, 100, 0.18) 100%
     );
   opacity: 0;
-  transform: scaleY(0.85);
-  transition:
-    opacity 2.4s ease 0.5s,
-    transform 2.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
 }
 
-.cosmic-background__planet--visible .cosmic-background__space-light {
-  opacity: 1;
-  transform: scaleY(1);
+.cosmic-background__space-light--active {
+  animation: space-light-reveal 3.8s ease forwards;
+}
+
+@keyframes space-light-reveal {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.82);
+  }
+  30% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+/* Sun — rises on its own, stays in the sky */
+.cosmic-background__sun-scene {
+  position: absolute;
+  left: 50%;
+  bottom: 64vmin;
+  z-index: 1;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-50%) translateY(10vmin);
+}
+
+.cosmic-background__sun-scene--active {
+  animation: sun-rise 3.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes sun-rise {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10vmin);
+  }
+  14% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-16vmin);
+  }
 }
 
 .cosmic-background__sunrise-haze {
   position: absolute;
   left: 50%;
-  bottom: 22%;
+  top: 50%;
   width: 160vmin;
   height: 50vmin;
-  transform: translate(-50%, 42%);
+  transform: translate(-50%, -50%);
   border-radius: 50%;
   background: radial-gradient(
-    ellipse 100% 80% at 50% 0%,
+    ellipse 100% 80% at 50% 50%,
     rgba(255, 210, 150, 0.22) 0%,
     rgba(255, 170, 90, 0.1) 35%,
     transparent 68%
   );
   filter: blur(28px);
   opacity: 0;
-  transition: opacity 2.2s ease 0.6s;
 }
 
-.cosmic-background__planet--visible .cosmic-background__sunrise-haze {
-  opacity: 1;
+.cosmic-background__sun-scene--active .cosmic-background__sunrise-haze {
+  animation: sun-haze-in 2.4s ease 0.3s forwards;
 }
 
-/* Round sun disk — planet surface occludes the half below the horizon. */
+@keyframes sun-haze-in {
+  to {
+    opacity: 1;
+  }
+}
+
 .cosmic-background__sun-corona {
   position: absolute;
   left: 50%;
-  top: 0;
+  top: 50%;
   width: 110vmin;
   height: 110vmin;
-  transform: translate(-50%, -50%) scale(0.7);
+  transform: translate(-50%, -50%);
   border-radius: 50%;
   aspect-ratio: 1;
   background: radial-gradient(
@@ -191,24 +226,19 @@
   );
   filter: blur(28px);
   opacity: 0;
-  z-index: 1;
-  transition:
-    opacity 2s ease 0.4s,
-    transform 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
 }
 
-.cosmic-background__planet--visible .cosmic-background__sun-corona {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+.cosmic-background__sun-scene--active .cosmic-background__sun-corona {
+  animation: sun-layer-in 2.2s ease 0.2s forwards;
 }
 
 .cosmic-background__sun-core {
   position: absolute;
   left: 50%;
-  top: 0;
+  top: 50%;
   width: 34vmin;
   height: 34vmin;
-  transform: translate(-50%, -50%) scale(0.55);
+  transform: translate(-50%, -50%);
   border-radius: 50%;
   aspect-ratio: 1;
   background: radial-gradient(
@@ -227,25 +257,21 @@
     0 0 140px rgba(255, 130, 50, 0.22);
   filter: blur(1px);
   opacity: 0;
-  z-index: 3;
-  transition:
-    opacity 1.8s ease 0.45s,
-    transform 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
 }
 
-.cosmic-background__planet--visible .cosmic-background__sun-core {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-  animation: sun-pulse 8s ease-in-out infinite 2.4s;
+.cosmic-background__sun-scene--active .cosmic-background__sun-core {
+  animation:
+    sun-layer-in 2s ease 0.15s forwards,
+    sun-pulse 8s ease-in-out 4s infinite;
 }
 
 .cosmic-background__sun-bloom {
   position: absolute;
   left: 50%;
-  top: 0;
+  top: 50%;
   width: 92vmin;
   height: 92vmin;
-  transform: translate(-50%, -50%) scale(0.55);
+  transform: translate(-50%, -50%);
   border-radius: 50%;
   aspect-ratio: 1;
   background: radial-gradient(
@@ -258,18 +284,52 @@
   );
   filter: blur(32px);
   opacity: 0;
+}
+
+.cosmic-background__sun-scene--active .cosmic-background__sun-bloom {
+  animation: sun-layer-in 2.1s ease 0.18s forwards;
+}
+
+@keyframes sun-layer-in {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Planet — separate object in front during rise, then sinks away */
+.cosmic-background__planet-scene {
+  position: absolute;
+  inset: 0;
   z-index: 2;
-  transition:
-    opacity 2.1s ease 0.48s,
-    transform 2.3s cubic-bezier(0.16, 1, 0.3, 1) 0.48s;
+  pointer-events: none;
+  opacity: 0;
 }
 
-.cosmic-background__planet--visible .cosmic-background__sun-bloom {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+.cosmic-background__planet-scene--active {
+  animation: planet-fade-in 1.4s ease 0.15s forwards;
 }
 
-/* Soft dawn haze at the limb — replaces the hard terminator line. */
+@keyframes planet-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+.cosmic-background__planet-scene--active .cosmic-background__planet-body {
+  animation: planet-sink-away 2.6s cubic-bezier(0.55, 0, 0.85, 0.36) 3.9s forwards;
+}
+
+@keyframes planet-sink-away {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(20vmin);
+    opacity: 0;
+  }
+}
+
 .cosmic-background__horizon-blend {
   position: absolute;
   top: 0;
@@ -286,13 +346,11 @@
   );
   filter: blur(20px);
   opacity: 0;
-  z-index: 5;
   pointer-events: none;
-  transition: opacity 2.2s ease 0.65s;
 }
 
-.cosmic-background__planet--visible .cosmic-background__horizon-blend {
-  opacity: 1;
+.cosmic-background__planet-scene--active .cosmic-background__horizon-blend {
+  animation: sun-haze-in 2s ease 0.5s forwards;
 }
 
 .cosmic-background__atmosphere {
@@ -306,12 +364,10 @@
     0 -6px 48px rgba(255, 195, 130, 0.32),
     0 -12px 90px rgba(255, 140, 55, 0.14);
   opacity: 0;
-  z-index: 6;
-  transition: opacity 1.9s ease 0.55s;
 }
 
-.cosmic-background__planet--visible .cosmic-background__atmosphere {
-  opacity: 1;
+.cosmic-background__planet-scene--active .cosmic-background__atmosphere {
+  animation: sun-haze-in 1.9s ease 0.45s forwards;
 }
 
 .cosmic-background__planet-body {
@@ -331,7 +387,6 @@
   inset: 0;
   border-radius: 50%;
   overflow: hidden;
-  z-index: 4;
   background:
     radial-gradient(
       ellipse 140% 28% at 50% 0%,
@@ -363,7 +418,7 @@
   animation: city-twinkle 4.5s ease-in-out infinite;
 }
 
-.cosmic-background__planet--visible .cosmic-background__city-light {
+.cosmic-background__planet-scene--active .cosmic-background__city-light {
   opacity: 0.7;
 }
 
@@ -652,13 +707,33 @@
     animation: none !important;
   }
 
-  .cosmic-background__planet,
-  .cosmic-background__space-light,
-  .cosmic-background__sun-core,
-  .cosmic-background__sun-bloom,
-  .cosmic-background__sun-corona,
-  .cosmic-background__atmosphere,
-  .cosmic-background__horizon-blend {
-    transition-duration: 0.01ms !important;
+  .cosmic-background__space-light--active {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .cosmic-background__sun-scene--active {
+    animation: none;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-16vmin);
+  }
+
+  .cosmic-background__sun-scene--active .cosmic-background__sun-core,
+  .cosmic-background__sun-scene--active .cosmic-background__sun-bloom,
+  .cosmic-background__sun-scene--active .cosmic-background__sun-corona,
+  .cosmic-background__sun-scene--active .cosmic-background__sunrise-haze {
+    animation: none;
+    opacity: 1;
+  }
+
+  .cosmic-background__planet-scene--active {
+    animation: none;
+    opacity: 0;
+  }
+
+  .cosmic-background__planet-scene--active .cosmic-background__planet-body {
+    animation: none;
+    opacity: 0;
   }
 }
