@@ -69,6 +69,7 @@
   width: 100%;
   height: 100%;
   animation: phantom-float 7.4s ease-in-out infinite;
+  isolation: isolate;
 }
 
 .phantom-entity--strike .phantom-entity__float,
@@ -76,20 +77,60 @@
   animation-play-state: paused;
 }
 
-/* Soft volumetric aura behind the figure for depth. */
+/* Layered soft aura — extends slightly past silhouette, no hard edges. */
+.phantom-entity__aura {
+  position: absolute;
+  inset: -6% -8% -4%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 46% 46% 42% 42% / 50% 50% 50% 50%;
+  background:
+    radial-gradient(
+      ellipse 72% 58% at 50% 36%,
+      rgba(180, 235, 255, 0.16),
+      rgba(0, 140, 255, 0.09) 42%,
+      rgba(0, 61, 255, 0.04) 62%,
+      transparent 82%
+    ),
+    radial-gradient(
+      ellipse 88% 78% at 50% 52%,
+      rgba(0, 183, 255, 0.1),
+      rgba(0, 80, 220, 0.04) 55%,
+      transparent 78%
+    );
+  filter: blur(26px);
+  opacity: 0.9;
+  animation: aura-breathe 8.2s ease-in-out infinite;
+}
+
+.phantom-entity__aura::after {
+  content: "";
+  position: absolute;
+  inset: 4% 8% 6%;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 44%,
+    rgba(220, 248, 255, 0.08),
+    rgba(0, 120, 255, 0.05) 48%,
+    transparent 74%
+  );
+  filter: blur(18px);
+  opacity: 0.85;
+}
+
 .phantom-entity__float::before {
   content: "";
   position: absolute;
-  inset: 8% 14% 10%;
-  border-radius: 42% 42% 38% 38% / 48% 48% 52% 52%;
+  inset: 2% 6% 4%;
+  border-radius: 44% 44% 40% 40% / 48% 48% 52% 52%;
   background: radial-gradient(
     ellipse at 50% 38%,
-    rgba(0, 183, 255, 0.22),
-    rgba(0, 61, 255, 0.08) 55%,
-    transparent 78%
+    rgba(0, 183, 255, 0.14),
+    rgba(0, 61, 255, 0.05) 58%,
+    transparent 80%
   );
-  filter: blur(22px);
-  opacity: 0.85;
+  filter: blur(16px);
+  opacity: 0.75;
   z-index: 0;
 }
 
@@ -101,12 +142,13 @@
   object-fit: contain;
   z-index: 1;
   filter:
-    contrast(1.08)
-    saturate(1.12)
-    brightness(1.04)
-    drop-shadow(0 0 18px rgba(0, 183, 255, 0.45))
-    drop-shadow(0 0 48px rgba(0, 61, 255, 0.35))
-    drop-shadow(0 4px 24px rgba(0, 0, 0, 0.5));
+    contrast(1.06)
+    saturate(1.1)
+    brightness(1.05)
+    drop-shadow(0 0 12px rgba(180, 235, 255, 0.35))
+    drop-shadow(0 0 28px rgba(0, 183, 255, 0.28))
+    drop-shadow(0 0 56px rgba(0, 61, 255, 0.18))
+    drop-shadow(0 4px 20px rgba(0, 0, 0, 0.45));
   transition:
     filter 600ms ease,
     opacity 1.2s ease;
@@ -143,19 +185,35 @@
 
 .phantom-entity__mist {
   position: absolute;
-  left: 10%;
-  right: 10%;
-  bottom: -2%;
-  height: 24%;
+  left: 6%;
+  right: 6%;
+  bottom: -4%;
+  height: 28%;
   background: radial-gradient(
-    ellipse at 50% 28%,
-    rgba(0, 183, 255, 0.28),
-    transparent 76%
+    ellipse at 50% 22%,
+    rgba(160, 225, 255, 0.18),
+    rgba(0, 140, 255, 0.08) 42%,
+    transparent 78%
   );
-  filter: blur(20px);
-  opacity: 0.75;
+  filter: blur(28px);
+  opacity: 0.65;
   z-index: 0;
   transition: opacity 1.2s ease;
+}
+
+.phantom-entity--strike .phantom-entity__aura {
+  opacity: 1;
+  animation-duration: 0.8s;
+}
+
+.phantom-entity--surging .phantom-entity__aura {
+  opacity: 1;
+  animation: aura-surge 1.3s ease-out forwards;
+}
+
+.phantom-entity--settled .phantom-entity__aura {
+  opacity: 0.55;
+  animation: aura-breathe 9.5s ease-in-out infinite;
 }
 
 .phantom-entity--settled .phantom-entity__mist {
@@ -313,6 +371,33 @@
   }
   50% {
     transform: translateY(2.5%);
+  }
+}
+
+@keyframes aura-breathe {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes aura-surge {
+  0% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 0.88;
+    transform: scale(1.04);
   }
 }
 

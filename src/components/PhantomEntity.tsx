@@ -62,6 +62,7 @@ export function PhantomEntity({
       </svg>
 
       <div className="phantom-entity__float">
+        <div className="phantom-entity__aura" aria-hidden="true" />
         <div className="phantom-entity__mist" />
         <img
           className="phantom-entity__figure"
