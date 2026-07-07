@@ -23,10 +23,16 @@ export function SalesCTA({ visible, forging = false }: SalesCTAProps) {
         className="solar-cta"
         tabIndex={visible ? 0 : -1}
       >
-        <span className="solar-cta__sun" />
-        <span className="solar-cta__sun-halo" aria-hidden="true" />
-        <span className="solar-cta__text">ODKRYJ TERAZ</span>
-        <span className="solar-cta__arrow">›</span>
+        <span className="solar-cta__crown" aria-hidden="true">
+          <span className="solar-cta__rays" />
+          <span className="solar-cta__sun-halo" />
+          <span className="solar-cta__sun-disc" />
+          <span className="solar-cta__sun" />
+        </span>
+        <span className="solar-cta__pill">
+          <span className="solar-cta__text">ODKRYJ TERAZ</span>
+          <span className="solar-cta__arrow">›</span>
+        </span>
       </a>
     </div>
   );
