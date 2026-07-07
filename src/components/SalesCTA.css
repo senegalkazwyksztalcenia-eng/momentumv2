@@ -1,123 +1,292 @@
 .sales-cta {
   display: flex;
   justify-content: center;
-  margin-top: clamp(1.4rem, 3.5vw, 2rem);
+  margin-top: clamp(1.8rem, 4vw, 2.6rem);
 }
 
-.sales-cta__button {
+.sales-cta__singularity {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(11rem, 28vw, 15rem);
+  height: clamp(11rem, 28vw, 15rem);
   opacity: 0;
-  transform: translateY(16px);
+  transform: scale(0.82) translateY(24px);
   transition:
-    opacity 700ms ease 420ms,
-    transform 700ms ease 420ms,
-    background 220ms ease,
-    border-color 220ms ease,
-    box-shadow 220ms ease;
+    opacity 900ms ease 480ms,
+    transform 1100ms cubic-bezier(0.16, 1, 0.3, 1) 480ms;
   pointer-events: none;
-  text-decoration: none;
 }
 
-.sales-cta--visible .sales-cta__button {
+.sales-cta--visible .sales-cta__singularity {
   opacity: 1;
-  transform: translateY(0);
+  transform: scale(1) translateY(0);
   pointer-events: auto;
 }
 
-.sales-cta__button--primary {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 1.1rem;
-  padding: 0.95rem 1.35rem 0.95rem 1.75rem;
-  font-size: clamp(1rem, 1.6vw, 1.12rem);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: rgba(4, 16, 34, 0.92);
-  border-radius: 999px;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.5) 0%,
-      rgba(236, 246, 255, 0.5) 52%,
-      rgba(214, 236, 255, 0.5) 100%
-    );
-  border: 1px solid rgba(255, 255, 255, 0.58);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.65),
-    0 10px 34px rgba(2, 6, 17, 0.42),
-    0 0 28px rgba(0, 183, 255, 0.16);
-  overflow: hidden;
+/* Gravitational light fields — the button as cosmic center. */
+.sales-cta__field {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
 }
 
-.sales-cta__button--primary::before {
+.sales-cta__field--outer {
+  inset: -42%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 183, 255, 0.16) 0%,
+    rgba(0, 61, 255, 0.08) 28%,
+    rgba(88, 42, 180, 0.05) 48%,
+    transparent 72%
+  );
+  filter: blur(8px);
+  animation: singularity-breathe 5.6s ease-in-out infinite;
+}
+
+.sales-cta__field--mid {
+  inset: -18%;
+  background: radial-gradient(
+    circle,
+    rgba(232, 251, 255, 0.22) 0%,
+    rgba(0, 183, 255, 0.14) 34%,
+    rgba(0, 61, 255, 0.06) 58%,
+    transparent 78%
+  );
+  filter: blur(4px);
+  animation: singularity-breathe 4.2s ease-in-out -0.8s infinite;
+}
+
+.sales-cta__field--inner {
+  inset: 2%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(200, 240, 255, 0.12) 42%,
+    transparent 72%
+  );
+  animation: singularity-pulse 3.2s ease-in-out infinite;
+}
+
+.sales-cta__orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 240, 255, 0.18);
+  box-shadow:
+    0 0 18px rgba(0, 183, 255, 0.12),
+    inset 0 0 18px rgba(0, 183, 255, 0.08);
+  pointer-events: none;
+}
+
+.sales-cta__orbit--one {
+  inset: -8%;
+  animation: orbit-spin 18s linear infinite;
+}
+
+.sales-cta__orbit--two {
+  inset: -22%;
+  border-color: rgba(0, 140, 255, 0.12);
+  animation: orbit-spin 28s linear infinite reverse;
+}
+
+.sales-cta__orbit--one::before,
+.sales-cta__orbit--two::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 14% 28%, rgba(255, 255, 255, 0.95) 0.5px, transparent 1px),
-    radial-gradient(circle at 72% 62%, rgba(255, 255, 255, 0.85) 0.5px, transparent 1px),
-    radial-gradient(circle at 88% 22%, rgba(200, 235, 255, 0.9) 0.5px, transparent 1px),
-    radial-gradient(circle at 42% 78%, rgba(255, 255, 255, 0.75) 0.5px, transparent 1px);
-  opacity: 0.75;
+  top: 8%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px rgba(0, 183, 255, 0.9);
+  transform: translateX(-50%);
+}
+
+.sales-cta__flare {
+  position: absolute;
+  inset: -5%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(0, 183, 255, 0.14) 42deg,
+    transparent 84deg,
+    rgba(200, 240, 255, 0.18) 132deg,
+    transparent 180deg,
+    rgba(0, 61, 255, 0.12) 228deg,
+    transparent 280deg,
+    rgba(0, 183, 255, 0.1) 320deg,
+    transparent 360deg
+  );
+  filter: blur(10px);
+  animation: flare-rotate 14s linear infinite;
+  opacity: 0.85;
+}
+
+/* The core — white-hot center of everything. */
+.sales-cta__core {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: clamp(7.2rem, 18vw, 9.2rem);
+  height: clamp(7.2rem, 18vw, 9.2rem);
+  border-radius: 50%;
+  text-decoration: none;
+  color: #020611;
+  background:
+    radial-gradient(
+      circle at 38% 32%,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(236, 250, 255, 0.92) 28%,
+      rgba(200, 235, 255, 0.78) 58%,
+      rgba(140, 210, 255, 0.65) 100%
+    );
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow:
+    inset 0 2px 12px rgba(255, 255, 255, 0.95),
+    inset 0 -8px 24px rgba(0, 100, 200, 0.18),
+    0 0 0 1px rgba(0, 183, 255, 0.2),
+    0 0 28px rgba(255, 255, 255, 0.55),
+    0 0 60px rgba(0, 183, 255, 0.45),
+    0 0 120px rgba(0, 61, 255, 0.28),
+    0 0 200px rgba(0, 40, 120, 0.16);
+  overflow: visible;
+  transition:
+    transform 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.sales-cta__core-halo {
+  position: absolute;
+  inset: -18%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(0, 183, 255, 0.2) 38%,
+    transparent 72%
+  );
+  filter: blur(6px);
+  animation: core-halo-pulse 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.sales-cta__core-light {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 42% 38%,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.2) 42%,
+    transparent 72%
+  );
   pointer-events: none;
 }
 
 .sales-cta__label {
   position: relative;
   z-index: 1;
-}
-
-.sales-cta__click {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding-left: 0.85rem;
-  border-left: 1px solid rgba(4, 16, 34, 0.12);
-}
-
-.sales-cta__icon {
-  width: 1.15rem;
-  height: 1.15rem;
-  color: rgba(4, 16, 34, 0.78);
-  filter: drop-shadow(0 0 6px rgba(0, 183, 255, 0.35));
-}
-
-.sales-cta__hint {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+  font-weight: 800;
+  letter-spacing: 0.38em;
+  text-indent: 0.38em;
   text-transform: uppercase;
-  color: rgba(4, 16, 34, 0.62);
+  text-shadow:
+    0 0 18px rgba(255, 255, 255, 0.9),
+    0 0 32px rgba(0, 183, 255, 0.35);
 }
 
-.sales-cta__button--primary:hover,
-.sales-cta__button--primary:focus-visible {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.62) 0%,
-      rgba(236, 246, 255, 0.62) 52%,
-      rgba(214, 236, 255, 0.62) 100%
-    );
-  border-color: rgba(255, 255, 255, 0.75);
+.sales-cta__core:hover,
+.sales-cta__core:focus-visible {
+  transform: scale(1.05);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.72),
-    0 12px 40px rgba(2, 6, 17, 0.48),
-    0 0 36px rgba(0, 183, 255, 0.24);
+    inset 0 2px 14px rgba(255, 255, 255, 1),
+    inset 0 -8px 26px rgba(0, 100, 200, 0.22),
+    0 0 0 1px rgba(0, 183, 255, 0.35),
+    0 0 36px rgba(255, 255, 255, 0.75),
+    0 0 80px rgba(0, 183, 255, 0.55),
+    0 0 150px rgba(0, 61, 255, 0.35),
+    0 0 240px rgba(0, 40, 120, 0.2);
+}
+
+@keyframes singularity-breathe {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes singularity-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes flare-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes core-halo-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(0.94);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
 }
 
 @media (max-width: 480px) {
-  .sales-cta__button--primary {
-    gap: 0.85rem;
-    padding: 0.88rem 1.1rem 0.88rem 1.45rem;
+  .sales-cta__singularity {
+    width: 10.5rem;
+    height: 10.5rem;
   }
 
-  .sales-cta__click {
-    padding-left: 0.7rem;
-    gap: 0.28rem;
+  .sales-cta__core {
+    width: 6.8rem;
+    height: 6.8rem;
+  }
+
+  .sales-cta__label {
+    font-size: 1.05rem;
+    letter-spacing: 0.32em;
+    text-indent: 0.32em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sales-cta__field,
+  .sales-cta__orbit,
+  .sales-cta__flare,
+  .sales-cta__core-halo {
+    animation: none !important;
   }
 }
