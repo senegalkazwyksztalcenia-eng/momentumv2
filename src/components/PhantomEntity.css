@@ -57,14 +57,17 @@
   0% {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
+    filter: brightness(1);
   }
   30% {
     opacity: 1;
     transform: translate(-50%, -50%) scale(2.8);
+    filter: brightness(1.8) hue-rotate(25deg);
   }
   100% {
     opacity: 0;
     transform: translate(-50%, -50%) scale(4.5);
+    filter: brightness(2) hue-rotate(35deg);
   }
 }
 
