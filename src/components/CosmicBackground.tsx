@@ -8,43 +8,78 @@ interface Star {
   size: number;
   delay: string;
   duration: string;
+  layer: "far" | "mid" | "near";
 }
 
-function generateStars(count: number): Star[] {
+function generateStars(
+  count: number,
+  layer: Star["layer"],
+  sizeRange: [number, number],
+): Star[] {
   return Array.from({ length: count }, (_, id) => ({
     id,
+    layer,
     top: `${Math.random() * 100}%`,
     left: `${Math.random() * 100}%`,
-    size: Math.round((Math.random() * 1.6 + 0.6) * 10) / 10,
-    delay: `${(Math.random() * 6).toFixed(2)}s`,
-    duration: `${(3 + Math.random() * 4).toFixed(2)}s`,
+    size: Math.round((Math.random() * (sizeRange[1] - sizeRange[0]) + sizeRange[0]) * 10) / 10,
+    delay: `${(Math.random() * 8).toFixed(2)}s`,
+    duration: `${(2.5 + Math.random() * 5).toFixed(2)}s`,
   }));
 }
 
-export function CosmicBackground() {
-  const stars = useMemo(() => generateStars(80), []);
+interface CosmicBackgroundProps {
+  enhanced?: boolean;
+}
+
+export function CosmicBackground({ enhanced = false }: CosmicBackgroundProps) {
+  const farStars = useMemo(() => generateStars(120, "far", [0.4, 1.1]), []);
+  const midStars = useMemo(() => generateStars(70, "mid", [0.8, 1.8]), []);
+  const nearStars = useMemo(() => generateStars(35, "near", [1.4, 2.8]), []);
+
+  const classNames = [
+    "cosmic-background",
+    enhanced ? "cosmic-background--enhanced" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const renderStars = (stars: Star[]) =>
+    stars.map((star) => (
+      <span
+        key={`${star.layer}-${star.id}`}
+        className={`cosmic-background__star cosmic-background__star--${star.layer}`}
+        style={{
+          top: star.top,
+          left: star.left,
+          width: `${star.size}px`,
+          height: `${star.size}px`,
+          animationDelay: star.delay,
+          animationDuration: star.duration,
+        }}
+      />
+    ));
 
   return (
-    <div className="cosmic-background" aria-hidden="true">
+    <div className={classNames} aria-hidden="true">
+      <div className="cosmic-background__void" />
+      <div className="cosmic-background__galaxy" />
+      <div className="cosmic-background__nebula cosmic-background__nebula--violet" />
+      <div className="cosmic-background__nebula cosmic-background__nebula--cyan" />
+      <div className="cosmic-background__nebula cosmic-background__nebula--indigo" />
+      <div className="cosmic-background__dust" />
       <div className="cosmic-background__depth" />
+      <div className="cosmic-background__stars cosmic-background__stars--far">
+        {renderStars(farStars)}
+      </div>
+      <div className="cosmic-background__stars cosmic-background__stars--mid">
+        {renderStars(midStars)}
+      </div>
+      <div className="cosmic-background__stars cosmic-background__stars--near">
+        {renderStars(nearStars)}
+      </div>
       <div className="cosmic-background__fog cosmic-background__fog--one" />
       <div className="cosmic-background__fog cosmic-background__fog--two" />
-      <div className="cosmic-background__stars">
-        {stars.map((star) => (
-          <span
-            key={star.id}
-            className="cosmic-background__star"
-            style={{
-              top: star.top,
-              left: star.left,
-              width: `${star.size}px`,
-              height: `${star.size}px`,
-              animationDelay: star.delay,
-              animationDuration: star.duration,
-            }}
-          />
-        ))}
-      </div>
+      <div className="cosmic-background__horizon" />
       <div className="cosmic-background__vignette" />
     </div>
   );

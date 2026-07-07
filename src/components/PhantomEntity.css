@@ -6,12 +6,23 @@
   width: clamp(435px, 55vw, 812px);
   aspect-ratio: 2 / 3;
   transform: translate(-50%, -50%);
-  transition: transform 1.4s ease;
   pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 1.3s ease,
+    visibility 1.3s ease,
+    transform 1.4s ease;
 }
 
-.phantom-entity--settled {
-  transform: translate(-50%, -50%) scale(0.96);
+.phantom-entity--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.phantom-entity--hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .phantom-entity__strike-bolt {

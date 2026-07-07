@@ -14,25 +14,37 @@ interface Bolt {
   delay: string;
   duration: string;
   width: string;
-  isMain: boolean;
+  tier: "mega" | "main" | "side";
 }
 
-function buildBolts(): Bolt[] {
-  // Side placement only: the center belongs to the phantom strike bolt.
-  const slots = [
-    { left: 2, main: true },
-    { left: 11, main: false },
-    { left: 19, main: false },
-    { left: 71, main: false },
-    { left: 79, main: true },
-    { left: 89, main: false },
-  ];
+function buildBolts(mega: boolean): Bolt[] {
+  const slots = mega
+    ? [
+        { left: 0, tier: "mega" as const },
+        { left: 8, tier: "main" as const },
+        { left: 18, tier: "side" as const },
+        { left: 34, tier: "main" as const },
+        { left: 58, tier: "main" as const },
+        { left: 74, tier: "side" as const },
+        { left: 84, tier: "main" as const },
+        { left: 92, tier: "mega" as const },
+      ]
+    : [
+        { left: 2, tier: "main" as const },
+        { left: 11, tier: "side" as const },
+        { left: 19, tier: "side" as const },
+        { left: 71, tier: "side" as const },
+        { left: 79, tier: "main" as const },
+        { left: 89, tier: "side" as const },
+      ];
 
   return slots.map((slot, id) => {
     const seed = id * 101 + 17;
+    const isMega = slot.tier === "mega";
+    const isMain = slot.tier === "main" || isMega;
     const geometry = generateBolt(VIEW_WIDTH, VIEW_HEIGHT, seed, {
-      branchCount: slot.main ? 5 : 3,
-      roughness: VIEW_WIDTH * (slot.main ? 0.5 : 0.4),
+      branchCount: isMega ? 6 : isMain ? 5 : 3,
+      roughness: VIEW_WIDTH * (isMega ? 0.58 : isMain ? 0.5 : 0.4),
     });
     const jitter = ((seed * 7) % 10) / 3;
     return {
@@ -40,33 +52,34 @@ function buildBolts(): Bolt[] {
       main: geometry.main,
       branches: geometry.branches,
       left: `${slot.left + jitter}%`,
-      height: `${slot.main ? 80 + (seed % 14) : 52 + (seed % 22)}%`,
-      width: slot.main ? "17vw" : "12vw",
-      delay: `${(id * 0.42 + ((seed % 9) / 10)).toFixed(2)}s`,
-      duration: `${(2.2 + ((seed % 12) / 5)).toFixed(2)}s`,
-      isMain: slot.main,
+      height: `${isMega ? 96 + (seed % 4) : isMain ? 78 + (seed % 14) : 52 + (seed % 22)}%`,
+      width: isMega ? "24vw" : isMain ? "17vw" : "12vw",
+      delay: `${(id * 0.28 + ((seed % 9) / 10)).toFixed(2)}s`,
+      duration: `${((isMega ? 1.4 : 2.2) + (seed % 12) / 5).toFixed(2)}s`,
+      tier: slot.tier,
     };
   });
 }
 
 interface LightningLayerProps {
-  active: boolean;
-  intensified: boolean;
+  visible: boolean;
+  mega: boolean;
 }
 
-export function LightningLayer({ active, intensified }: LightningLayerProps) {
-  const bolts = useMemo(() => buildBolts(), []);
+export function LightningLayer({ visible, mega }: LightningLayerProps) {
+  const bolts = useMemo(() => buildBolts(mega), [mega]);
 
   const classNames = [
     "lightning-layer",
-    active ? "lightning-layer--active" : "",
-    intensified ? "lightning-layer--intensified" : "",
+    visible ? "lightning-layer--visible" : "lightning-layer--hidden",
+    mega ? "lightning-layer--mega" : "",
   ]
     .filter(Boolean)
     .join(" ");
 
   return (
     <div className={classNames} aria-hidden="true">
+      <div className="lightning-layer__flash" />
       <div className="lightning-layer__cloud lightning-layer__cloud--tl" />
       <div className="lightning-layer__cloud lightning-layer__cloud--tr" />
       <div className="lightning-layer__cloud lightning-layer__cloud--bl" />
@@ -74,7 +87,7 @@ export function LightningLayer({ active, intensified }: LightningLayerProps) {
       {bolts.map((bolt) => (
         <svg
           key={bolt.id}
-          className={`lightning-layer__bolt ${bolt.isMain ? "lightning-layer__bolt--main" : ""}`}
+          className={`lightning-layer__bolt lightning-layer__bolt--${bolt.tier}`}
           style={{
             left: bolt.left,
             height: bolt.height,
