@@ -1,7 +1,7 @@
 /* Hero positioning wrapper — pill only; sun is HeroSun */
 .sales-cta {
   position: absolute;
-  top: 38%;
+  top: var(--cta-anchor-y);
   left: 50%;
   z-index: 4;
   transform: translate(-50%, -50%);
@@ -92,7 +92,6 @@
   --gold: #ffb000;
   --gold-soft: #ffd36a;
   --pill-width: min(560px, 86vw);
-  --pill-height: 92px;
 
   position: relative;
   display: block;
@@ -212,14 +211,6 @@
 }
 
 @media (max-width: 520px) {
-  .sales-cta {
-    top: 36%;
-  }
-
-  .solar-cta {
-    --pill-height: 74px;
-  }
-
   .solar-cta__pill {
     gap: 18px;
   }

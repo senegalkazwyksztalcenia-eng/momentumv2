@@ -1,4 +1,11 @@
 .hero-momentum {
+  --cta-anchor-y: 38%;
+  --pill-height: 92px;
+  --pill-half: calc(var(--pill-height) / 2);
+  /* Disc bottom overlaps pill top — no visible gap */
+  --sun-seat-overlap: 0px;
+  --hero-sun-top: calc(var(--cta-anchor-y) - var(--pill-half) + var(--sun-seat-overlap));
+
   position: relative;
   isolation: isolate;
   min-height: 100vh;
@@ -264,6 +271,13 @@
 
   .hero-momentum--desktop .lightning-layer__cloud {
     filter: blur(28px);
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-momentum {
+    --cta-anchor-y: 36%;
+    --pill-height: 74px;
   }
 }
 
