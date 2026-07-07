@@ -4,6 +4,8 @@
   z-index: 0;
   overflow: hidden;
   background: #010208;
+  --rise-duration: 4.2s;
+  --rise-ease: cubic-bezier(0.25, 0.46, 0.35, 0.98);
 }
 
 .cosmic-background__void {
@@ -131,7 +133,7 @@
 }
 
 .cosmic-background__space-light--active {
-  animation: space-light-reveal 3.8s ease forwards;
+  animation: space-light-reveal var(--rise-duration) var(--rise-ease) forwards;
 }
 
 @keyframes space-light-reveal {
@@ -163,7 +165,7 @@
 }
 
 .cosmic-background__sun-scene--active {
-  animation: sun-rise 3.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: sun-rise var(--rise-duration) var(--rise-ease) forwards;
 }
 
 @keyframes sun-rise {
@@ -171,7 +173,7 @@
     opacity: 0;
     transform: translateX(-50%) translateY(10vmin);
   }
-  14% {
+  10% {
     opacity: 1;
   }
   100% {
@@ -200,7 +202,7 @@
 }
 
 .cosmic-background__sun-scene--active .cosmic-background__sunrise-haze {
-  animation: sun-haze-in 2.4s ease 0.3s forwards;
+  animation: sun-haze-in 1.6s ease 0.1s forwards;
 }
 
 @keyframes sun-haze-in {
@@ -231,7 +233,7 @@
 }
 
 .cosmic-background__sun-scene--active .cosmic-background__sun-corona {
-  animation: sun-layer-in 2.2s ease 0.2s forwards;
+  animation: sun-layer-in 1.4s ease 0.05s forwards;
 }
 
 .cosmic-background__sun-core {
@@ -264,8 +266,8 @@
 
 .cosmic-background__sun-scene--active .cosmic-background__sun-core {
   animation:
-    sun-layer-in 2s ease 0.15s forwards,
-    sun-pulse 8s ease-in-out 4s infinite;
+    sun-layer-in 1.2s ease forwards,
+    sun-pulse 8s ease-in-out 4.4s infinite;
 }
 
 .cosmic-background__sun-bloom {
@@ -290,7 +292,7 @@
 }
 
 .cosmic-background__sun-scene--active .cosmic-background__sun-bloom {
-  animation: sun-layer-in 2.1s ease 0.18s forwards;
+  animation: sun-layer-in 1.3s ease 0.05s forwards;
 }
 
 @keyframes sun-layer-in {
@@ -309,17 +311,17 @@
 }
 
 .cosmic-background__planet-scene--active {
-  animation: planet-fade-in 1.4s ease 0.15s forwards;
+  animation: planet-scene-in 0.45s ease forwards;
 }
 
-@keyframes planet-fade-in {
+@keyframes planet-scene-in {
   to {
     opacity: 1;
   }
 }
 
 .cosmic-background__planet-scene--active .cosmic-background__planet-body {
-  animation: planet-sink-away 2.6s cubic-bezier(0.55, 0, 0.85, 0.36) 3.9s forwards;
+  animation: planet-sink-away var(--rise-duration) var(--rise-ease) forwards;
 }
 
 @keyframes planet-sink-away {
@@ -327,8 +329,11 @@
     transform: translateX(-50%) translateY(0);
     opacity: 1;
   }
+  70% {
+    opacity: 0.55;
+  }
   100% {
-    transform: translateX(-50%) translateY(20vmin);
+    transform: translateX(-50%) translateY(22vmin);
     opacity: 0;
   }
 }

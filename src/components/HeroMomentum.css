@@ -19,8 +19,8 @@
   opacity: 0;
   transform: translateY(-8px);
   transition:
-    opacity 900ms ease 200ms,
-    transform 900ms ease 200ms;
+    opacity 700ms ease,
+    transform 700ms ease;
 }
 
 .hero-momentum__header--visible {
@@ -52,8 +52,8 @@
   opacity: 0;
   transform: translateY(24px);
   transition:
-    opacity 1s ease 180ms,
-    transform 1s ease 180ms;
+    opacity 700ms ease,
+    transform 700ms ease;
 }
 
 .hero-momentum__content--visible {
@@ -77,7 +77,7 @@
   z-index: -1;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 1.2s ease 300ms;
+  transition: opacity 800ms ease;
 }
 
 .hero-momentum__content--visible::before {

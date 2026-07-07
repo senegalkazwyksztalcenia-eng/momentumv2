@@ -10,9 +10,9 @@
   opacity: 0;
   visibility: hidden;
   transition:
-    opacity 1.3s ease,
-    visibility 1.3s ease,
-    transform 1.4s ease;
+    opacity 0.9s ease,
+    visibility 0.9s ease,
+    transform 1s ease;
 }
 
 .phantom-entity--visible {

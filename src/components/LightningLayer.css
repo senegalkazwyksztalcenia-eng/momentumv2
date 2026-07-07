@@ -5,7 +5,7 @@
   overflow: hidden;
   pointer-events: none;
   opacity: 1;
-  transition: opacity 1.3s ease, visibility 1.3s ease;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
 }
 
 .lightning-layer--hidden {
@@ -26,7 +26,7 @@
 }
 
 .lightning-layer--mega .lightning-layer__flash {
-  animation: opening-flash 2.8s ease-in-out infinite;
+  animation: opening-flash 1.9s ease-in-out infinite;
 }
 
 /* Storm clouds glowing in the corners, like the reference photo. */

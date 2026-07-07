@@ -54,8 +54,8 @@ function buildBolts(mega: boolean): Bolt[] {
       left: `${slot.left + jitter}%`,
       height: `${isMega ? 96 + (seed % 4) : isMain ? 78 + (seed % 14) : 52 + (seed % 22)}%`,
       width: isMega ? "24vw" : isMain ? "17vw" : "12vw",
-      delay: `${(id * 0.28 + ((seed % 9) / 10)).toFixed(2)}s`,
-      duration: `${((isMega ? 1.4 : 2.2) + (seed % 12) / 5).toFixed(2)}s`,
+      delay: `${(id * 0.16 + ((seed % 9) / 14)).toFixed(2)}s`,
+      duration: `${((isMega ? 0.95 : 1.5) + (seed % 12) / 6).toFixed(2)}s`,
       tier: slot.tier,
     };
   });
