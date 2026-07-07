@@ -30,7 +30,10 @@ export function PhantomEntity({
           alt=""
           draggable={false}
         />
-        <div className="phantom-entity__core" />
+        <div className="phantom-entity__aura" />
+        <div className="phantom-entity__core">
+          <span className="phantom-entity__rays" />
+        </div>
         <div className="phantom-entity__flash" />
         <span className="phantom-entity__wisp phantom-entity__wisp--one" />
         <span className="phantom-entity__wisp phantom-entity__wisp--two" />
