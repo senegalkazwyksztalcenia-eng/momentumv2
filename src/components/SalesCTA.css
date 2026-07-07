@@ -197,7 +197,7 @@
   opacity: 0.78;
   filter: blur(0.6px);
   z-index: -2;
-  animation: none;
+  animation: raysShimmer 4.8s ease-in-out infinite;
 }
 
 .solar-cta__text {
@@ -274,7 +274,7 @@
   );
   filter: blur(14px);
   opacity: 0.9;
-  animation: sunHaloPulse 3.2s ease-in-out infinite;
+  animation: sunHaloPulse 4.8s ease-in-out infinite;
 }
 
 .solar-cta:hover {
@@ -328,18 +328,34 @@
   }
 }
 
-@keyframes raysPulse {
+@keyframes raysShimmer {
   0%,
   100% {
-    opacity: 0.72;
+    opacity: 0.68;
+    transform: translateX(-50%) scale(1);
+    filter: blur(0.65px) brightness(0.96);
   }
 
-  50% {
+  28% {
+    opacity: 0.84;
+    transform: translateX(-50%) scale(1.014);
+    filter: blur(0.5px) brightness(1.1);
+  }
+
+  52% {
+    opacity: 0.74;
+    transform: translateX(-50%) scale(1.006);
+    filter: blur(0.58px) brightness(1.02);
+  }
+
+  76% {
     opacity: 0.88;
+    transform: translateX(-50%) scale(1.02);
+    filter: blur(0.48px) brightness(1.14);
   }
 }
 
-/* Desktop: stop infinite GPU-heavy sun pulse on button */
+/* Desktop: keep rays shimmer; only disable heavy sun-disc filter pulse */
 @media (min-width: 768px) {
   .hero-momentum--desktop .solar-cta::before {
     animation: none;
@@ -349,8 +365,7 @@
   }
 
   .hero-momentum--desktop .solar-cta__sun-halo {
-    animation: none;
-    opacity: 0.88;
+    animation: sunHaloPulse 4.8s ease-in-out infinite;
     filter: blur(10px);
   }
 
