@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phantom</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="particles"></canvas>
+
+  <div class="scene">
+    <div class="aura-ring aura-ring--1"></div>
+    <div class="aura-ring aura-ring--2"></div>
+    <div class="aura-ring aura-ring--3"></div>
+
+    <div class="phantom">
+      <svg class="phantom__svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="bodyGrad" cx="50%" cy="40%" r="55%">
+            <stop offset="0%"   stop-color="#a8d8ff" stop-opacity="0.95"/>
+            <stop offset="45%"  stop-color="#4da6ff" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#0a2fff" stop-opacity="0.6"/>
+          </radialGradient>
+          <radialGradient id="glowCore" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="blur-glow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="6" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="soft-glow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="12" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <clipPath id="bodyClip">
+            <path d="
+              M100 10
+              C45 10, 10 55, 10 105
+              C10 150, 10 175, 25 190
+              Q35 205, 50 195
+              Q65 185, 65 200
+              Q70 220, 85 215
+              Q100 210, 100 215
+              Q100 210, 115 215
+              Q130 220, 135 200
+              Q135 185, 150 195
+              Q165 205, 175 190
+              C190 175, 190 150, 190 105
+              C190 55, 155 10, 100 10Z
+            "/>
+          </clipPath>
+        </defs>
+
+        <!-- outer glow halo -->
+        <ellipse cx="100" cy="115" rx="95" ry="110"
+                 fill="url(#glowCore)" filter="url(#soft-glow)" opacity="0.35"/>
+
+        <!-- body silhouette -->
+        <path class="phantom__body" d="
+          M100 10
+          C45 10, 10 55, 10 105
+          C10 150, 10 175, 25 190
+          Q35 205, 50 195
+          Q65 185, 65 200
+          Q70 220, 85 215
+          Q100 210, 100 215
+          Q100 210, 115 215
+          Q130 220, 135 200
+          Q135 185, 150 195
+          Q165 205, 175 190
+          C190 175, 190 150, 190 105
+          C190 55, 155 10, 100 10Z
+        " fill="url(#bodyGrad)" filter="url(#blur-glow)"/>
+
+        <!-- inner highlight -->
+        <ellipse cx="85" cy="75" rx="22" ry="28"
+                 fill="white" opacity="0.18"/>
+
+        <!-- eyes -->
+        <g class="phantom__eyes" filter="url(#blur-glow)">
+          <!-- left eye -->
+          <ellipse cx="72" cy="100" rx="14" ry="16" fill="#001aff" opacity="0.85"/>
+          <ellipse cx="72" cy="100" rx="7"  ry="8"  fill="#e0f0ff"/>
+          <ellipse cx="69" cy="97"  rx="2.5" ry="2.5" fill="white"/>
+
+          <!-- right eye -->
+          <ellipse cx="128" cy="100" rx="14" ry="16" fill="#001aff" opacity="0.85"/>
+          <ellipse cx="128" cy="100" rx="7"  ry="8"  fill="#e0f0ff"/>
+          <ellipse cx="125" cy="97"  rx="2.5" ry="2.5" fill="white"/>
+        </g>
+
+        <!-- subtle mouth -->
+        <path d="M88 130 Q100 140, 112 130" stroke="#b0d4ff" stroke-width="2.5"
+              fill="none" stroke-linecap="round" opacity="0.7"/>
+
+        <!-- animated inner energy wisps -->
+        <g class="phantom__wisps" clip-path="url(#bodyClip)" opacity="0.4">
+          <ellipse class="wisp wisp--1" cx="100" cy="160" rx="30" ry="8" fill="#7dc4ff"/>
+          <ellipse class="wisp wisp--2" cx="100" cy="145" rx="20" ry="5" fill="#b8e0ff"/>
+          <ellipse class="wisp wisp--3" cx="100" cy="175" rx="18" ry="5" fill="#7dc4ff"/>
+        </g>
+      </svg>
+
+      <!-- tail wisps below the figure -->
+      <div class="phantom__tail">
+        <div class="tail-wisp tail-wisp--1"></div>
+        <div class="tail-wisp tail-wisp--2"></div>
+        <div class="tail-wisp tail-wisp--3"></div>
+      </div>
+    </div>
+
+    <h1 class="title">PHANTOM</h1>
+    <p class="subtitle">Beyond the veil of the seen</p>
+  </div>
+
+  <script src="particles.js"></script>
+</body>
+</html>
