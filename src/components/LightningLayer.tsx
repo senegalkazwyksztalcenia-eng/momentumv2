@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useIsDesktop } from "../hooks/useIsDesktop";
 import { generateBolt } from "../lib/lightning";
 import "./LightningLayer.css";
 
@@ -17,18 +18,25 @@ interface Bolt {
   tier: "mega" | "main" | "side";
 }
 
-function buildBolts(mega: boolean): Bolt[] {
+function buildBolts(mega: boolean, lite: boolean): Bolt[] {
   const slots = mega
-    ? [
-        { left: 0, tier: "mega" as const },
-        { left: 8, tier: "main" as const },
-        { left: 18, tier: "side" as const },
-        { left: 34, tier: "main" as const },
-        { left: 58, tier: "main" as const },
-        { left: 74, tier: "side" as const },
-        { left: 84, tier: "main" as const },
-        { left: 92, tier: "mega" as const },
-      ]
+    ? lite
+      ? [
+          { left: 0, tier: "mega" as const },
+          { left: 34, tier: "main" as const },
+          { left: 58, tier: "main" as const },
+          { left: 92, tier: "mega" as const },
+        ]
+      : [
+          { left: 0, tier: "mega" as const },
+          { left: 8, tier: "main" as const },
+          { left: 18, tier: "side" as const },
+          { left: 34, tier: "main" as const },
+          { left: 58, tier: "main" as const },
+          { left: 74, tier: "side" as const },
+          { left: 84, tier: "main" as const },
+          { left: 92, tier: "mega" as const },
+        ]
     : [
         { left: 2, tier: "main" as const },
         { left: 11, tier: "side" as const },
@@ -67,7 +75,8 @@ interface LightningLayerProps {
 }
 
 export function LightningLayer({ visible, mega }: LightningLayerProps) {
-  const bolts = useMemo(() => buildBolts(mega), [mega]);
+  const isDesktop = useIsDesktop();
+  const bolts = useMemo(() => buildBolts(mega, isDesktop), [mega, isDesktop]);
 
   const classNames = [
     "lightning-layer",

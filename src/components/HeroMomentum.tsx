@@ -1,4 +1,5 @@
 import { useHeroSequence } from "../hooks/useHeroSequence";
+import { useIsDesktop } from "../hooks/useIsDesktop";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import { CosmicBackground } from "./CosmicBackground";
 import { LightningLayer } from "./LightningLayer";
@@ -8,6 +9,7 @@ import "./HeroMomentum.css";
 
 export function HeroMomentum() {
   const reducedMotion = useReducedMotion();
+  const isDesktop = useIsDesktop();
   const phase = useHeroSequence(reducedMotion);
 
   const isStorm = phase === "storm";
@@ -16,7 +18,11 @@ export function HeroMomentum() {
 
   return (
     <section
-      className="hero-momentum"
+      className={[
+        "hero-momentum",
+        isDesktop ? "hero-momentum--desktop" : "",
+        `hero-momentum--${phase}`,
+      ].join(" ")}
       data-phase={phase}
       aria-label="Momentum — hero ebooka"
     >

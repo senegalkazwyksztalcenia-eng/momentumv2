@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useIsDesktop } from "../hooks/useIsDesktop";
 import "./CosmicBackground.css";
 
 interface Star {
@@ -54,13 +55,25 @@ export function CosmicBackground({
   enhanced = false,
   showSunrise = false,
 }: CosmicBackgroundProps) {
-  const farStars = useMemo(() => generateStars(120, "far", [0.4, 1.1]), []);
-  const midStars = useMemo(() => generateStars(70, "mid", [0.8, 1.8]), []);
-  const nearStars = useMemo(() => generateStars(35, "near", [1.4, 2.8]), []);
-  const cityLights = useMemo(() => generateCityLights(48), []);
+  const isDesktop = useIsDesktop();
+
+  const farStars = useMemo(
+    () => generateStars(isDesktop ? 52 : 120, "far", [0.4, 1.1]),
+    [isDesktop],
+  );
+  const midStars = useMemo(
+    () => generateStars(isDesktop ? 30 : 70, "mid", [0.8, 1.8]),
+    [isDesktop],
+  );
+  const nearStars = useMemo(
+    () => generateStars(isDesktop ? 14 : 35, "near", [1.4, 2.8]),
+    [isDesktop],
+  );
+  const cityLights = useMemo(() => generateCityLights(isDesktop ? 28 : 48), [isDesktop]);
 
   const classNames = [
     "cosmic-background",
+    isDesktop ? "cosmic-background--desktop" : "",
     enhanced ? "cosmic-background--enhanced" : "",
     showSunrise ? "cosmic-background--sunrise" : "",
   ]

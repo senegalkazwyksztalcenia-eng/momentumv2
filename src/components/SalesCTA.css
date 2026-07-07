@@ -349,6 +349,34 @@
   }
 }
 
+/* Desktop: stop infinite GPU-heavy sun/rays animations — button sun stays focal */
+@media (min-width: 768px) {
+  .hero-momentum--desktop .solar-cta::before {
+    animation: none;
+    filter:
+      drop-shadow(0 0 20px rgba(255, 195, 0, 0.95))
+      drop-shadow(0 0 48px rgba(255, 110, 0, 0.78));
+  }
+
+  .hero-momentum--desktop .solar-cta::after {
+    animation: none;
+    opacity: 0.76;
+    transform: translateX(-50%) rotate(12deg);
+  }
+
+  .hero-momentum--desktop .solar-cta__sun-halo {
+    animation: none;
+    opacity: 0.88;
+    filter: blur(10px);
+  }
+
+  .hero-momentum--desktop .solar-cta__sun {
+    box-shadow:
+      0 0 40px 18px rgba(255, 220, 150, 0.3),
+      0 0 72px 34px rgba(255, 175, 70, 0.18);
+  }
+}
+
 @media (max-width: 520px) {
   .sales-cta {
     top: 36%;

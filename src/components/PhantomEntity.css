@@ -625,6 +625,25 @@
   }
 }
 
+@media (min-width: 768px) {
+  .hero-momentum--desktop .phantom-entity__aura {
+    filter: blur(10px);
+    animation: none;
+    opacity: 0.6;
+  }
+
+  .hero-momentum--desktop .phantom-entity__chest-halo--outer,
+  .hero-momentum--desktop .phantom-entity__chest-halo--mid,
+  .hero-momentum--desktop .phantom-entity__chest-halo--inner,
+  .hero-momentum--desktop .phantom-entity__chest-hotspot {
+    animation: none;
+  }
+
+  .hero-momentum--desktop .phantom-entity__wisp {
+    display: none;
+  }
+}
+
 @media (max-width: 640px) {
   .phantom-entity {
     top: 36%;

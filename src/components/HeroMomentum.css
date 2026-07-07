@@ -119,6 +119,16 @@
     0 4px 20px rgba(0, 0, 0, 0.55);
 }
 
+@media (min-width: 768px) {
+  .hero-momentum--desktop {
+    contain: layout style;
+  }
+
+  .hero-momentum--desktop .lightning-layer__cloud {
+    filter: blur(28px);
+  }
+}
+
 @media (max-width: 640px) {
   .hero-momentum__header {
     padding-top: clamp(0.9rem, 3vh, 1.4rem);

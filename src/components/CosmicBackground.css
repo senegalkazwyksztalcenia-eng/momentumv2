@@ -731,6 +731,73 @@
   }
 }
 
+/* Desktop: lighter GPU load — fewer blurs, paused ambient motion, no duplicate sun */
+@media (min-width: 768px) {
+  .cosmic-background--desktop {
+    contain: layout style paint;
+  }
+
+  .cosmic-background--desktop .cosmic-background__void,
+  .cosmic-background--desktop .cosmic-background__galaxy,
+  .cosmic-background--desktop .cosmic-background__nebula,
+  .cosmic-background--desktop .cosmic-background__dust,
+  .cosmic-background--desktop .cosmic-background__fog {
+    animation: none;
+  }
+
+  .cosmic-background--desktop .cosmic-background__nebula {
+    filter: blur(28px);
+    opacity: 0.34;
+  }
+
+  .cosmic-background--desktop.cosmic-background--enhanced .cosmic-background__nebula {
+    filter: blur(24px);
+    opacity: 0.48;
+  }
+
+  .cosmic-background--desktop .cosmic-background__fog {
+    filter: blur(28px);
+    opacity: 0.22;
+  }
+
+  .cosmic-background--desktop .cosmic-background__fog--two {
+    display: none;
+  }
+
+  .cosmic-background--desktop .cosmic-background__star--far {
+    animation: none;
+    opacity: 0.22;
+  }
+
+  .cosmic-background--desktop .cosmic-background__star--mid {
+    animation-duration: 6s;
+  }
+
+  .cosmic-background--desktop .cosmic-background__city-light {
+    animation: none;
+    opacity: 0.55;
+  }
+
+  .cosmic-background--desktop .cosmic-background__sun-corona,
+  .cosmic-background--desktop .cosmic-background__sun-bloom,
+  .cosmic-background--desktop .cosmic-background__sunrise-haze {
+    filter: blur(24px);
+  }
+
+  .cosmic-background--desktop .cosmic-background__sun-core {
+    animation: sun-layer-in 1.2s ease forwards !important;
+    filter: blur(1px);
+  }
+
+  .cosmic-background--desktop.cosmic-background--sunrise .cosmic-background__sun-scene {
+    display: none;
+  }
+
+  .cosmic-background--desktop .cosmic-background__depth {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cosmic-background__void,
   .cosmic-background__galaxy,
