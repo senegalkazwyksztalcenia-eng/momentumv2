@@ -77,60 +77,56 @@
   animation-play-state: paused;
 }
 
-/* Layered soft aura — extends slightly past silhouette, no hard edges. */
+/* Tight aura hugging the body — CSS glow only, no box. */
 .phantom-entity__aura {
   position: absolute;
-  inset: -6% -8% -4%;
+  inset: 4% 8% 6%;
   z-index: 0;
   pointer-events: none;
   border-radius: 46% 46% 42% 42% / 50% 50% 50% 50%;
   background:
     radial-gradient(
-      ellipse 72% 58% at 50% 36%,
-      rgba(180, 235, 255, 0.16),
-      rgba(0, 140, 255, 0.09) 42%,
-      rgba(0, 61, 255, 0.04) 62%,
-      transparent 82%
+      ellipse 58% 52% at 50% 34%,
+      rgba(180, 235, 255, 0.12),
+      rgba(0, 140, 255, 0.06) 46%,
+      transparent 72%
     ),
     radial-gradient(
-      ellipse 88% 78% at 50% 52%,
-      rgba(0, 183, 255, 0.1),
-      rgba(0, 80, 220, 0.04) 55%,
-      transparent 78%
+      ellipse 64% 62% at 50% 50%,
+      rgba(0, 183, 255, 0.07),
+      transparent 68%
     );
-  filter: blur(26px);
-  opacity: 0.9;
+  filter: blur(14px);
+  opacity: 0.72;
   animation: aura-breathe 8.2s ease-in-out infinite;
 }
 
 .phantom-entity__aura::after {
   content: "";
   position: absolute;
-  inset: 4% 8% 6%;
+  inset: 8% 12% 10%;
   border-radius: inherit;
   background: radial-gradient(
-    ellipse 80% 70% at 50% 44%,
-    rgba(220, 248, 255, 0.08),
-    rgba(0, 120, 255, 0.05) 48%,
-    transparent 74%
+    ellipse 70% 62% at 50% 40%,
+    rgba(220, 248, 255, 0.06),
+    transparent 68%
   );
-  filter: blur(18px);
-  opacity: 0.85;
+  filter: blur(10px);
+  opacity: 0.7;
 }
 
 .phantom-entity__float::before {
   content: "";
   position: absolute;
-  inset: 2% 6% 4%;
+  inset: 6% 10% 8%;
   border-radius: 44% 44% 40% 40% / 48% 48% 52% 52%;
   background: radial-gradient(
-    ellipse at 50% 38%,
-    rgba(0, 183, 255, 0.14),
-    rgba(0, 61, 255, 0.05) 58%,
-    transparent 80%
+    ellipse at 50% 36%,
+    rgba(0, 183, 255, 0.1),
+    transparent 68%
   );
-  filter: blur(16px);
-  opacity: 0.75;
+  filter: blur(10px);
+  opacity: 0.6;
   z-index: 0;
 }
 
@@ -146,9 +142,9 @@
     contrast(1.06)
     saturate(1.1)
     brightness(1.05)
-    drop-shadow(0 0 12px rgba(180, 235, 255, 0.35))
-    drop-shadow(0 0 28px rgba(0, 183, 255, 0.28))
-    drop-shadow(0 0 56px rgba(0, 61, 255, 0.18));
+    drop-shadow(0 0 8px rgba(180, 235, 255, 0.28))
+    drop-shadow(0 0 18px rgba(0, 183, 255, 0.2))
+    drop-shadow(0 0 32px rgba(0, 61, 255, 0.12));
   transition:
     filter 600ms ease,
     opacity 1.2s ease;
@@ -185,18 +181,17 @@
 
 .phantom-entity__mist {
   position: absolute;
-  left: 6%;
-  right: 6%;
-  bottom: -4%;
-  height: 28%;
+  left: 14%;
+  right: 14%;
+  bottom: 2%;
+  height: 16%;
   background: radial-gradient(
-    ellipse at 50% 22%,
-    rgba(160, 225, 255, 0.18),
-    rgba(0, 140, 255, 0.08) 42%,
-    transparent 78%
+    ellipse at 50% 18%,
+    rgba(160, 225, 255, 0.12),
+    transparent 72%
   );
-  filter: blur(28px);
-  opacity: 0.65;
+  filter: blur(16px);
+  opacity: 0.45;
   z-index: 0;
   transition: opacity 1.2s ease;
 }
