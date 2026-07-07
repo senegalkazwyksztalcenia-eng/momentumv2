@@ -100,7 +100,7 @@
   z-index: 2;
 }
 
-/* ── Sunrise: sun and planet are independent objects ── */
+/* ── Sunrise: planet sinks, space warms; sun is HeroSun ── */
 
 .cosmic-background__space-light {
   position: absolute;
@@ -176,222 +176,11 @@
   }
 }
 
-/* Sun — ascends to CTA sun level, then merges into it */
+/* ── Sunrise: planet sinks, space warms; sun is HeroSun ── */
+
 .cosmic-background--sunrise {
-  --sun-cta-top: 36%;
-  --sun-merge-duration: 4.2s;
+  --rise-duration: 4.2s;
 }
-
-.cosmic-background__sun-scene {
-  position: absolute;
-  left: 50%;
-  z-index: 1;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-  opacity: 0;
-  top: 110%;
-  transform: translate(-50%, -50%);
-}
-
-.cosmic-background--sunrise .cosmic-background__sun-scene {
-  left: 50%;
-}
-
-.cosmic-background__sun-scene--active {
-  animation: sun-ascend-to-cta var(--sun-merge-duration) var(--rise-ease) forwards;
-}
-
-@keyframes sun-ascend-to-cta {
-  0% {
-    top: 108%;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.7);
-  }
-
-  8% {
-    opacity: 1;
-  }
-
-  70% {
-    top: var(--sun-cta-top);
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(0.36);
-  }
-
-  82% {
-    top: var(--sun-cta-top);
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(0.34);
-  }
-
-  100% {
-    top: var(--sun-cta-top);
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.12);
-  }
-}
-
-.cosmic-background--charged .cosmic-background__sun-scene,
-.cosmic-background--charged .cosmic-background__sun-scene--active {
-  animation: none !important;
-  opacity: 0 !important;
-  visibility: hidden;
-}
-
-.cosmic-background--charged .cosmic-background__sun-scene .cosmic-background__sun-core,
-.cosmic-background--charged .cosmic-background__sun-scene .cosmic-background__sun-bloom,
-.cosmic-background--charged .cosmic-background__sun-scene .cosmic-background__sun-corona {
-  opacity: 0 !important;
-}
-
-.cosmic-background__sunrise-haze {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 210vmin;
-  height: 80vmin;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(
-    ellipse 100% 75% at 50% 52%,
-    rgba(255, 210, 155, 0.22) 0%,
-    rgba(255, 175, 110, 0.1) 38%,
-    rgba(255, 130, 65, 0.04) 62%,
-    transparent 82%
-  );
-  filter: blur(38px);
-  opacity: 0;
-}
-
-.cosmic-background__sun-scene--active .cosmic-background__sunrise-haze {
-  animation: sun-haze-in 1.6s ease 0.1s forwards;
-}
-
-@keyframes sun-haze-in {
-  to {
-    opacity: 1;
-  }
-}
-
-.cosmic-background__sun-corona {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 150vmin;
-  height: 150vmin;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  aspect-ratio: 1;
-  background: radial-gradient(
-    circle,
-    rgba(255, 240, 215, 0.34) 0%,
-    rgba(255, 210, 160, 0.2) 28%,
-    rgba(255, 170, 100, 0.09) 52%,
-    rgba(255, 130, 55, 0.03) 72%,
-    transparent 88%
-  );
-  filter: blur(48px);
-  opacity: 0;
-}
-
-.cosmic-background__sun-scene--active .cosmic-background__sun-corona {
-  animation: sun-layer-in 1.4s ease 0.05s forwards;
-}
-
-.cosmic-background__sun-limb {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 36vmin;
-  height: 36vmin;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  aspect-ratio: 1;
-  background: radial-gradient(
-    circle at 50% 54%,
-    transparent 48%,
-    rgba(255, 150, 70, 0.1) 68%,
-    rgba(230, 100, 35, 0.22) 84%,
-    rgba(200, 75, 25, 0.12) 96%,
-    transparent 100%
-  );
-  filter: blur(2px);
-  opacity: 0;
-}
-
-.cosmic-background__sun-scene--active .cosmic-background__sun-limb {
-  animation: sun-layer-in 1.3s ease 0.08s forwards;
-}
-
-.cosmic-background__sun-core {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 34vmin;
-  height: 34vmin;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  aspect-ratio: 1;
-  background: radial-gradient(
-    circle at 47% 43%,
-    #fff8ec 0%,
-    #fff0d4 10%,
-    #ffe4b0 24%,
-    #ffd28a 42%,
-    #ffb864 62%,
-    #e89040 80%,
-    rgba(210, 95, 35, 0.35) 94%,
-    rgba(180, 70, 25, 0.08) 100%
-  );
-  box-shadow:
-    0 0 28px rgba(255, 230, 190, 0.7),
-    0 0 64px rgba(255, 190, 110, 0.42),
-    0 0 120px rgba(255, 145, 65, 0.2),
-    0 0 200px rgba(255, 110, 45, 0.08);
-  filter: blur(1.4px);
-  opacity: 0;
-}
-
-.cosmic-background__sun-scene--active .cosmic-background__sun-core {
-  animation:
-    sun-layer-in 1.2s ease forwards,
-    sun-pulse 8s ease-in-out 4.4s infinite;
-}
-
-.cosmic-background__sun-bloom {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 108vmin;
-  height: 108vmin;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  aspect-ratio: 1;
-  background: radial-gradient(
-    circle,
-    rgba(255, 245, 225, 0.55) 0%,
-    rgba(255, 225, 180, 0.32) 26%,
-    rgba(255, 195, 130, 0.16) 50%,
-    rgba(255, 155, 75, 0.06) 72%,
-    transparent 90%
-  );
-  filter: blur(44px);
-  mix-blend-mode: screen;
-  opacity: 0;
-}
-
-.cosmic-background__sun-scene--active .cosmic-background__sun-bloom {
-  animation: sun-layer-in 1.3s ease 0.05s forwards;
-}
-
-@keyframes sun-layer-in {
-  to {
-    opacity: 1;
-  }
-}
-
-/* Planet — separate object in front during rise, then sinks away */
 .cosmic-background__planet-scene {
   position: absolute;
   inset: 0;
@@ -449,6 +238,12 @@
 
 .cosmic-background__planet-scene--active .cosmic-background__horizon-blend {
   animation: sun-haze-in 2s ease 0.5s forwards;
+}
+
+@keyframes sun-haze-in {
+  to {
+    opacity: 1;
+  }
 }
 
 .cosmic-background__atmosphere {
@@ -547,26 +342,6 @@
 
 .cosmic-background--sunrise .cosmic-background__horizon {
   opacity: 0;
-}
-
-@keyframes sun-pulse {
-  0%,
-  100% {
-    filter: blur(1.4px) brightness(1);
-    box-shadow:
-      0 0 28px rgba(255, 230, 190, 0.7),
-      0 0 64px rgba(255, 190, 110, 0.42),
-      0 0 120px rgba(255, 145, 65, 0.2),
-      0 0 200px rgba(255, 110, 45, 0.08);
-  }
-  50% {
-    filter: blur(1.6px) brightness(1.04);
-    box-shadow:
-      0 0 32px rgba(255, 235, 200, 0.75),
-      0 0 72px rgba(255, 195, 115, 0.46),
-      0 0 130px rgba(255, 150, 70, 0.22),
-      0 0 210px rgba(255, 115, 50, 0.09);
-  }
 }
 
 @keyframes city-twinkle {
@@ -802,10 +577,6 @@
 
 /* Mobile: lighter compositing than full desktop effects */
 @media (max-width: 767px) {
-  .cosmic-background--sunrise {
-    --sun-cta-top: 34%;
-  }
-
   .cosmic-background:not(.cosmic-background--desktop) .cosmic-background__nebula {
     filter: blur(40px);
     opacity: 0.36;
@@ -877,17 +648,6 @@
     opacity: 0.55;
   }
 
-  .cosmic-background--desktop .cosmic-background__sun-corona,
-  .cosmic-background--desktop .cosmic-background__sun-bloom,
-  .cosmic-background--desktop .cosmic-background__sunrise-haze {
-    filter: blur(24px);
-  }
-
-  .cosmic-background--desktop .cosmic-background__sun-core {
-    animation: sun-layer-in 1.2s ease forwards !important;
-    filter: blur(1px);
-  }
-
   .cosmic-background--desktop .cosmic-background__depth {
     display: none;
   }
@@ -900,8 +660,6 @@
   .cosmic-background__dust,
   .cosmic-background__fog,
   .cosmic-background__star,
-  .cosmic-background__sun-core,
-  .cosmic-background__sun-corona,
   .cosmic-background__city-light {
     animation: none !important;
   }
@@ -910,27 +668,6 @@
     animation: none;
     opacity: 1;
     transform: none;
-  }
-
-  .cosmic-background__sun-scene--active {
-    animation: none;
-    opacity: 1;
-    top: var(--sun-cta-top, 36%);
-    transform: translate(-50%, -50%) scale(0.34);
-  }
-
-  .cosmic-background--charged .cosmic-background__sun-scene--active {
-    opacity: 0 !important;
-    visibility: hidden;
-  }
-
-  .cosmic-background__sun-scene--active .cosmic-background__sun-core,
-  .cosmic-background__sun-scene--active .cosmic-background__sun-bloom,
-  .cosmic-background__sun-scene--active .cosmic-background__sun-corona,
-  .cosmic-background__sun-scene--active .cosmic-background__sun-limb,
-  .cosmic-background__sun-scene--active .cosmic-background__sunrise-haze {
-    animation: none;
-    opacity: 1;
   }
 
   .cosmic-background__planet-scene--active {

@@ -1,4 +1,4 @@
-/* Hero positioning wrapper — does not alter button visuals */
+/* Hero positioning wrapper — pill only; sun is HeroSun */
 .sales-cta {
   position: absolute;
   top: 38%;
@@ -6,11 +6,6 @@
   z-index: 4;
   transform: translate(-50%, -50%);
   pointer-events: none;
-}
-
-.hero-momentum--content .sales-cta,
-.hero-momentum--empowered .sales-cta {
-  top: 38%;
 }
 
 .sales-cta:not(.sales-cta--visible):not(.sales-cta--forging) .solar-cta {
@@ -24,15 +19,13 @@
   pointer-events: auto;
 }
 
-.sales-cta--forging .solar-cta {
+.sales-cta--forging .solar-cta__pill {
   opacity: 0;
-  animation: solar-cta-forge 0.67s cubic-bezier(0.22, 1, 0.36, 1) 0.48s forwards;
+  animation: solar-pill-forge 0.67s cubic-bezier(0.22, 1, 0.36, 1) 0.48s forwards;
 }
 
 .sales-cta--visible:not(.sales-cta--forging) .solar-cta {
   opacity: 1;
-  transform: scale(1);
-  filter: none;
 }
 
 .sales-cta__handoff-glow {
@@ -75,7 +68,7 @@
   }
 }
 
-@keyframes solar-cta-forge {
+@keyframes solar-pill-forge {
   0% {
     opacity: 0;
     transform: scale(0.28);
@@ -98,10 +91,8 @@
 .solar-cta {
   --gold: #ffb000;
   --gold-soft: #ffd36a;
-  --gold-hot: #ff7a00;
   --pill-width: min(560px, 86vw);
   --pill-height: 92px;
-  --crown-height: 148px;
 
   position: relative;
   display: block;
@@ -112,129 +103,6 @@
   transition: transform 0.25s ease;
 }
 
-/* Sun zone — anchored above the pill, never over it */
-.solar-cta__crown {
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 8px);
-  z-index: 0;
-  width: min(560px, 96vw);
-  height: var(--crown-height);
-  transform: translateX(-50%);
-  pointer-events: none;
-  overflow: visible;
-}
-
-.solar-cta__rays {
-  position: absolute;
-  left: 50%;
-  bottom: -4px;
-  width: min(440px, 108vw);
-  height: 240px;
-  transform: translateX(-50%);
-
-  background:
-    repeating-conic-gradient(
-      from -92deg at 50% 100%,
-      rgba(255, 230, 160, 0.62) 0deg,
-      transparent 2.2deg,
-      transparent 7.5deg
-    ),
-    repeating-conic-gradient(
-      from -88deg at 50% 100%,
-      rgba(255, 195, 80, 0.34) 0deg,
-      transparent 4deg,
-      transparent 11deg
-    );
-
-  mask-image: radial-gradient(
-    ellipse 74% 70% at 50% 100%,
-    #000 0%,
-    #000 26%,
-    rgba(0, 0, 0, 0.88) 42%,
-    rgba(0, 0, 0, 0.55) 56%,
-    rgba(0, 0, 0, 0.22) 68%,
-    transparent 80%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 74% 70% at 50% 100%,
-    #000 0%,
-    #000 26%,
-    rgba(0, 0, 0, 0.88) 42%,
-    rgba(0, 0, 0, 0.55) 56%,
-    rgba(0, 0, 0, 0.22) 68%,
-    transparent 80%
-  );
-  mask-repeat: no-repeat;
-  -webkit-mask-repeat: no-repeat;
-
-  opacity: 0.84;
-  filter: blur(0.8px);
-  animation: raysShimmer 4.8s ease-in-out infinite;
-}
-
-.solar-cta__sun-halo {
-  position: absolute;
-  left: 50%;
-  bottom: -6px;
-  width: 280px;
-  height: 140px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(
-    ellipse 100% 90% at 50% 100%,
-    rgba(255, 230, 180, 0.28) 0%,
-    rgba(255, 180, 90, 0.12) 42%,
-    transparent 72%
-  );
-  filter: blur(14px);
-  opacity: 0.9;
-  animation: sunHaloPulse 4.8s ease-in-out infinite;
-}
-
-.solar-cta__sun-disc {
-  position: absolute;
-  left: 50%;
-  bottom: 8px;
-  width: 186px;
-  height: 93px;
-  transform: translateX(-50%);
-  border-radius: 186px 186px 0 0;
-  background:
-    radial-gradient(
-      circle at 50% 108%,
-      #ffffff 0%,
-      #fff9d0 8%,
-      #fff0a0 16%,
-      #ffd84f 30%,
-      #ffae00 48%,
-      #ff8a00 62%,
-      rgba(255, 100, 0, 0.45) 76%,
-      transparent 82%
-    );
-  box-shadow:
-    0 0 22px 6px rgba(255, 230, 160, 0.85),
-    0 0 48px 14px rgba(255, 170, 60, 0.45),
-    0 0 90px 28px rgba(255, 110, 20, 0.22);
-  filter:
-    drop-shadow(0 0 18px rgba(255, 195, 0, 0.98))
-    drop-shadow(0 0 52px rgba(255, 110, 0, 0.82));
-  animation: sunPulse 3.2s ease-in-out infinite;
-}
-
-.solar-cta__sun {
-  position: absolute;
-  left: 50%;
-  bottom: 8px;
-  width: 1px;
-  height: 1px;
-  box-shadow:
-    0 0 50px 22px rgba(255, 220, 150, 0.35),
-    0 0 90px 42px rgba(255, 175, 70, 0.22),
-    0 0 150px 72px rgba(255, 110, 30, 0.12);
-}
-
-/* Dark pill — always on top, blocks any sun bleed */
 .solar-cta__pill {
   position: relative;
   z-index: 2;
@@ -258,6 +126,32 @@
     transform 0.25s ease,
     box-shadow 0.25s ease,
     border-color 0.25s ease;
+}
+
+.sales-cta--empowered .solar-cta__pill {
+  animation: pill-empower 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes pill-empower {
+  0% {
+    border-color: rgba(255, 190, 60, 0.95);
+    box-shadow:
+      0 0 12px rgba(255, 176, 0, 1),
+      0 0 32px rgba(255, 132, 0, 0.82),
+      0 0 64px rgba(255, 90, 0, 0.18),
+      inset 0 1px 0 rgba(255, 220, 140, 0.12),
+      inset 0 0 20px rgba(255, 176, 0, 0.2);
+  }
+
+  100% {
+    border-color: rgba(255, 230, 150, 1);
+    box-shadow:
+      0 0 18px rgba(255, 210, 80, 1),
+      0 0 48px rgba(255, 155, 0, 0.95),
+      0 0 100px rgba(255, 100, 0, 0.35),
+      inset 0 1px 0 rgba(255, 240, 180, 0.2),
+      inset 0 0 28px rgba(255, 200, 80, 0.28);
+  }
 }
 
 .solar-cta__text {
@@ -317,133 +211,17 @@
   transform: translateY(0) scale(0.985);
 }
 
-@keyframes sunPulse {
-  0%,
-  100% {
-    transform: translateX(-50%) scale(1);
-    opacity: 0.96;
-    filter:
-      drop-shadow(0 0 18px rgba(255, 195, 0, 0.98))
-      drop-shadow(0 0 52px rgba(255, 110, 0, 0.82));
-  }
-
-  50% {
-    transform: translateX(-50%) scale(1.06);
-    opacity: 1;
-    filter:
-      drop-shadow(0 0 24px rgba(255, 220, 120, 1))
-      drop-shadow(0 0 64px rgba(255, 130, 0, 0.92));
-  }
-}
-
-@keyframes sunHaloPulse {
-  0%,
-  100% {
-    opacity: 0.82;
-    transform: translateX(-50%) scale(1);
-  }
-
-  50% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1.05);
-  }
-}
-
-@keyframes raysShimmer {
-  0%,
-  100% {
-    opacity: 0.68;
-    transform: translateX(-50%) scale(1);
-    filter: blur(0.65px) brightness(0.96);
-  }
-
-  28% {
-    opacity: 0.84;
-    transform: translateX(-50%) scale(1.014);
-    filter: blur(0.5px) brightness(1.1);
-  }
-
-  52% {
-    opacity: 0.74;
-    transform: translateX(-50%) scale(1.006);
-    filter: blur(0.58px) brightness(1.02);
-  }
-
-  76% {
-    opacity: 0.88;
-    transform: translateX(-50%) scale(1.02);
-    filter: blur(0.48px) brightness(1.14);
-  }
-}
-
-@media (min-width: 768px) {
-  .hero-momentum--desktop .sales-cta:not(.sales-cta--empowered):not(.sales-cta--charging) .solar-cta__sun-disc {
-    animation: none;
-    filter:
-      drop-shadow(0 0 20px rgba(255, 195, 0, 0.95))
-      drop-shadow(0 0 48px rgba(255, 110, 0, 0.78));
-  }
-
-  .hero-momentum--desktop .solar-cta__sun-halo {
-    filter: blur(10px);
-  }
-
-  .hero-momentum--desktop .solar-cta__sun {
-    box-shadow:
-      0 0 40px 18px rgba(255, 220, 150, 0.3),
-      0 0 72px 34px rgba(255, 175, 70, 0.18);
-  }
-}
-
 @media (max-width: 520px) {
   .sales-cta {
     top: 36%;
   }
 
-  .hero-momentum--content .sales-cta,
-  .hero-momentum--empowered .sales-cta {
-    top: 36%;
-  }
-
   .solar-cta {
     --pill-height: 74px;
-    --crown-height: 108px;
   }
 
   .solar-cta__pill {
     gap: 18px;
-  }
-
-  .solar-cta__sun-disc {
-    width: 132px;
-    height: 66px;
-    border-radius: 132px 132px 0 0;
-  }
-
-  .solar-cta__rays {
-    width: min(320px, 100vw);
-    height: 180px;
-    mask-image: radial-gradient(
-      ellipse 76% 72% at 50% 100%,
-      #000 0%,
-      #000 24%,
-      rgba(0, 0, 0, 0.85) 40%,
-      rgba(0, 0, 0, 0.5) 56%,
-      transparent 78%
-    );
-    -webkit-mask-image: radial-gradient(
-      ellipse 76% 72% at 50% 100%,
-      #000 0%,
-      #000 24%,
-      rgba(0, 0, 0, 0.85) 40%,
-      rgba(0, 0, 0, 0.5) 56%,
-      transparent 78%
-    );
-  }
-
-  .solar-cta__sun-halo {
-    width: 210px;
-    height: 105px;
   }
 
   .solar-cta__text {
@@ -452,30 +230,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .solar-cta__sun-disc,
-  .solar-cta__rays,
-  .solar-cta__sun-halo,
-  .solar-cta__charge-ring,
-  .solar-cta__charge-burst {
+  .sales-cta__handoff-glow,
+  .sales-cta--forging .solar-cta__pill,
+  .sales-cta--empowered .solar-cta__pill {
     animation: none !important;
   }
 
-  .sales-cta--empowered .solar-cta__rays {
-    opacity: 0.96;
-    transform: translateX(-50%) scale(1.12);
-  }
-
-  .sales-cta--empowered .solar-cta__sun-disc {
-    transform: translateX(-50%) scale(1.08);
-  }
-
-  .sales-cta__handoff-glow {
-    animation: none;
-    opacity: 0;
-  }
-
-  .sales-cta--forging .solar-cta {
-    animation: none;
+  .sales-cta--forging .solar-cta__pill {
     opacity: 1;
     transform: none;
     filter: none;

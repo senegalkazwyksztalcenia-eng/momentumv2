@@ -5,6 +5,7 @@ import { CosmicBackground } from "./CosmicBackground";
 import { LightningLayer } from "./LightningLayer";
 import { PhantomEntity } from "./PhantomEntity";
 import { SalesCTA } from "./SalesCTA";
+import { HeroSun } from "./HeroSun";
 import "./HeroMomentum.css";
 
 export function HeroMomentum() {
@@ -32,17 +33,13 @@ export function HeroMomentum() {
         Przejdź do treści
       </a>
 
-      <CosmicBackground
-        enhanced={showContent}
-        showSunrise={showContent}
-        sunCharged={isEmpowered}
-      />
+      <CosmicBackground enhanced={showContent} showSunrise={showContent} />
       {isStorm ? <LightningLayer mega /> : null}
       <PhantomEntity visible={isStorm || isForge} dissolving={isForge} />
+      <HeroSun rising={phase === "content"} empowered={isEmpowered} />
       <SalesCTA
         visible={isForge || showContent}
         forging={isForge}
-        charging={showContent && !isEmpowered}
         empowered={isEmpowered}
       />
 
