@@ -11,6 +11,14 @@ interface Star {
   layer: "far" | "mid" | "near";
 }
 
+interface CityLight {
+  id: number;
+  left: string;
+  bottom: string;
+  size: number;
+  delay: string;
+}
+
 function generateStars(
   count: number,
   layer: Star["layer"],
@@ -27,18 +35,34 @@ function generateStars(
   }));
 }
 
-interface CosmicBackgroundProps {
-  enhanced?: boolean;
+function generateCityLights(count: number): CityLight[] {
+  return Array.from({ length: count }, (_, id) => ({
+    id,
+    left: `${8 + Math.random() * 84}%`,
+    bottom: `${4 + Math.random() * 14}%`,
+    size: Math.round((Math.random() * 1.4 + 0.6) * 10) / 10,
+    delay: `${(Math.random() * 4).toFixed(2)}s`,
+  }));
 }
 
-export function CosmicBackground({ enhanced = false }: CosmicBackgroundProps) {
+interface CosmicBackgroundProps {
+  enhanced?: boolean;
+  showSunrise?: boolean;
+}
+
+export function CosmicBackground({
+  enhanced = false,
+  showSunrise = false,
+}: CosmicBackgroundProps) {
   const farStars = useMemo(() => generateStars(120, "far", [0.4, 1.1]), []);
   const midStars = useMemo(() => generateStars(70, "mid", [0.8, 1.8]), []);
   const nearStars = useMemo(() => generateStars(35, "near", [1.4, 2.8]), []);
+  const cityLights = useMemo(() => generateCityLights(48), []);
 
   const classNames = [
     "cosmic-background",
     enhanced ? "cosmic-background--enhanced" : "",
+    showSunrise ? "cosmic-background--sunrise" : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -68,6 +92,35 @@ export function CosmicBackground({ enhanced = false }: CosmicBackgroundProps) {
       <div className="cosmic-background__nebula cosmic-background__nebula--indigo" />
       <div className="cosmic-background__dust" />
       <div className="cosmic-background__depth" />
+
+      <div
+        className={`cosmic-background__planet ${showSunrise ? "cosmic-background__planet--visible" : ""}`}
+      >
+        <div className="cosmic-background__space-light" />
+        <div className="cosmic-background__sunrise-haze" />
+        <div className="cosmic-background__sun-core" />
+        <div className="cosmic-background__sun-bloom" />
+        <div className="cosmic-background__atmosphere" />
+        <div className="cosmic-background__planet-body">
+          <div className="cosmic-background__planet-surface" />
+          <div className="cosmic-background__city-lights">
+            {cityLights.map((light) => (
+              <span
+                key={light.id}
+                className="cosmic-background__city-light"
+                style={{
+                  left: light.left,
+                  bottom: light.bottom,
+                  width: `${light.size}px`,
+                  height: `${light.size}px`,
+                  animationDelay: light.delay,
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div className="cosmic-background__stars cosmic-background__stars--far">
         {renderStars(farStars)}
       </div>

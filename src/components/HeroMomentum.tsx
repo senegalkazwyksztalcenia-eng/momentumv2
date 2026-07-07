@@ -19,7 +19,7 @@ export function HeroMomentum() {
       data-phase={phase}
       aria-label="Momentum — hero ebooka"
     >
-      <CosmicBackground enhanced={showContent} />
+      <CosmicBackground enhanced={showContent} showSunrise={showContent} />
       <LightningLayer visible={isStorm} mega={isStorm} />
       <PhantomEntity visible={isStorm} />
       <SalesCTA visible={showContent} />
