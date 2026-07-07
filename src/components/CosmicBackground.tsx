@@ -103,7 +103,7 @@ export function CosmicBackground({
           <div className="cosmic-background__sun-bloom" />
           <div className="cosmic-background__sun-core" />
           <div className="cosmic-background__planet-surface" />
-          <div className="cosmic-background__terminator" />
+          <div className="cosmic-background__horizon-blend" />
           <div className="cosmic-background__atmosphere" />
           <div className="cosmic-background__city-lights">
             {cityLights.map((light) => (

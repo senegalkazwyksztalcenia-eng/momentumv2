@@ -177,19 +177,19 @@
   position: absolute;
   left: 50%;
   top: 0;
-  width: 120vmin;
-  height: 120vmin;
+  width: 110vmin;
+  height: 110vmin;
   transform: translate(-50%, -50%) scale(0.7);
   border-radius: 50%;
   aspect-ratio: 1;
   background: radial-gradient(
     circle,
-    rgba(255, 250, 235, 0.55) 0%,
-    rgba(255, 210, 140, 0.32) 32%,
-    rgba(255, 150, 60, 0.12) 55%,
-    transparent 72%
+    rgba(255, 245, 225, 0.42) 0%,
+    rgba(255, 210, 150, 0.24) 38%,
+    rgba(255, 160, 80, 0.08) 62%,
+    transparent 78%
   );
-  filter: blur(18px);
+  filter: blur(28px);
   opacity: 0;
   z-index: 1;
   transition:
@@ -212,20 +212,20 @@
   border-radius: 50%;
   aspect-ratio: 1;
   background: radial-gradient(
-    circle,
+    circle at 50% 46%,
     #ffffff 0%,
-    #fffef8 8%,
-    #fff0c8 22%,
-    #ffd070 42%,
-    #ff9830 62%,
-    rgba(255, 80, 10, 0.45) 82%,
+    #fffaf0 14%,
+    #fff0cc 32%,
+    #ffd888 52%,
+    #ffb050 72%,
+    rgba(255, 130, 40, 0.28) 90%,
     transparent 100%
   );
   box-shadow:
-    0 0 48px rgba(255, 240, 200, 1),
-    0 0 110px rgba(255, 180, 80, 0.8),
-    0 0 190px rgba(255, 120, 40, 0.38);
-  filter: blur(0.5px);
+    0 0 36px rgba(255, 235, 200, 0.85),
+    0 0 80px rgba(255, 185, 90, 0.55),
+    0 0 140px rgba(255, 130, 50, 0.22);
+  filter: blur(1px);
   opacity: 0;
   z-index: 3;
   transition:
@@ -236,27 +236,27 @@
 .cosmic-background__planet--visible .cosmic-background__sun-core {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
-  animation: sun-pulse 7s ease-in-out infinite 2.4s;
+  animation: sun-pulse 8s ease-in-out infinite 2.4s;
 }
 
 .cosmic-background__sun-bloom {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 100vmin;
-  height: 100vmin;
+  width: 92vmin;
+  height: 92vmin;
   transform: translate(-50%, -50%) scale(0.55);
   border-radius: 50%;
   aspect-ratio: 1;
   background: radial-gradient(
     circle,
-    rgba(255, 255, 255, 0.88) 0%,
-    rgba(255, 230, 180, 0.58) 18%,
-    rgba(255, 190, 110, 0.34) 38%,
-    rgba(255, 140, 50, 0.15) 58%,
-    transparent 76%
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(255, 235, 195, 0.48) 24%,
+    rgba(255, 195, 120, 0.22) 48%,
+    rgba(255, 150, 60, 0.08) 68%,
+    transparent 84%
   );
-  filter: blur(24px);
+  filter: blur(32px);
   opacity: 0;
   z-index: 2;
   transition:
@@ -269,33 +269,29 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
-.cosmic-background__terminator {
+/* Soft dawn haze at the limb — replaces the hard terminator line. */
+.cosmic-background__horizon-blend {
   position: absolute;
-  top: 0.8%;
-  left: 4%;
-  right: 4%;
-  height: 3px;
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 140, 60, 0.55) 12%,
-    rgba(255, 200, 130, 0.75) 22%,
-    rgba(255, 248, 230, 1) 50%,
-    rgba(255, 200, 130, 0.75) 78%,
-    rgba(255, 140, 60, 0.55) 88%,
-    transparent 100%
+  top: 0;
+  left: 50%;
+  width: 130vmin;
+  height: 28vmin;
+  transform: translate(-50%, -18%);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 90% 70% at 50% 100%,
+    rgba(255, 190, 120, 0.28) 0%,
+    rgba(255, 150, 70, 0.12) 38%,
+    transparent 72%
   );
-  box-shadow:
-    0 0 16px rgba(255, 230, 180, 1),
-    0 0 36px rgba(255, 170, 80, 0.65),
-    0 0 72px rgba(255, 120, 40, 0.28);
+  filter: blur(20px);
   opacity: 0;
-  z-index: 6;
-  transition: opacity 2s ease 0.7s;
+  z-index: 5;
+  pointer-events: none;
+  transition: opacity 2.2s ease 0.65s;
 }
 
-.cosmic-background__planet--visible .cosmic-background__terminator {
+.cosmic-background__planet--visible .cosmic-background__horizon-blend {
   opacity: 1;
 }
 
@@ -305,13 +301,12 @@
   border-radius: 50%;
   background: transparent;
   box-shadow:
-    inset 0 2px 8px 1px rgba(255, 252, 245, 0.95),
-    inset 0 4px 20px 3px rgba(255, 210, 150, 0.55),
-    inset 0 8px 36px 2px rgba(255, 160, 80, 0.25),
-    0 -2px 24px rgba(255, 200, 130, 0.45),
-    0 -6px 60px rgba(255, 140, 50, 0.2);
+    inset 0 8px 36px 6px rgba(255, 210, 155, 0.32),
+    inset 0 14px 56px 10px rgba(255, 160, 85, 0.14),
+    0 -6px 48px rgba(255, 195, 130, 0.32),
+    0 -12px 90px rgba(255, 140, 55, 0.14);
   opacity: 0;
-  z-index: 5;
+  z-index: 6;
   transition: opacity 1.9s ease 0.55s;
 }
 
@@ -339,15 +334,15 @@
   z-index: 4;
   background:
     radial-gradient(
-      ellipse 120% 18% at 50% 0%,
-      rgba(255, 160, 80, 0.22) 0%,
-      rgba(255, 120, 50, 0.08) 42%,
-      transparent 72%
+      ellipse 140% 28% at 50% 0%,
+      rgba(255, 170, 90, 0.14) 0%,
+      rgba(255, 130, 60, 0.05) 55%,
+      transparent 88%
     ),
     radial-gradient(circle at 50% 24%, #0c1a30 0%, #06101f 28%, #020812 52%, #000308 100%);
   box-shadow:
-    inset 0 30px 100px rgba(0, 0, 0, 0.9),
-    inset 0 -6px 50px rgba(255, 140, 60, 0.1);
+    inset 0 36px 110px rgba(0, 0, 0, 0.88),
+    inset 0 -8px 60px rgba(255, 140, 60, 0.08);
 }
 
 .cosmic-background__city-lights {
@@ -404,18 +399,18 @@
 @keyframes sun-pulse {
   0%,
   100% {
-    filter: blur(0.5px) brightness(1);
+    filter: blur(1px) brightness(1);
     box-shadow:
-      0 0 48px rgba(255, 240, 200, 1),
-      0 0 110px rgba(255, 180, 80, 0.8),
-      0 0 190px rgba(255, 120, 40, 0.38);
+      0 0 36px rgba(255, 235, 200, 0.85),
+      0 0 80px rgba(255, 185, 90, 0.55),
+      0 0 140px rgba(255, 130, 50, 0.22);
   }
   50% {
-    filter: blur(1px) brightness(1.1);
+    filter: blur(1.5px) brightness(1.06);
     box-shadow:
-      0 0 58px rgba(255, 245, 220, 1),
-      0 0 130px rgba(255, 190, 90, 0.88),
-      0 0 220px rgba(255, 130, 50, 0.45);
+      0 0 42px rgba(255, 240, 210, 0.9),
+      0 0 92px rgba(255, 195, 100, 0.6),
+      0 0 155px rgba(255, 140, 55, 0.26);
   }
 }
 
@@ -663,7 +658,7 @@
   .cosmic-background__sun-bloom,
   .cosmic-background__sun-corona,
   .cosmic-background__atmosphere,
-  .cosmic-background__terminator {
+  .cosmic-background__horizon-blend {
     transition-duration: 0.01ms !important;
   }
 }
