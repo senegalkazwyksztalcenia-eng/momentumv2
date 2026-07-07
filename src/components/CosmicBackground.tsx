@@ -103,6 +103,7 @@ export function CosmicBackground({
         <div className="cosmic-background__sunrise-haze" />
         <div className="cosmic-background__sun-corona" />
         <div className="cosmic-background__sun-bloom" />
+        <div className="cosmic-background__sun-limb" />
         <div className="cosmic-background__sun-core" />
       </div>
 
