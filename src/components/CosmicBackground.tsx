@@ -47,12 +47,12 @@ function generateCityLights(count: number): CityLight[] {
 }
 
 interface CosmicBackgroundProps {
-  enhanced?: boolean;
+  showPlanet?: boolean;
   showSunrise?: boolean;
 }
 
 export function CosmicBackground({
-  enhanced = false,
+  showPlanet = false,
   showSunrise = false,
 }: CosmicBackgroundProps) {
   const isDesktop = useBreakpoint();
@@ -74,7 +74,7 @@ export function CosmicBackground({
   const classNames = [
     "cosmic-background",
     isDesktop ? "cosmic-background--desktop" : "",
-    enhanced ? "cosmic-background--enhanced" : "",
+    showPlanet ? "cosmic-background--predawn" : "",
     showSunrise ? "cosmic-background--sunrise" : "",
   ]
     .filter(Boolean)
@@ -111,7 +111,13 @@ export function CosmicBackground({
       />
 
       <div
-        className={`cosmic-background__planet-scene ${showSunrise ? "cosmic-background__planet-scene--active" : ""}`}
+        className={[
+          "cosmic-background__planet-scene",
+          showPlanet ? "cosmic-background__planet-scene--visible" : "",
+          showSunrise ? "cosmic-background__planet-scene--sunrise" : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
       >
         <div className="cosmic-background__planet-body">
           <div className="cosmic-background__planet-surface" />

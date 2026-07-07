@@ -1,8 +1,6 @@
 import { useHeroSequence } from "../hooks/useHeroSequence";
 import { useBreakpoint } from "../contexts/BreakpointContext";
 import { CosmicBackground } from "./CosmicBackground";
-import { LightningLayer } from "./LightningLayer";
-import { PhantomEntity } from "./PhantomEntity";
 import { SalesCTA } from "./SalesCTA";
 import { HeroSun } from "./HeroSun";
 import "./HeroMomentum.css";
@@ -11,9 +9,11 @@ export function HeroMomentum() {
   const isDesktop = useBreakpoint();
   const phase = useHeroSequence();
 
-  const isStorm = phase === "storm";
-  const showContent = phase === "content" || phase === "empowered";
+  const isNight = phase === "night";
+  const isRising = phase === "rising";
   const isEmpowered = phase === "empowered";
+  const showSun = isRising || isEmpowered;
+  const showContent = showSun;
 
   return (
     <section
@@ -29,10 +29,11 @@ export function HeroMomentum() {
         Przejdź do treści
       </a>
 
-      <CosmicBackground enhanced={showContent} showSunrise={showContent} />
-      {isStorm ? <LightningLayer mega /> : null}
-      <PhantomEntity visible={isStorm} />
-      <HeroSun rising={phase === "content"} empowered={isEmpowered} />
+      <CosmicBackground
+        showPlanet={isNight || isRising}
+        showSunrise={isRising}
+      />
+      <HeroSun rising={isRising} empowered={isEmpowered} />
       <SalesCTA visible={showContent} empowered={isEmpowered} />
 
       <header

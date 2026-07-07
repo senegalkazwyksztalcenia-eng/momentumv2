@@ -25,11 +25,11 @@
   transition: opacity 1.6s ease;
 }
 
-.hero-momentum--storm::after {
+.hero-momentum--night::after {
   display: none;
 }
 
-.hero-momentum--content::after,
+.hero-momentum--rising::after,
 .hero-momentum--empowered::after {
   opacity: 0.55;
   background:

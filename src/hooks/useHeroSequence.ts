@@ -1,23 +1,20 @@
 import { useEffect, useState } from "react";
 
-export type HeroPhase = "storm" | "content" | "empowered";
+export type HeroPhase = "night" | "rising" | "empowered";
 
 interface PhaseStep {
   phase: HeroPhase;
   at: number;
 }
 
-/**
- * Phantom stays fully visible for 5s (storm), then sun rise, then empower.
- * Phase timing is never shortened — prefers-reduced-motion only softens CSS.
- */
+/** Pre-dawn hold, then sun rise (~4.6s), then empower on CTA. */
 const SEQUENCE: PhaseStep[] = [
-  { phase: "content", at: 5000 },
-  { phase: "empowered", at: 9800 },
+  { phase: "rising", at: 2000 },
+  { phase: "empowered", at: 6800 },
 ];
 
 export function useHeroSequence(): HeroPhase {
-  const [phase, setPhase] = useState<HeroPhase>("storm");
+  const [phase, setPhase] = useState<HeroPhase>("night");
 
   useEffect(() => {
     const timers = SEQUENCE.map((step) =>
