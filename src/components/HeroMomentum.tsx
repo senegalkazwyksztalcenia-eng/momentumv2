@@ -39,12 +39,12 @@ export function HeroMomentum() {
       </header>
 
       <div className="hero-momentum__content">
-        <h1 className="hero-momentum__title">
-          Obudź energię, która już w Tobie jest.
-        </h1>
-        <p className="hero-momentum__subtitle">
-          Żywa, elektryczna aura ukryta w każdym z nas. Momentum pokazuje, jak
-          ją wydobyć, opanować i przekuć w codzienną moc działania.
+        <h1 className="hero-momentum__title">Odblokuj swój potencjał</h1>
+        <p className="hero-momentum__subtitle">na każdej płaszczyźnie życia</p>
+        <p
+          className={`hero-momentum__tagline ${showCta ? "hero-momentum__tagline--visible" : ""}`}
+        >
+          Twój Czas Nadszedł.
         </p>
         <SalesCTA visible={showCta} />
       </div>

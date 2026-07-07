@@ -1,23 +1,20 @@
 .sales-cta {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin-top: clamp(1.6rem, 4vw, 2.4rem);
+  justify-content: center;
+  margin-top: clamp(1.4rem, 3.5vw, 2rem);
 }
 
 .sales-cta__button {
   opacity: 0;
   transform: translateY(16px);
   transition:
-    opacity 700ms ease,
-    transform 700ms ease,
+    opacity 700ms ease 260ms,
+    transform 700ms ease 260ms,
     background 220ms ease,
     border-color 220ms ease,
     box-shadow 220ms ease;
   pointer-events: none;
   text-decoration: none;
-  white-space: nowrap;
 }
 
 .sales-cta--visible .sales-cta__button {
@@ -26,50 +23,75 @@
   pointer-events: auto;
 }
 
-/*
- * Minimal premium glass: semi-white at 50% opacity with a faint cosmic
- * blue sheen, frosted blur, hairline border. No neon, no heavy gradient.
- */
 .sales-cta__button--primary {
   position: relative;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 1rem 2.9rem;
-  font-size: clamp(0.98rem, 1.5vw, 1.08rem);
+  gap: 1.1rem;
+  padding: 0.95rem 1.35rem 0.95rem 1.75rem;
+  font-size: clamp(1rem, 1.6vw, 1.12rem);
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: #041022;
+  color: rgba(4, 16, 34, 0.92);
   border-radius: 999px;
   background:
     linear-gradient(
       135deg,
       rgba(255, 255, 255, 0.5) 0%,
-      rgba(226, 242, 255, 0.5) 55%,
-      rgba(205, 232, 255, 0.5) 100%
+      rgba(236, 246, 255, 0.5) 52%,
+      rgba(214, 236, 255, 0.5) 100%
     );
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.6),
-    0 10px 34px rgba(2, 6, 17, 0.45),
-    0 0 26px rgba(0, 183, 255, 0.14);
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 10px 34px rgba(2, 6, 17, 0.42),
+    0 0 28px rgba(0, 183, 255, 0.16);
   overflow: hidden;
 }
 
-/* Faint cosmic star specks inside the glass. */
 .sales-cta__button--primary::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle at 18% 32%, rgba(255, 255, 255, 0.9) 0.5px, transparent 1px),
-    radial-gradient(circle at 64% 68%, rgba(255, 255, 255, 0.8) 0.5px, transparent 1px),
-    radial-gradient(circle at 84% 26%, rgba(255, 255, 255, 0.75) 0.5px, transparent 1px),
-    radial-gradient(circle at 38% 74%, rgba(255, 255, 255, 0.7) 0.5px, transparent 1px);
-  opacity: 0.7;
+    radial-gradient(circle at 14% 28%, rgba(255, 255, 255, 0.95) 0.5px, transparent 1px),
+    radial-gradient(circle at 72% 62%, rgba(255, 255, 255, 0.85) 0.5px, transparent 1px),
+    radial-gradient(circle at 88% 22%, rgba(200, 235, 255, 0.9) 0.5px, transparent 1px),
+    radial-gradient(circle at 42% 78%, rgba(255, 255, 255, 0.75) 0.5px, transparent 1px);
+  opacity: 0.75;
   pointer-events: none;
+}
+
+.sales-cta__label {
+  position: relative;
+  z-index: 1;
+}
+
+.sales-cta__click {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding-left: 0.85rem;
+  border-left: 1px solid rgba(4, 16, 34, 0.12);
+}
+
+.sales-cta__icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  color: rgba(4, 16, 34, 0.78);
+  filter: drop-shadow(0 0 6px rgba(0, 183, 255, 0.35));
+}
+
+.sales-cta__hint {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(4, 16, 34, 0.62);
 }
 
 .sales-cta__button--primary:hover,
@@ -78,65 +100,24 @@
     linear-gradient(
       135deg,
       rgba(255, 255, 255, 0.62) 0%,
-      rgba(226, 242, 255, 0.62) 55%,
-      rgba(205, 232, 255, 0.62) 100%
+      rgba(236, 246, 255, 0.62) 52%,
+      rgba(214, 236, 255, 0.62) 100%
     );
   border-color: rgba(255, 255, 255, 0.75);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    0 12px 40px rgba(2, 6, 17, 0.5),
-    0 0 34px rgba(0, 183, 255, 0.22);
-}
-
-.sales-cta__secondary {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.85rem;
-}
-
-.sales-cta__secondary .sales-cta__button:nth-child(1) {
-  transition-delay: 140ms;
-}
-
-.sales-cta__secondary .sales-cta__button:nth-child(2) {
-  transition-delay: 260ms;
-}
-
-.sales-cta__button--ghost {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.8rem 1.7rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: rgba(240, 250, 255, 0.92);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 8px 22px rgba(2, 6, 17, 0.35);
-}
-
-.sales-cta__button--ghost:hover,
-.sales-cta__button--ghost:focus-visible {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.4);
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 12px 40px rgba(2, 6, 17, 0.48),
+    0 0 36px rgba(0, 183, 255, 0.24);
 }
 
 @media (max-width: 480px) {
   .sales-cta__button--primary {
-    padding: 0.92rem 2.2rem;
+    gap: 0.85rem;
+    padding: 0.88rem 1.1rem 0.88rem 1.45rem;
   }
 
-  .sales-cta__secondary {
-    gap: 0.7rem;
-  }
-
-  .sales-cta__button--ghost {
-    padding: 0.72rem 1.35rem;
-    font-size: 0.84rem;
+  .sales-cta__click {
+    padding-left: 0.7rem;
+    gap: 0.28rem;
   }
 }

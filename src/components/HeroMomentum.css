@@ -72,12 +72,35 @@
 }
 
 .hero-momentum__subtitle {
-  max-width: 40rem;
-  margin: 1.1rem 0 0;
-  color: rgba(232, 251, 255, 0.72);
-  font-size: clamp(0.98rem, 1.6vw, 1.15rem);
-  line-height: 1.65;
+  max-width: 28rem;
+  margin: 0.65rem 0 0;
+  color: rgba(232, 251, 255, 0.78);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  line-height: 1.5;
+  font-weight: 500;
   text-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+}
+
+.hero-momentum__tagline {
+  max-width: 20rem;
+  margin: 1.4rem 0 0;
+  font-size: clamp(1.35rem, 2.8vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.96);
+  text-shadow:
+    0 0 22px rgba(0, 183, 255, 0.35),
+    0 4px 20px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 700ms ease 120ms,
+    transform 700ms ease 120ms;
+}
+
+.hero-momentum__tagline--visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (max-width: 640px) {
