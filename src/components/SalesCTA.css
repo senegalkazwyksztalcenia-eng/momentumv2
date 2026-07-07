@@ -110,21 +110,22 @@
 /* Sun zone — anchored above the pill, never over it */
 .solar-cta__crown {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 50%;
   bottom: calc(100% - 10px);
   z-index: 0;
+  width: min(560px, 96vw);
   height: var(--crown-height);
+  transform: translateX(-50%);
   pointer-events: none;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .solar-cta__rays {
   position: absolute;
   left: 50%;
-  bottom: 0;
-  width: 360px;
-  height: 200px;
+  bottom: -4px;
+  width: min(440px, 108vw);
+  height: 240px;
   transform: translateX(-50%);
 
   background:
@@ -141,11 +142,29 @@
       transparent 11deg
     );
 
-  mask-image: linear-gradient(180deg, black 0%, black 62%, transparent 94%);
-  -webkit-mask-image: linear-gradient(180deg, black 0%, black 62%, transparent 94%);
+  mask-image: radial-gradient(
+    ellipse 74% 70% at 50% 100%,
+    #000 0%,
+    #000 26%,
+    rgba(0, 0, 0, 0.88) 42%,
+    rgba(0, 0, 0, 0.55) 56%,
+    rgba(0, 0, 0, 0.22) 68%,
+    transparent 80%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 74% 70% at 50% 100%,
+    #000 0%,
+    #000 26%,
+    rgba(0, 0, 0, 0.88) 42%,
+    rgba(0, 0, 0, 0.55) 56%,
+    rgba(0, 0, 0, 0.22) 68%,
+    transparent 80%
+  );
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
 
   opacity: 0.84;
-  filter: blur(0.6px);
+  filter: blur(0.8px);
   animation: raysShimmer 4.8s ease-in-out infinite;
 }
 
@@ -392,8 +411,24 @@
   }
 
   .solar-cta__rays {
-    width: 270px;
-    height: 150px;
+    width: min(320px, 100vw);
+    height: 180px;
+    mask-image: radial-gradient(
+      ellipse 76% 72% at 50% 100%,
+      #000 0%,
+      #000 24%,
+      rgba(0, 0, 0, 0.85) 40%,
+      rgba(0, 0, 0, 0.5) 56%,
+      transparent 78%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 76% 72% at 50% 100%,
+      #000 0%,
+      #000 24%,
+      rgba(0, 0, 0, 0.85) 40%,
+      rgba(0, 0, 0, 0.5) 56%,
+      transparent 78%
+    );
   }
 
   .solar-cta__sun-halo {
