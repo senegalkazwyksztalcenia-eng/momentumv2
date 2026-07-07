@@ -99,10 +99,12 @@ export function CosmicBackground({
         <div className="cosmic-background__space-light" />
         <div className="cosmic-background__sunrise-haze" />
         <div className="cosmic-background__planet-body">
-          <div className="cosmic-background__planet-surface" />
-          <div className="cosmic-background__atmosphere" />
+          <div className="cosmic-background__sun-corona" />
           <div className="cosmic-background__sun-bloom" />
           <div className="cosmic-background__sun-core" />
+          <div className="cosmic-background__planet-surface" />
+          <div className="cosmic-background__terminator" />
+          <div className="cosmic-background__atmosphere" />
           <div className="cosmic-background__city-lights">
             {cityLights.map((light) => (
               <span
