@@ -23,25 +23,19 @@ function buildBolts(mega: boolean, lite: boolean): Bolt[] {
     ? lite
       ? [
           { left: 0, tier: "mega" as const },
-          { left: 34, tier: "main" as const },
-          { left: 58, tier: "main" as const },
+          { left: 50, tier: "main" as const },
           { left: 92, tier: "mega" as const },
         ]
       : [
           { left: 0, tier: "mega" as const },
-          { left: 8, tier: "main" as const },
-          { left: 18, tier: "side" as const },
-          { left: 34, tier: "main" as const },
-          { left: 58, tier: "main" as const },
-          { left: 74, tier: "side" as const },
-          { left: 84, tier: "main" as const },
+          { left: 18, tier: "main" as const },
+          { left: 42, tier: "main" as const },
+          { left: 68, tier: "main" as const },
           { left: 92, tier: "mega" as const },
         ]
     : [
         { left: 2, tier: "main" as const },
-        { left: 11, tier: "side" as const },
         { left: 19, tier: "side" as const },
-        { left: 71, tier: "side" as const },
         { left: 79, tier: "main" as const },
         { left: 89, tier: "side" as const },
       ];
@@ -51,7 +45,7 @@ function buildBolts(mega: boolean, lite: boolean): Bolt[] {
     const isMega = slot.tier === "mega";
     const isMain = slot.tier === "main" || isMega;
     const geometry = generateBolt(VIEW_WIDTH, VIEW_HEIGHT, seed, {
-      branchCount: isMega ? 6 : isMain ? 5 : 3,
+      branchCount: isMega ? 4 : isMain ? 3 : 2,
       roughness: VIEW_WIDTH * (isMega ? 0.58 : isMain ? 0.5 : 0.4),
     });
     const jitter = ((seed * 7) % 10) / 3;
@@ -63,7 +57,7 @@ function buildBolts(mega: boolean, lite: boolean): Bolt[] {
       height: `${isMega ? 96 + (seed % 4) : isMain ? 78 + (seed % 14) : 52 + (seed % 22)}%`,
       width: isMega ? "24vw" : isMain ? "17vw" : "12vw",
       delay: `${(id * 0.16 + ((seed % 9) / 14)).toFixed(2)}s`,
-      duration: `${((isMega ? 0.95 : 1.5) + (seed % 12) / 6).toFixed(2)}s`,
+      duration: `${((isMega ? 1.45 : 2.2) + (seed % 12) / 4).toFixed(2)}s`,
       tier: slot.tier,
     };
   });

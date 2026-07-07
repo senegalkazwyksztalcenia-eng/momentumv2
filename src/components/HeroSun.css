@@ -19,8 +19,19 @@
 }
 
 .hero-sun--rising {
-  z-index: 1;
+  z-index: 4;
   animation: hero-sun-ascend var(--hero-sun-rise-duration) cubic-bezier(0.25, 0.46, 0.35, 0.98) forwards;
+}
+
+.hero-sun--rising .hero-sun__disc {
+  filter:
+    drop-shadow(0 0 22px rgba(255, 195, 0, 0.95))
+    drop-shadow(0 0 48px rgba(255, 120, 0, 0.75))
+    drop-shadow(0 0 80px rgba(255, 80, 0, 0.45));
+}
+
+.hero-sun--rising .hero-sun__halo {
+  opacity: 1;
 }
 
 .hero-sun--empowered {
@@ -257,21 +268,21 @@
   0% {
     top: var(--sun-rise-start-top);
     opacity: 0;
-    transform: translateX(-50%) scale(0.72);
+    transform: translateX(-50%) scale(0.78);
   }
 
-  8% {
-    opacity: 0.25;
+  6% {
+    opacity: 0.55;
   }
 
-  18% {
-    opacity: 0.7;
-  }
-
-  50% {
-    top: calc(var(--sun-rise-start-top) - 5%);
+  14% {
     opacity: 1;
-    transform: translateX(-50%) scale(0.88);
+  }
+
+  35% {
+    top: calc(var(--sun-rise-start-top) - 4%);
+    opacity: 1;
+    transform: translateX(-50%) scale(0.9);
   }
 
   100% {

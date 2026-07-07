@@ -2,6 +2,7 @@ import { useHeroSequence } from "../hooks/useHeroSequence";
 import { useBreakpoint } from "../contexts/BreakpointContext";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import { CosmicBackground } from "./CosmicBackground";
+import { LightningLayer } from "./LightningLayer";
 import { PhantomEntity } from "./PhantomEntity";
 import { SalesCTA } from "./SalesCTA";
 import { HeroSun } from "./HeroSun";
@@ -28,11 +29,12 @@ export function HeroMomentum() {
       data-phase={phase}
       aria-label="Momentum — hero ebooka"
     >
-      <a className="hero-momentum__skip" href="#odkryj">
+      <a className="hero-momentum__skip" href="#info">
         Przejdź do treści
       </a>
 
       <CosmicBackground enhanced={showContent} showSunrise={showContent} />
+      {isStorm ? <LightningLayer mega /> : null}
       <PhantomEntity visible={isStorm || isForge} dissolving={isForge} />
       <HeroSun rising={phase === "content"} empowered={isEmpowered} />
       <SalesCTA
