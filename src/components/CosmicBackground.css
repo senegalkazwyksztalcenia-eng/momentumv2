@@ -4,8 +4,8 @@
   z-index: 0;
   overflow: hidden;
   background: #010208;
-  --rise-duration: 4.2s;
-  --rise-ease: cubic-bezier(0.25, 0.46, 0.35, 0.98);
+  --rise-duration: 6s;
+  --rise-ease: cubic-bezier(0.33, 0, 0.15, 1);
 }
 
 .cosmic-background__void {
@@ -164,12 +164,14 @@
 @keyframes space-light-reveal {
   0% {
     opacity: 0;
-    transform: scaleY(0.82);
+    transform: scaleY(0.88);
   }
-  30% {
-    opacity: 1;
-    transform: scaleY(1);
+
+  45% {
+    opacity: 0.7;
+    transform: scaleY(0.98);
   }
+
   100% {
     opacity: 1;
     transform: scaleY(1);
@@ -179,7 +181,6 @@
 /* ── Sunrise: planet sinks, space warms; sun is HeroSun ── */
 
 .cosmic-background--sunrise {
-  --rise-duration: 4.6s;
   z-index: 1;
 }
 
@@ -201,7 +202,7 @@
 }
 
 .cosmic-background__planet-scene--visible {
-  animation: planet-scene-in 1.2s ease forwards;
+  animation: planet-scene-in 2s ease forwards;
 }
 
 .cosmic-background__planet-scene--sunrise .cosmic-background__planet-body {
@@ -319,7 +320,7 @@
     0 0 4px rgba(255, 200, 120, 0.9),
     0 0 10px rgba(255, 150, 60, 0.5);
   opacity: 0;
-  animation: city-twinkle 4.5s ease-in-out infinite;
+  animation: city-twinkle 7s ease-in-out infinite;
 }
 
 .cosmic-background__planet-scene--visible .cosmic-background__city-light {
@@ -328,14 +329,17 @@
 
 .cosmic-background--sunrise .cosmic-background__star--far {
   opacity: 0.32;
+  transition: opacity 2.5s ease;
 }
 
 .cosmic-background--sunrise .cosmic-background__star--mid {
   opacity: 0.55;
+  transition: opacity 2.5s ease;
 }
 
 .cosmic-background--sunrise .cosmic-background__star--near {
   opacity: 0.82;
+  transition: opacity 2.5s ease;
   box-shadow:
     0 0 6px rgba(255, 230, 200, 0.5),
     0 0 14px rgba(255, 180, 100, 0.25);
@@ -358,12 +362,12 @@
 @keyframes city-twinkle {
   0%,
   100% {
-    opacity: 0.35;
-    transform: scale(0.85);
+    opacity: 0.5;
+    transform: scale(0.92);
   }
   50% {
-    opacity: 0.95;
-    transform: scale(1.1);
+    opacity: 0.85;
+    transform: scale(1);
   }
 }
 
@@ -374,6 +378,7 @@
   animation-name: star-twinkle;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
+  transition: opacity 2s ease;
 }
 
 .cosmic-background__star--far {
@@ -577,12 +582,12 @@
 @keyframes star-twinkle {
   0%,
   100% {
-    opacity: 0.15;
-    transform: scale(0.85);
+    opacity: 0.55;
+    transform: scale(0.92);
   }
   50% {
-    opacity: 1;
-    transform: scale(1.1);
+    opacity: 0.95;
+    transform: scale(1);
   }
 }
 
@@ -602,9 +607,11 @@
     display: none;
   }
 
-  .cosmic-background:not(.cosmic-background--desktop) .cosmic-background__star--far {
+  .cosmic-background:not(.cosmic-background--desktop) .cosmic-background__star--far,
+  .cosmic-background:not(.cosmic-background--desktop) .cosmic-background__star--mid,
+  .cosmic-background:not(.cosmic-background--desktop) .cosmic-background__star--near {
     animation: none;
-    opacity: 0.2;
+    opacity: 0.35;
   }
 
   .cosmic-background:not(.cosmic-background--desktop) .cosmic-background__depth {
@@ -651,7 +658,11 @@
   }
 
   .cosmic-background--desktop .cosmic-background__star--mid {
-    animation-duration: 6s;
+    animation-duration: 12s;
+  }
+
+  .cosmic-background--desktop .cosmic-background__star--near {
+    animation-duration: 9s;
   }
 
   .cosmic-background--desktop .cosmic-background__city-light {

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useRef } from "react";
 import { useBreakpoint } from "../contexts/BreakpointContext";
 import "./CosmicBackground.css";
 
@@ -20,30 +20,61 @@ interface CityLight {
   delay: string;
 }
 
+interface StarField {
+  far: Star[];
+  mid: Star[];
+  near: Star[];
+  cityLights: CityLight[];
+}
+
+/** Deterministic positions — no re-roll on resize / re-render. */
+function seededUnit(seed: number): number {
+  const value = Math.sin(seed * 127.1 + seed * seed * 0.017) * 43758.5453;
+  return value - Math.floor(value);
+}
+
 function generateStars(
   count: number,
   layer: Star["layer"],
   sizeRange: [number, number],
+  seedOffset: number,
 ): Star[] {
-  return Array.from({ length: count }, (_, id) => ({
-    id,
-    layer,
-    top: `${Math.random() * 100}%`,
-    left: `${Math.random() * 100}%`,
-    size: Math.round((Math.random() * (sizeRange[1] - sizeRange[0]) + sizeRange[0]) * 10) / 10,
-    delay: `${(Math.random() * 8).toFixed(2)}s`,
-    duration: `${(2.5 + Math.random() * 5).toFixed(2)}s`,
-  }));
+  return Array.from({ length: count }, (_, id) => {
+    const s = seedOffset + id * 13;
+    const minDur = layer === "far" ? 10 : layer === "mid" ? 8 : 6;
+    const maxDur = layer === "far" ? 18 : layer === "mid" ? 14 : 11;
+    return {
+      id,
+      layer,
+      top: `${seededUnit(s + 1) * 100}%`,
+      left: `${seededUnit(s + 2) * 100}%`,
+      size: Math.round((seededUnit(s + 3) * (sizeRange[1] - sizeRange[0]) + sizeRange[0]) * 10) / 10,
+      delay: `${(seededUnit(s + 4) * 6).toFixed(2)}s`,
+      duration: `${(minDur + seededUnit(s + 5) * (maxDur - minDur)).toFixed(2)}s`,
+    };
+  });
 }
 
 function generateCityLights(count: number): CityLight[] {
-  return Array.from({ length: count }, (_, id) => ({
-    id,
-    left: `${8 + Math.random() * 84}%`,
-    bottom: `${4 + Math.random() * 14}%`,
-    size: Math.round((Math.random() * 1.4 + 0.6) * 10) / 10,
-    delay: `${(Math.random() * 4).toFixed(2)}s`,
-  }));
+  return Array.from({ length: count }, (_, id) => {
+    const s = 9000 + id * 17;
+    return {
+      id,
+      left: `${8 + seededUnit(s) * 84}%`,
+      bottom: `${4 + seededUnit(s + 1) * 14}%`,
+      size: Math.round((seededUnit(s + 2) * 1.4 + 0.6) * 10) / 10,
+      delay: `${(seededUnit(s + 3) * 4).toFixed(2)}s`,
+    };
+  });
+}
+
+function createStarField(): StarField {
+  return {
+    far: generateStars(52, "far", [0.4, 1.1], 100),
+    mid: generateStars(30, "mid", [0.8, 1.8], 500),
+    near: generateStars(14, "near", [1.4, 2.8], 900),
+    cityLights: generateCityLights(28),
+  };
 }
 
 interface CosmicBackgroundProps {
@@ -56,20 +87,16 @@ export function CosmicBackground({
   showSunrise = false,
 }: CosmicBackgroundProps) {
   const isDesktop = useBreakpoint();
+  const fieldRef = useRef<StarField | null>(null);
+  if (!fieldRef.current) {
+    fieldRef.current = createStarField();
+  }
+  const { far, mid, near, cityLights } = fieldRef.current;
 
-  const farStars = useMemo(
-    () => generateStars(isDesktop ? 52 : 44, "far", [0.4, 1.1]),
-    [isDesktop],
-  );
-  const midStars = useMemo(
-    () => generateStars(isDesktop ? 30 : 24, "mid", [0.8, 1.8]),
-    [isDesktop],
-  );
-  const nearStars = useMemo(
-    () => generateStars(isDesktop ? 14 : 10, "near", [1.4, 2.8]),
-    [isDesktop],
-  );
-  const cityLights = useMemo(() => generateCityLights(isDesktop ? 28 : 20), [isDesktop]);
+  const farStars = isDesktop ? far : far.slice(0, 44);
+  const midStars = isDesktop ? mid : mid.slice(0, 24);
+  const nearStars = isDesktop ? near : near.slice(0, 10);
+  const lights = isDesktop ? cityLights : cityLights.slice(0, 20);
 
   const classNames = [
     "cosmic-background",
@@ -124,7 +151,7 @@ export function CosmicBackground({
           <div className="cosmic-background__horizon-blend" />
           <div className="cosmic-background__atmosphere" />
           <div className="cosmic-background__city-lights">
-            {cityLights.map((light) => (
+            {lights.map((light) => (
               <span
                 key={light.id}
                 className="cosmic-background__city-light"

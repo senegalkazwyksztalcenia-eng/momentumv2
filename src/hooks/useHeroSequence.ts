@@ -7,10 +7,12 @@ interface PhaseStep {
   at: number;
 }
 
-/** Pre-dawn hold, then sun rise (~4.6s), then empower on CTA. */
+/** Calm pre-dawn, slow sun rise (6s), then empower. */
+export const SUN_RISE_MS = 6000;
+
 const SEQUENCE: PhaseStep[] = [
-  { phase: "rising", at: 2000 },
-  { phase: "empowered", at: 6800 },
+  { phase: "rising", at: 4000 },
+  { phase: "empowered", at: 4000 + SUN_RISE_MS + 400 },
 ];
 
 export function useHeroSequence(): HeroPhase {

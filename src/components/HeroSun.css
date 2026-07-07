@@ -1,6 +1,6 @@
 .hero-momentum {
-  --hero-sun-rise-duration: 4.2s;
-  --hero-sun-rays-delay: 0.2s;
+  --hero-sun-rise-duration: 6s;
+  --hero-sun-rays-delay: 0.35s;
   --sun-rise-disc-size: 156px;
   --sun-empowered-disc-w: 186px;
   --sun-empowered-disc-h: 93px;
@@ -20,7 +20,7 @@
 
 .hero-sun--rising {
   z-index: 4;
-  animation: hero-sun-ascend var(--hero-sun-rise-duration) cubic-bezier(0.25, 0.46, 0.35, 0.98) forwards;
+  animation: hero-sun-ascend var(--hero-sun-rise-duration) cubic-bezier(0.33, 0, 0.15, 1) forwards;
 }
 
 .hero-sun--rising .hero-sun__disc {

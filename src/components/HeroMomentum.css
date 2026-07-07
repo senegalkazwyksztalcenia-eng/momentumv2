@@ -202,7 +202,7 @@
 }
 
 .hero-momentum__content--visible .hero-momentum__title {
-  animation: content-rise 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
+  animation: content-rise 1.4s cubic-bezier(0.33, 0, 0.15, 1) 0.15s both;
 }
 
 .hero-momentum__subtitle {
@@ -216,7 +216,7 @@
 }
 
 .hero-momentum__content--visible .hero-momentum__subtitle {
-  animation: content-rise 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  animation: content-rise 1.4s cubic-bezier(0.33, 0, 0.15, 1) 0.35s both;
 }
 
 .hero-momentum__tagline {
@@ -234,7 +234,7 @@
 
 .hero-momentum__content--visible .hero-momentum__tagline {
   animation:
-    content-rise 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.34s both,
+    content-rise 1.4s cubic-bezier(0.33, 0, 0.15, 1) 0.55s both,
     tagline-pulse 4.5s ease-in-out 1.2s infinite;
 }
 
