@@ -5,11 +5,12 @@ built with React + TypeScript + Vite.
 
 ## Concept
 
-The centerpiece is **not** a human, angel, or face — it's a living blue
-energy entity built from plasma, mist, and internal lightning veins, with a
-white-blue core "heart". After a few seconds on the page, its side energy
-masses converge toward the center in a symbolic clap, a flash bursts, the
-scene fades into dramatic darkness, and the sales CTAs fade in.
+The centerpiece is a living blue lightning entity: a humanoid silhouette
+(no face, eyes, or hair) made entirely of branching electric fractal veins,
+struck by a bolt from above, with a blazing white-blue core at its chest.
+After a few seconds on the page, the entity intensifies and pulses in a
+symbolic energy clap, a flash bursts, the scene fades into dramatic
+darkness, and the sales CTAs fade in.
 
 ## Getting started
 
@@ -29,9 +30,11 @@ npm run preview  # preview the production build
   twinkling stars.
 - `LightningLayer` — irregular SVG lightning bolts that flicker from the top
   of the hero downward, layered behind the phantom.
-- `PhantomEntity` — the living blue energy entity: plasma masses, internal
-  lightning veins, a pulsing white-blue core, drifting wisps, and the
-  converge/flash "clap" animation. No face, eyes, hair, or human anatomy.
+- `PhantomEntity` — the living blue lightning humanoid: a generated,
+  alpha-keyed WebP asset (`public/phantom/phantom-lightning.webp`) layered
+  over the background/lightning, plus a pulsing white-blue core overlay
+  aligned to the figure's chest, drifting wisps, and the intensify/flash
+  "energy clap" animation. No face, eyes, or hair.
 - `DarknessOverlay` — full-hero overlay that fades from `0` to
   `~0.9` opacity after the energy clap to create the dramatic transition.
 - `SalesCTA` — glassy premium CTA buttons (`Kup Momentum`, `Poznaj ebook`,
