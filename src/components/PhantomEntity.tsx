@@ -21,7 +21,7 @@ export function PhantomEntity({ visible, dissolving = false }: PhantomEntityProp
         <div className="phantom-entity__mist" />
         <img
           className="phantom-entity__figure"
-          src="/phantom/phantom-lightning.webp"
+          src="/phantom/phantom-lightning.webp?v=natural1"
           alt=""
           width={595}
           height={1353}

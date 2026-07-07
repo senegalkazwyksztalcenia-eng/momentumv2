@@ -217,12 +217,12 @@
   z-index: 1;
   background: transparent;
   filter:
-    contrast(1.1)
-    saturate(1.18)
-    brightness(1.08)
-    drop-shadow(0 0 12px rgba(200, 245, 255, 0.38))
-    drop-shadow(0 0 24px rgba(0, 183, 255, 0.32))
-    drop-shadow(0 0 48px rgba(0, 61, 255, 0.18));
+    blur(0.35px)
+    contrast(1.02)
+    saturate(1.06)
+    brightness(1.05)
+    drop-shadow(0 0 16px rgba(200, 245, 255, 0.28))
+    drop-shadow(0 0 32px rgba(0, 183, 255, 0.18));
   transition:
     filter 600ms ease,
     opacity 1.2s ease;

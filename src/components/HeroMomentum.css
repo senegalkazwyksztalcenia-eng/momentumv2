@@ -5,6 +5,8 @@
   /* Disc bottom overlaps pill top — no visible gap */
   --sun-seat-overlap: 0px;
   --hero-sun-top: calc(var(--cta-anchor-y) - var(--pill-half) + var(--sun-seat-overlap));
+  --planet-horizon-y: 50%;
+  --sun-rise-start-top: calc(var(--planet-horizon-y) + 14%);
 
   position: relative;
   isolation: isolate;
@@ -278,6 +280,8 @@
   .hero-momentum {
     --cta-anchor-y: 36%;
     --pill-height: 74px;
+    --planet-horizon-y: 52%;
+    --sun-rise-start-top: calc(var(--planet-horizon-y) + 9%);
   }
 }
 
