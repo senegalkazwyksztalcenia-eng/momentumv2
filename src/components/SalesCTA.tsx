@@ -17,6 +17,7 @@ export function SalesCTA({ visible, forging = false }: SalesCTAProps) {
         .join(" ")}
       aria-hidden={!visible}
     >
+      {forging ? <span className="sales-cta__handoff-glow" aria-hidden="true" /> : null}
       <a
         href="#teraz"
         className="solar-cta"

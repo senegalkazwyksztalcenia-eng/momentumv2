@@ -8,13 +8,13 @@ interface PhaseStep {
 }
 
 const FULL_SEQUENCE: PhaseStep[] = [
-  { phase: "forge", at: 2200 },
-  { phase: "content", at: 3200 },
+  { phase: "forge", at: 2400 },
+  { phase: "content", at: 3650 },
 ];
 
 const REDUCED_SEQUENCE: PhaseStep[] = [
-  { phase: "forge", at: 600 },
-  { phase: "content", at: 900 },
+  { phase: "forge", at: 650 },
+  { phase: "content", at: 1000 },
 ];
 
 export function useHeroSequence(reducedMotion: boolean): HeroPhase {

@@ -27,47 +27,68 @@
 
 .phantom-entity--dissolving {
   transition: none;
-  animation: phantom-dissolve 0.95s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: phantom-dissolve 1.15s cubic-bezier(0.33, 0, 0.2, 1) forwards;
 }
 
 .phantom-entity--dissolving .phantom-entity__chest-light {
-  animation: chest-forge-flare 0.7s ease-out forwards;
+  animation: chest-forge-flare 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.phantom-entity--dissolving .phantom-entity__figure {
+  animation: phantom-figure-fade 1.15s cubic-bezier(0.33, 0, 0.2, 1) forwards;
 }
 
 @keyframes phantom-dissolve {
-  0% {
+  0%,
+  40% {
     opacity: 1;
     filter: blur(0);
     transform: translate(-50%, -50%) scale(1);
   }
-  55% {
-    opacity: 0.45;
-    filter: blur(3px);
-    transform: translate(-50%, -50%) scale(1.02);
+
+  72% {
+    opacity: 0.18;
+    filter: blur(8px);
+    transform: translate(-50%, -50%) scale(1.03);
   }
+
   100% {
     opacity: 0;
     visibility: hidden;
-    filter: blur(10px);
-    transform: translate(-50%, -50%) scale(1.06);
+    filter: blur(16px);
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+@keyframes phantom-figure-fade {
+  0%,
+  42% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }
 
 @keyframes chest-forge-flare {
-  0% {
+  0%,
+  18% {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
     filter: brightness(1);
   }
-  30% {
+
+  44% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(2.8);
-    filter: brightness(1.8) hue-rotate(25deg);
+    transform: translate(-50%, -50%) scale(3.4);
+    filter: brightness(2.1) hue-rotate(28deg) saturate(1.4);
   }
+
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(4.5);
-    filter: brightness(2) hue-rotate(35deg);
+    transform: translate(-50%, -50%) scale(5.2);
+    filter: brightness(2.4) hue-rotate(35deg) saturate(1.2);
   }
 }
 

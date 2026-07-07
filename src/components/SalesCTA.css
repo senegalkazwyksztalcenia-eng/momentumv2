@@ -20,21 +20,73 @@
 }
 
 .sales-cta--forging .solar-cta {
-  animation: solar-cta-forge 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  animation: solar-cta-forge 0.67s cubic-bezier(0.22, 1, 0.36, 1) 0.48s forwards;
+}
+
+.sales-cta--visible:not(.sales-cta--forging) .solar-cta {
+  opacity: 1;
+  transform: scale(1);
+  filter: none;
+}
+
+.sales-cta__handoff-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 220px;
+  height: 220px;
+  transform: translate(-50%, -50%) scale(0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    circle,
+    rgba(255, 245, 210, 0.95) 0%,
+    rgba(255, 200, 90, 0.55) 28%,
+    rgba(255, 140, 40, 0.18) 52%,
+    transparent 72%
+  );
+  filter: blur(6px);
+  opacity: 0;
+  animation: sales-cta-handoff 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes sales-cta-handoff {
+  0%,
+  34% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.35);
+  }
+
+  48% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.85);
+  }
 }
 
 @keyframes solar-cta-forge {
   0% {
     opacity: 0;
-    transform: scale(0.12);
+    transform: scale(0.28);
+    filter: blur(10px);
   }
-  35% {
-    opacity: 1;
-    transform: scale(1.08);
+
+  55% {
+    opacity: 0.9;
+    transform: scale(1.04);
+    filter: blur(2px);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
+    filter: blur(0);
   }
 }
 
@@ -261,9 +313,15 @@
     animation: none !important;
   }
 
+  .sales-cta__handoff-glow {
+    animation: none;
+    opacity: 0;
+  }
+
   .sales-cta--forging .solar-cta {
     animation: none;
     opacity: 1;
     transform: none;
+    filter: none;
   }
 }
