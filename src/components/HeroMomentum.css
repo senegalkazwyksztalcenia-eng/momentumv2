@@ -1,15 +1,8 @@
 .hero-momentum {
-  --cta-anchor-y: 38%;
+  --cta-anchor-y: 42%;
   --pill-height: 92px;
   --pill-half: calc(var(--pill-height) / 2);
-  /* Disc bottom overlaps pill top — no visible gap */
-  --sun-seat-overlap: 0px;
-  --hero-sun-top: calc(var(--cta-anchor-y) - var(--pill-half) + var(--sun-seat-overlap));
-  --predawn-duration: 1.8s;
-  --rise-duration: 3s;
-  --hero-sun-rise-duration: var(--rise-duration);
-  --rise-motion-ease: linear;
-  --rise-ease: cubic-bezier(0.44, 0, 0.24, 1);
+  --bulb-sequence-ms: 4800ms;
 
   position: relative;
   isolation: isolate;
@@ -28,26 +21,29 @@
   transition: opacity 1.6s ease;
 }
 
-.hero-momentum--night::after {
+.hero-momentum--off::after {
   display: none;
 }
 
-.hero-momentum--rising::after {
-  opacity: 0.14;
-  transition: opacity 3.6s var(--rise-ease);
-  background:
-    radial-gradient(ellipse 90% 80% at 50% 48%, transparent 52%, rgba(12, 18, 32, 0.12) 100%),
-    radial-gradient(circle at 50% 62%, rgba(255, 195, 155, 0.08), transparent 62%),
-    linear-gradient(180deg, rgba(30, 45, 80, 0.06) 0%, transparent 42%);
+.hero-momentum--flicker::after {
+  opacity: 0.06;
+  background: radial-gradient(circle at 50% 42%, rgba(255, 180, 100, 0.06), transparent 58%);
 }
 
-.hero-momentum--empowered::after {
-  opacity: 0.32;
-  transition: opacity 2.4s var(--rise-ease);
+.hero-momentum--warming::after {
+  opacity: 0.14;
+  transition: opacity 1.8s ease;
   background:
-    radial-gradient(ellipse 90% 76% at 50% 40%, transparent 44%, rgba(12, 18, 32, 0.16) 100%),
-    radial-gradient(circle at 50% 36%, rgba(255, 205, 165, 0.1), transparent 54%),
-    linear-gradient(180deg, rgba(35, 50, 85, 0.05) 0%, transparent 38%);
+    radial-gradient(ellipse 70% 60% at 50% 40%, rgba(255, 200, 130, 0.1), transparent 62%),
+    radial-gradient(circle at 50% 42%, rgba(255, 170, 90, 0.06), transparent 55%);
+}
+
+.hero-momentum--lit::after {
+  opacity: 0.28;
+  transition: opacity 2s ease;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 38%, rgba(255, 210, 150, 0.14), transparent 58%),
+    radial-gradient(circle at 50% 40%, rgba(255, 190, 120, 0.08), transparent 52%);
 }
 
 .hero-momentum__skip {
@@ -91,8 +87,8 @@
     transform 1.1s cubic-bezier(0.37, 0, 0.13, 1);
 }
 
-.hero-momentum--rising .hero-momentum__header--visible {
-  transition-delay: 0s;
+.hero-momentum--lit .hero-momentum__header--visible {
+  transition-delay: 0.2s;
 }
 
 .hero-momentum__header--visible {
@@ -147,8 +143,8 @@
     transform 1.1s cubic-bezier(0.37, 0, 0.13, 1);
 }
 
-.hero-momentum--rising .hero-momentum__content--visible {
-  transition-delay: 0s;
+.hero-momentum--lit .hero-momentum__content--visible {
+  transition-delay: 0.35s;
 }
 
 .hero-momentum__content--visible {
@@ -289,7 +285,7 @@
 
 @media (max-width: 520px) {
   .hero-momentum {
-    --cta-anchor-y: 36%;
+    --cta-anchor-y: 40%;
     --pill-height: 74px;
   }
 }

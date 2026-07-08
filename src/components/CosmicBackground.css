@@ -104,11 +104,7 @@
 
 /* Sun emerges at the CTA button — above planet layer */
 .cosmic-background__sun-well {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-  overflow: visible;
+  display: none;
 }
 
 /* ── Sunrise: planet sinks, space warms; sun is HeroSun ── */
@@ -216,32 +212,29 @@
 }
 
 .cosmic-background__planet-scene--visible {
-  animation: planet-scene-in 1.4s ease forwards;
+  animation: planet-scene-in 1.6s ease forwards;
 }
 
 @keyframes planet-scene-in {
   from {
     opacity: 0;
-    transform: scale(0.96);
   }
 
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
 .cosmic-background__planet-body {
-  --planet-size: min(58vmin, 520px);
+  --planet-size: 248vmin;
   position: absolute;
   left: 50%;
-  top: clamp(4.5rem, 11vh, 7rem);
+  bottom: calc(var(--planet-size) * -0.74);
   width: var(--planet-size);
   height: var(--planet-size);
   transform: translateX(-50%);
   border-radius: 50%;
   overflow: visible;
-  filter: drop-shadow(0 24px 80px rgba(0, 0, 0, 0.55));
 }
 
 .cosmic-background__planet-surface {
@@ -249,84 +242,51 @@
   inset: 0;
   border-radius: 50%;
   overflow: hidden;
-  background-color: #020812;
+  background-color: #010208;
   background:
-    radial-gradient(ellipse 36% 28% at 68% 38%, rgba(34, 92, 58, 0.42) 0%, transparent 72%),
-    radial-gradient(ellipse 28% 22% at 58% 62%, rgba(42, 78, 110, 0.35) 0%, transparent 70%),
-    radial-gradient(ellipse 24% 18% at 74% 54%, rgba(58, 96, 52, 0.28) 0%, transparent 68%),
-    radial-gradient(circle at 62% 44%, #14304a 0%, #0a1a2c 34%, #040c18 58%, #010308 100%);
+    radial-gradient(ellipse 38% 22% at 72% 8%, rgba(90, 150, 220, 0.18) 0%, transparent 72%),
+    radial-gradient(ellipse 140% 28% at 50% 0%, rgba(255, 170, 90, 0.08) 0%, rgba(255, 130, 60, 0.03) 55%, transparent 88%),
+    radial-gradient(circle at 50% 24%, #0c1a30 0%, #06101f 28%, #020812 52%, #000308 100%);
   box-shadow:
-    inset -18px -24px 80px rgba(0, 0, 0, 0.72),
-    inset 12px 16px 48px rgba(90, 150, 210, 0.08);
+    inset 0 36px 110px rgba(0, 0, 0, 0.92),
+    inset 0 -8px 60px rgba(255, 140, 60, 0.05);
+  transition: box-shadow 2s ease;
 }
 
-.cosmic-background__planet-day {
+.cosmic-background__planet-limb {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 50%;
+  width: 130vmin;
+  height: 28vmin;
+  transform: translate(-50%, -18%);
   border-radius: 50%;
   background: radial-gradient(
-    circle at 72% 42%,
-    rgba(120, 185, 255, 0.22) 0%,
-    rgba(60, 120, 200, 0.08) 34%,
-    transparent 62%
+    ellipse 90% 70% at 50% 100%,
+    rgba(120, 190, 255, 0.12) 0%,
+    rgba(80, 150, 230, 0.06) 38%,
+    transparent 72%
   );
-  opacity: 0.9;
+  filter: blur(18px);
+  opacity: 0.35;
   pointer-events: none;
-}
-
-.cosmic-background__planet-night {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: linear-gradient(
-    108deg,
-    rgba(0, 0, 0, 0.92) 0%,
-    rgba(0, 0, 0, 0.78) 34%,
-    rgba(0, 0, 0, 0.18) 52%,
-    transparent 64%
-  );
-  pointer-events: none;
-}
-
-.cosmic-background__planet-terminator {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: linear-gradient(
-    102deg,
-    transparent 38%,
-    rgba(120, 190, 255, 0.14) 46%,
-    rgba(180, 220, 255, 0.08) 50%,
-    transparent 58%
-  );
-  filter: blur(3px);
-  pointer-events: none;
+  transition: opacity 2s ease;
 }
 
 .cosmic-background__atmosphere {
   position: absolute;
-  inset: -1.5%;
+  inset: 0;
   border-radius: 50%;
   background: transparent;
   box-shadow:
-    inset 0 0 28px rgba(120, 190, 255, 0.12),
-    0 0 18px rgba(100, 170, 255, 0.18),
-    0 0 42px rgba(80, 140, 255, 0.1);
-  opacity: 0.95;
-}
-
-.cosmic-background__planet-scene--visible .cosmic-background__atmosphere {
-  animation: planet-atmo-in 1.6s ease 0.2s both;
-}
-
-@keyframes planet-atmo-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 0.95;
-  }
+    inset 0 8px 36px 6px rgba(100, 170, 255, 0.1),
+    inset 0 14px 56px 10px rgba(80, 140, 220, 0.06),
+    0 -6px 48px rgba(100, 180, 255, 0.14),
+    0 -12px 90px rgba(60, 120, 220, 0.08);
+  opacity: 0.6;
+  transition:
+    opacity 2s ease,
+    box-shadow 2s ease;
 }
 
 .cosmic-background__city-lights {
@@ -334,42 +294,97 @@
   inset: 0;
   border-radius: 50%;
   overflow: hidden;
-  mask-image: radial-gradient(circle at 50% 50%, #000 68%, transparent 69%);
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 68%, transparent 69%);
 }
 
 .cosmic-background__city-light {
   position: absolute;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(255, 210, 130, 0.95);
+  background: rgba(255, 200, 110, 0.9);
   box-shadow:
     0 0 3px rgba(255, 220, 160, 1),
-    0 0 8px rgba(255, 180, 90, 0.85),
-    0 0 16px rgba(255, 140, 50, 0.45);
-  opacity: 0.82;
-  animation: city-twinkle 6s ease-in-out infinite;
+    0 0 8px rgba(255, 170, 80, 0.75),
+    0 0 14px rgba(255, 130, 40, 0.35);
+  opacity: 0;
+  transition: opacity 1.4s ease;
+  animation: city-twinkle 7s ease-in-out infinite;
 }
 
 .cosmic-background__city-light--cluster {
   border-radius: 999px;
+  transform: translateY(50%);
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 200, 110, 0.85) 18%,
+    rgba(255, 190, 90, 0.8) 20%,
     rgba(255, 230, 170, 0.95) 50%,
-    rgba(255, 190, 90, 0.8) 82%,
+    rgba(255, 180, 80, 0.75) 80%,
     transparent 100%
   );
   box-shadow:
-    0 0 6px rgba(255, 200, 120, 0.9),
-    0 0 14px rgba(255, 160, 70, 0.55);
-  opacity: 0.88;
-  filter: blur(0.4px);
+    0 0 5px rgba(255, 200, 120, 0.85),
+    0 0 12px rgba(255, 150, 60, 0.5);
 }
 
-.cosmic-background__planet-scene--visible .cosmic-background__city-light {
-  opacity: 0.82;
+/* Planet syncs with bulb phases (storyboard) */
+.cosmic-background__planet-scene--off .cosmic-background__city-light {
+  opacity: 0;
+}
+
+.cosmic-background__planet-scene--off .cosmic-background__planet-limb {
+  opacity: 0.2;
+}
+
+.cosmic-background__planet-scene--flicker .cosmic-background__city-light {
+  opacity: 0.12;
+}
+
+.cosmic-background__planet-scene--flicker .cosmic-background__planet-limb {
+  opacity: 0.35;
+}
+
+.cosmic-background__planet-scene--warming .cosmic-background__city-light {
+  opacity: 0.52;
+}
+
+.cosmic-background__planet-scene--warming .cosmic-background__planet-limb {
+  opacity: 0.55;
+}
+
+.cosmic-background__planet-scene--warming .cosmic-background__atmosphere {
+  opacity: 0.75;
+  box-shadow:
+    inset 0 8px 40px 7px rgba(120, 190, 255, 0.16),
+    0 -8px 56px rgba(100, 180, 255, 0.2),
+    0 -14px 100px rgba(80, 150, 255, 0.1);
+}
+
+.cosmic-background__planet-scene--lit .cosmic-background__city-light {
+  opacity: 0.88;
+}
+
+.cosmic-background__planet-scene--lit .cosmic-background__planet-limb {
+  opacity: 0.85;
+  background: radial-gradient(
+    ellipse 90% 70% at 50% 100%,
+    rgba(140, 210, 255, 0.28) 0%,
+    rgba(100, 170, 255, 0.14) 40%,
+    transparent 74%
+  );
+}
+
+.cosmic-background__planet-scene--lit .cosmic-background__atmosphere {
+  opacity: 1;
+  box-shadow:
+    inset 0 8px 42px 8px rgba(130, 200, 255, 0.22),
+    inset 0 14px 64px 12px rgba(100, 170, 255, 0.12),
+    0 -8px 58px rgba(120, 200, 255, 0.28),
+    0 -16px 110px rgba(90, 160, 255, 0.14);
+}
+
+.cosmic-background__planet-scene--lit .cosmic-background__planet-surface {
+  box-shadow:
+    inset 0 36px 110px rgba(0, 0, 0, 0.88),
+    inset 0 -10px 70px rgba(255, 150, 70, 0.1);
 }
 
 .cosmic-background--sunrise .cosmic-background__star--far {
@@ -644,11 +659,6 @@
 
 /* Mobile: lighter compositing than full desktop effects */
 @media (max-width: 767px) {
-  .cosmic-background__planet-body {
-    --planet-size: min(68vmin, 360px);
-    top: clamp(3.25rem, 7vh, 5rem);
-  }
-
   .cosmic-background:not(.cosmic-background--desktop) .cosmic-background__nebula {
     filter: blur(40px);
     opacity: 0.36;

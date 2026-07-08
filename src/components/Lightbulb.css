@@ -1,0 +1,441 @@
+.lightbulb {
+  --bulb-w: clamp(52px, 9vw, 72px);
+  --bulb-h: calc(var(--bulb-w) * 1.38);
+  position: relative;
+  display: block;
+  width: var(--bulb-w);
+  height: calc(var(--bulb-h) + 22px);
+  margin: 0 auto -10px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.lightbulb__aura {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: calc(var(--bulb-w) * 2.8);
+  height: calc(var(--bulb-w) * 2.8);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 235, 180, 0.55) 0%,
+    rgba(255, 200, 100, 0.22) 32%,
+    transparent 68%
+  );
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 1.2s ease;
+}
+
+.lightbulb__rays {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  width: calc(var(--bulb-w) * 3.2);
+  height: calc(var(--bulb-w) * 3.2);
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 240, 200, 0.14) 8deg,
+    transparent 16deg,
+    transparent 30deg,
+    rgba(255, 230, 170, 0.1) 38deg,
+    transparent 48deg,
+    transparent 100%
+  );
+  border-radius: 50%;
+  opacity: 0;
+  filter: blur(2px);
+  transition: opacity 1s ease;
+}
+
+.lightbulb__glass {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: var(--bulb-w);
+  height: var(--bulb-h);
+  transform: translateX(-50%);
+  border-radius: 48% 48% 44% 44% / 58% 58% 42% 42%;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.04) 28%,
+      transparent 52%
+    ),
+    radial-gradient(ellipse 80% 70% at 50% 62%, rgba(255, 255, 255, 0.06) 0%, transparent 72%),
+    rgba(18, 20, 28, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 -8px 18px rgba(0, 0, 0, 0.28),
+    inset 0 6px 12px rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.lightbulb__glass-shine {
+  position: absolute;
+  top: 10%;
+  left: 18%;
+  width: 22%;
+  height: 38%;
+  border-radius: 50%;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.55), transparent 72%);
+  filter: blur(0.5px);
+}
+
+.lightbulb__fill {
+  position: absolute;
+  inset: 8%;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at 50% 68%,
+    rgba(255, 220, 140, 0) 0%,
+    rgba(255, 200, 100, 0) 55%,
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.lightbulb__stem {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  width: 3px;
+  height: 22%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(200, 200, 210, 0.5), rgba(120, 120, 130, 0.7));
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+.lightbulb__filament {
+  position: absolute;
+  left: 50%;
+  bottom: 24%;
+  width: 38%;
+  height: 30%;
+  transform: translateX(-50%);
+}
+
+.lightbulb__filament-coil {
+  position: absolute;
+  inset: 0;
+  border: 2px solid transparent;
+  border-bottom: none;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  box-shadow:
+    inset 0 0 0 1.5px rgba(90, 75, 60, 0.85),
+    0 0 0 1px rgba(70, 58, 45, 0.6);
+  opacity: 0.55;
+  filter: brightness(0.55);
+  transition:
+    opacity 0.4s ease,
+    filter 0.4s ease,
+    box-shadow 0.5s ease;
+}
+
+.lightbulb__filament-coil::before,
+.lightbulb__filament-coil::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 1.5px;
+  height: 55%;
+  background: linear-gradient(180deg, rgba(80, 68, 55, 0.8), rgba(50, 42, 35, 0.9));
+}
+
+.lightbulb__filament-coil::before {
+  left: 22%;
+  transform: rotate(-8deg);
+}
+
+.lightbulb__filament-coil::after {
+  right: 22%;
+  transform: rotate(8deg);
+}
+
+.lightbulb__neck {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--bulb-h) - 4px);
+  width: calc(var(--bulb-w) * 0.36);
+  height: 8px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(200, 200, 210, 0.35), rgba(140, 140, 150, 0.55));
+  border-radius: 0 0 3px 3px;
+}
+
+.lightbulb__base {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--bulb-h) + 2px);
+  width: calc(var(--bulb-w) * 0.48);
+  height: 20px;
+  transform: translateX(-50%);
+  border-radius: 3px 3px 5px 5px;
+  background: linear-gradient(
+    180deg,
+    #d4a84a 0%,
+    #c9942e 18%,
+    #b88428 42%,
+    #a67422 68%,
+    #8a5e18 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 230, 160, 0.45),
+    inset 0 -3px 6px rgba(60, 40, 10, 0.45),
+    0 2px 4px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.lightbulb__threads {
+  position: absolute;
+  inset: 2px 3px 5px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255, 220, 140, 0.22) 0px,
+    rgba(255, 220, 140, 0.22) 2px,
+    rgba(100, 70, 20, 0.35) 2px,
+    rgba(100, 70, 20, 0.35) 4px
+  );
+  border-radius: 2px;
+}
+
+.lightbulb__tip {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 62%;
+  height: 5px;
+  transform: translateX(-50%);
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(180deg, #3a3a3a, #1a1a1a);
+}
+
+/* ── Phase: off ── */
+.lightbulb--off .lightbulb__filament-coil {
+  opacity: 0.45;
+  filter: brightness(0.4);
+}
+
+/* ── Phase: flicker ── */
+.lightbulb--flicker .lightbulb__filament-coil {
+  animation: bulb-filament-flicker 2.4s ease-in-out infinite;
+}
+
+.lightbulb--flicker .lightbulb__fill {
+  opacity: 0.08;
+  animation: bulb-fill-flicker 2.4s ease-in-out infinite;
+}
+
+@keyframes bulb-filament-flicker {
+  0%,
+  100% {
+    opacity: 0.35;
+    filter: brightness(0.45);
+    box-shadow:
+      inset 0 0 0 1.5px rgba(90, 75, 60, 0.85),
+      0 0 4px rgba(255, 140, 40, 0.15);
+  }
+
+  8% {
+    opacity: 0.9;
+    filter: brightness(1.4);
+    box-shadow:
+      inset 0 0 0 1.5px rgba(255, 200, 120, 0.9),
+      0 0 10px rgba(255, 160, 60, 0.55);
+  }
+
+  14% {
+    opacity: 0.25;
+    filter: brightness(0.35);
+  }
+
+  22% {
+    opacity: 0.75;
+    filter: brightness(1.1);
+    box-shadow:
+      inset 0 0 0 1.5px rgba(255, 190, 110, 0.8),
+      0 0 8px rgba(255, 150, 50, 0.4);
+  }
+
+  30%,
+  38% {
+    opacity: 0.3;
+    filter: brightness(0.4);
+  }
+
+  48% {
+    opacity: 0.85;
+    filter: brightness(1.25);
+  }
+
+  56% {
+    opacity: 0.4;
+    filter: brightness(0.55);
+  }
+
+  68% {
+    opacity: 0.95;
+    filter: brightness(1.5);
+    box-shadow:
+      inset 0 0 0 1.5px rgba(255, 210, 130, 0.95),
+      0 0 14px rgba(255, 170, 70, 0.6);
+  }
+
+  78% {
+    opacity: 0.55;
+    filter: brightness(0.7);
+  }
+}
+
+@keyframes bulb-fill-flicker {
+  0%,
+  100% {
+    opacity: 0.04;
+  }
+
+  48%,
+  68% {
+    opacity: 0.18;
+  }
+}
+
+/* ── Phase: warming ── */
+.lightbulb--warming .lightbulb__filament-coil {
+  opacity: 1;
+  filter: brightness(1.6);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255, 220, 150, 1),
+    0 0 18px rgba(255, 180, 80, 0.75);
+  animation: bulb-filament-warm 1.8s ease-in-out infinite;
+}
+
+.lightbulb--warming .lightbulb__fill {
+  opacity: 0.55;
+  background: radial-gradient(
+    circle at 50% 68%,
+    rgba(255, 240, 200, 0.75) 0%,
+    rgba(255, 200, 110, 0.45) 42%,
+    rgba(255, 160, 60, 0.15) 68%,
+    transparent 82%
+  );
+}
+
+.lightbulb--warming .lightbulb__glass {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.28) 0%, transparent 32%),
+    radial-gradient(ellipse 80% 70% at 50% 62%, rgba(255, 220, 150, 0.35) 0%, rgba(255, 180, 90, 0.12) 55%, transparent 78%),
+    rgba(255, 200, 120, 0.15);
+  box-shadow:
+    inset 0 -8px 18px rgba(255, 140, 40, 0.12),
+    0 0 24px rgba(255, 180, 90, 0.25);
+}
+
+.lightbulb--warming .lightbulb__aura {
+  opacity: 0.35;
+}
+
+@keyframes bulb-filament-warm {
+  0%,
+  100% {
+    filter: brightness(1.45);
+  }
+
+  50% {
+    filter: brightness(1.75);
+  }
+}
+
+/* ── Phase: lit ── */
+.lightbulb--lit .lightbulb__filament-coil {
+  opacity: 1;
+  filter: brightness(2.2);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255, 245, 220, 1),
+    0 0 22px rgba(255, 220, 150, 0.95);
+  animation: none;
+}
+
+.lightbulb--lit .lightbulb__fill {
+  opacity: 1;
+  background: radial-gradient(
+    circle at 50% 65%,
+    rgba(255, 252, 240, 0.95) 0%,
+    rgba(255, 235, 180, 0.82) 28%,
+    rgba(255, 200, 100, 0.55) 52%,
+    rgba(255, 160, 50, 0.2) 72%,
+    transparent 86%
+  );
+}
+
+.lightbulb--lit .lightbulb__glass {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.42) 0%, transparent 30%),
+    radial-gradient(ellipse 85% 75% at 50% 60%, rgba(255, 245, 210, 0.65) 0%, rgba(255, 210, 120, 0.35) 50%, transparent 78%),
+    rgba(255, 220, 150, 0.22);
+  border-color: rgba(255, 240, 200, 0.35);
+  box-shadow:
+    inset 0 -6px 14px rgba(255, 160, 50, 0.15),
+    0 0 36px rgba(255, 200, 100, 0.55),
+    0 0 72px rgba(255, 160, 50, 0.28);
+}
+
+.lightbulb--lit .lightbulb__aura {
+  opacity: 0.85;
+  animation: bulb-aura-breathe 5s ease-in-out infinite;
+}
+
+.lightbulb--lit .lightbulb__rays {
+  opacity: 0.55;
+  animation: bulb-rays-slow 8s linear infinite;
+}
+
+@keyframes bulb-aura-breathe {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    opacity: 0.92;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
+
+@keyframes bulb-rays-slow {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbulb--flicker .lightbulb__filament-coil,
+  .lightbulb--flicker .lightbulb__fill,
+  .lightbulb--warming .lightbulb__filament-coil,
+  .lightbulb--lit .lightbulb__aura,
+  .lightbulb--lit .lightbulb__rays {
+    animation: none !important;
+  }
+
+  .lightbulb--flicker .lightbulb__filament-coil,
+  .lightbulb--warming .lightbulb__filament-coil,
+  .lightbulb--lit .lightbulb__filament-coil {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+
+  .lightbulb--lit .lightbulb__fill {
+    opacity: 0.9;
+  }
+
+  .lightbulb--lit .lightbulb__aura {
+    opacity: 0.7;
+  }
+}

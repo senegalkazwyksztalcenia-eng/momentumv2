@@ -2,15 +2,13 @@ import { useHeroSequence } from "../hooks/useHeroSequence";
 import { useBreakpoint } from "../contexts/BreakpointContext";
 import { CosmicBackground } from "./CosmicBackground";
 import { SalesCTA } from "./SalesCTA";
-import { HeroSun } from "./HeroSun";
 import "./HeroMomentum.css";
 
 export function HeroMomentum() {
   const isDesktop = useBreakpoint();
   const phase = useHeroSequence();
 
-  const isEmpowered = phase === "empowered";
-  const showContent = isEmpowered;
+  const showContent = phase === "lit";
 
   return (
     <section
@@ -26,10 +24,8 @@ export function HeroMomentum() {
         Przejdź do treści
       </a>
 
-      <CosmicBackground showPlanet showSunrise={false}>
-        <HeroSun phase={phase} />
-      </CosmicBackground>
-      <SalesCTA visible={true} empowered={isEmpowered} />
+      <CosmicBackground showPlanet bulbPhase={phase} />
+      <SalesCTA phase={phase} />
 
       <header
         className={`hero-momentum__header ${showContent ? "hero-momentum__header--visible" : ""}`}

@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
 
-export type HeroPhase = "night" | "rising" | "empowered";
+/** Bulb sequence: off → flicker → warming → lit (storyboard ~5s). */
+export type HeroPhase = "off" | "flicker" | "warming" | "lit";
 
 interface PhaseStep {
   phase: HeroPhase;
   at: number;
 }
 
-/** Button visible from load; sun rises after a short beat. */
-export const PREDAWN_MS = 1800;
-export const SUN_RISE_MS = 3000;
+export const FLICKER_START_MS = 1200;
+export const WARMING_START_MS = 2600;
+export const LIT_START_MS = 4800;
 
 const SEQUENCE: PhaseStep[] = [
-  { phase: "rising", at: PREDAWN_MS },
-  { phase: "empowered", at: PREDAWN_MS + SUN_RISE_MS + 120 },
+  { phase: "flicker", at: FLICKER_START_MS },
+  { phase: "warming", at: WARMING_START_MS },
+  { phase: "lit", at: LIT_START_MS },
 ];
 
 export function useHeroSequence(): HeroPhase {
-  const [phase, setPhase] = useState<HeroPhase>("night");
+  const [phase, setPhase] = useState<HeroPhase>("off");
 
   useEffect(() => {
     const timers = SEQUENCE.map((step) =>
