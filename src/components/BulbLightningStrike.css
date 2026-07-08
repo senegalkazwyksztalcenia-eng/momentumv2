@@ -3,7 +3,7 @@
   top: 0;
   left: 50%;
   z-index: 6;
-  width: min(340px, 52vw);
+  width: min(320px, 48vw);
   height: var(--strike-target-y);
   transform: translateX(-50%);
   pointer-events: none;
@@ -17,136 +17,99 @@
   overflow: visible;
 }
 
-.bulb-strike__aura {
+/* Ionized-air halo — faint, wide */
+.bulb-strike__halo {
   fill: none;
-  stroke: url(#bolt-violet-grad);
-  stroke-width: calc(12px + var(--fork-intensity, 1) * 16px);
+  stroke: rgba(178, 198, 222, 0.32);
+  stroke-width: calc(5px + var(--fork-intensity, 1) * 7px);
   stroke-linecap: round;
-  stroke-linejoin: miter;
-  stroke-miterlimit: 3;
+  stroke-linejoin: round;
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
   opacity: 0;
-  filter: url(#bolt-aura-filter);
+  filter: url(#bolt-halo-filter);
   animation:
-    bolt-draw var(--strike-duration, 1.15s) cubic-bezier(0.62, 0, 0.9, 0.35) forwards,
-    bolt-aura-flicker var(--strike-duration, 1.15s) step-end forwards;
+    bolt-draw var(--strike-duration, 1.15s) cubic-bezier(0.45, 0, 0.2, 1) forwards,
+    bolt-halo-pulse var(--strike-duration, 1.15s) ease-in-out forwards;
   animation-delay: calc(var(--strike-duration, 1.15s) * var(--fork-delay, 0));
 }
 
-.bulb-strike__aura--fork {
-  stroke-width: calc(3px + var(--fork-intensity, 0.5) * 8px);
-  stroke: rgba(140, 165, 230, 0.42);
+.bulb-strike__halo--fork {
+  stroke-width: calc(1.5px + var(--fork-intensity, 0.5) * 3.5px);
+  stroke: rgba(185, 205, 228, 0.22);
   animation:
-    bolt-branch-draw var(--strike-duration, 1.15s) cubic-bezier(0.5, 0, 0.85, 0.4) forwards,
-    bolt-aura-flicker var(--strike-duration, 1.15s) step-end forwards;
+    bolt-branch-draw var(--strike-duration, 1.15s) ease-out forwards,
+    bolt-halo-pulse var(--strike-duration, 1.15s) ease-in-out forwards;
   animation-delay: calc(var(--strike-duration, 1.15s) * var(--fork-delay, 0));
 }
 
-.bulb-strike__aura--twig {
-  stroke-width: calc(1px + var(--fork-intensity, 0.3) * 3.5px);
-  stroke: rgba(150, 175, 235, 0.32);
+.bulb-strike__halo--twig {
+  stroke-width: calc(1px + var(--fork-intensity, 0.3) * 2px);
+  stroke: rgba(195, 212, 232, 0.2);
   filter: url(#bolt-thread-filter);
 }
 
-.bulb-strike__corona {
-  fill: none;
-  stroke: rgba(176, 196, 222, 0.88);
-  stroke-width: calc(5px + var(--fork-intensity, 1) * 8px);
-  stroke-linecap: round;
-  stroke-linejoin: miter;
-  stroke-miterlimit: 3;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  opacity: 0;
-  filter: url(#bolt-blue-filter);
-  animation:
-    bolt-draw var(--strike-duration, 1.15s) cubic-bezier(0.62, 0, 0.9, 0.35) forwards,
-    bolt-corona-flicker var(--strike-duration, 1.15s) step-end forwards;
-  animation-delay: calc(var(--strike-duration, 1.15s) * var(--fork-delay, 0));
-}
-
-.bulb-strike__corona--fork {
-  stroke-width: calc(2px + var(--fork-intensity, 0.5) * 4.5px);
-  stroke: rgba(168, 188, 228, 0.72);
-  animation:
-    bolt-branch-draw var(--strike-duration, 1.15s) cubic-bezier(0.5, 0, 0.85, 0.4) forwards,
-    bolt-corona-flicker var(--strike-duration, 1.15s) step-end forwards;
-  animation-delay: calc(var(--strike-duration, 1.15s) * var(--fork-delay, 0));
-}
-
-.bulb-strike__corona--twig {
-  stroke-width: calc(0.8px + var(--fork-intensity, 0.3) * 2px);
-  stroke: rgba(176, 196, 222, 0.55);
-  filter: url(#bolt-thread-filter);
-}
-
+/* Plasma channel glow */
 .bulb-strike__glow {
   fill: none;
-  stroke: rgba(200, 225, 255, 0.95);
-  stroke-width: calc(2.5px + var(--fork-intensity, 1) * 4.5px);
+  stroke: rgba(220, 235, 250, 0.62);
+  stroke-width: calc(1.5px + var(--fork-intensity, 1) * 2.4px);
   stroke-linecap: round;
-  stroke-linejoin: miter;
-  stroke-miterlimit: 3;
+  stroke-linejoin: round;
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
   opacity: 0;
-  filter:
-    drop-shadow(0 0 4px rgba(220, 240, 255, 1))
-    drop-shadow(0 0 12px rgba(140, 175, 240, 0.85))
-    drop-shadow(0 0 26px rgba(100, 140, 230, 0.45));
+  filter: drop-shadow(0 0 4px rgba(205, 225, 245, 0.42));
   animation:
-    bolt-draw var(--strike-duration, 1.15s) cubic-bezier(0.62, 0, 0.9, 0.35) forwards,
-    bolt-glow-flicker var(--strike-duration, 1.15s) step-end forwards;
+    bolt-draw var(--strike-duration, 1.15s) cubic-bezier(0.45, 0, 0.2, 1) forwards,
+    bolt-glow-pulse var(--strike-duration, 1.15s) ease-in-out forwards;
   animation-delay: calc(var(--strike-duration, 1.15s) * var(--fork-delay, 0));
 }
 
 .bulb-strike__glow--fork {
-  stroke-width: calc(1.2px + var(--fork-intensity, 0.5) * 2.5px);
+  stroke-width: calc(0.8px + var(--fork-intensity, 0.5) * 1.6px);
+  stroke: rgba(225, 238, 252, 0.58);
   animation:
-    bolt-branch-draw var(--strike-duration, 1.15s) cubic-bezier(0.5, 0, 0.85, 0.4) forwards,
-    bolt-glow-flicker var(--strike-duration, 1.15s) step-end forwards;
+    bolt-branch-draw var(--strike-duration, 1.15s) ease-out forwards,
+    bolt-glow-pulse var(--strike-duration, 1.15s) ease-in-out forwards;
   animation-delay: calc(var(--strike-duration, 1.15s) * var(--fork-delay, 0));
 }
 
 .bulb-strike__glow--twig {
-  stroke-width: calc(0.5px + var(--fork-intensity, 0.3) * 1.2px);
-  stroke: rgba(210, 230, 255, 0.7);
+  stroke-width: calc(0.4px + var(--fork-intensity, 0.3) * 0.8px);
+  stroke: rgba(230, 240, 252, 0.45);
   filter: url(#bolt-thread-filter);
 }
 
+/* Hot white core */
 .bulb-strike__core {
   fill: none;
   stroke: url(#bolt-core-grad);
-  stroke-width: calc(1.4px + var(--fork-intensity, 1) * 2.4px);
+  stroke-width: calc(0.9px + var(--fork-intensity, 1) * 1.5px);
   stroke-linecap: round;
-  stroke-linejoin: miter;
-  stroke-miterlimit: 2.5;
+  stroke-linejoin: round;
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
   opacity: 0;
-  filter:
-    drop-shadow(0 0 3px rgba(255, 255, 255, 1))
-    drop-shadow(0 0 8px rgba(220, 235, 255, 0.95))
-    drop-shadow(0 0 16px rgba(160, 190, 240, 0.65));
+  filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.75));
   animation:
-    bolt-draw var(--strike-duration, 1.15s) cubic-bezier(0.62, 0, 0.9, 0.35) forwards,
-    bolt-core-flicker var(--strike-duration, 1.15s) step-end forwards;
+    bolt-draw var(--strike-duration, 1.15s) cubic-bezier(0.45, 0, 0.2, 1) forwards,
+    bolt-core-pulse var(--strike-duration, 1.15s) ease-in-out forwards;
   animation-delay: calc(var(--strike-duration, 1.15s) * var(--fork-delay, 0));
 }
 
 .bulb-strike__core--fork {
-  stroke: #f0faff;
-  stroke-width: calc(0.7px + var(--fork-intensity, 0.5) * 1.6px);
+  stroke: #fbfdff;
+  stroke-width: calc(0.45px + var(--fork-intensity, 0.5) * 0.9px);
   animation:
-    bolt-branch-draw var(--strike-duration, 1.15s) cubic-bezier(0.5, 0, 0.85, 0.4) forwards,
-    bolt-core-flicker var(--strike-duration, 1.15s) step-end forwards;
+    bolt-branch-draw var(--strike-duration, 1.15s) ease-out forwards,
+    bolt-core-pulse var(--strike-duration, 1.15s) ease-in-out forwards;
   animation-delay: calc(var(--strike-duration, 1.15s) * var(--fork-delay, 0));
 }
 
 .bulb-strike__core--twig {
   stroke: #f8fbff;
-  stroke-width: calc(0.35px + var(--fork-intensity, 0.3) * 0.7px);
+  stroke-width: calc(0.3px + var(--fork-intensity, 0.3) * 0.5px);
   filter: url(#bolt-thread-filter);
 }
 
@@ -155,10 +118,7 @@
   opacity: 0;
   transform-box: fill-box;
   transform-origin: center;
-  filter:
-    drop-shadow(0 0 6px rgba(255, 255, 255, 1))
-    drop-shadow(0 0 16px rgba(200, 225, 255, 1))
-    drop-shadow(0 0 32px rgba(140, 175, 240, 0.9));
+  filter: drop-shadow(0 0 3px rgba(235, 245, 255, 0.65));
   animation: bolt-terminus-hit var(--strike-duration, 1.15s) ease-out forwards;
 }
 
@@ -168,15 +128,11 @@
     opacity: 0;
   }
 
-  1% {
-    opacity: 0.7;
+  2% {
+    opacity: 0.55;
   }
 
-  3% {
-    opacity: 1;
-  }
-
-  18% {
+  16% {
     stroke-dashoffset: 0;
     opacity: 1;
   }
@@ -193,186 +149,103 @@
     opacity: 0;
   }
 
-  4% {
-    opacity: 0.55;
-  }
-
-  12% {
-    stroke-dashoffset: 0;
-    opacity: 0.85;
-  }
-
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0;
-  }
-}
-
-@keyframes bolt-aura-flicker {
-  0%,
-  16% {
-    opacity: 0;
-  }
-
-  17% {
-    opacity: 0.55;
-  }
-
-  18% {
-    opacity: 0.2;
-  }
-
-  19% {
-    opacity: 0.75;
-  }
-
-  20% {
-    opacity: 0.35;
-  }
-
-  22% {
-    opacity: 0.8;
-  }
-
-  25% {
-    opacity: 0.3;
-  }
-
-  28% {
-    opacity: 0.7;
-  }
-
-  33% {
-    opacity: 0.25;
-  }
-
-  40% {
-    opacity: 0.55;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes bolt-corona-flicker {
-  0%,
-  16% {
-    opacity: 0;
-  }
-
-  17% {
-    opacity: 0.85;
-  }
-
-  18% {
-    opacity: 0.3;
-  }
-
-  19% {
-    opacity: 1;
-  }
-
-  20% {
-    opacity: 0.4;
-  }
-
-  21% {
-    opacity: 0.95;
-  }
-
-  23% {
-    opacity: 0.35;
-  }
-
-  26% {
-    opacity: 0.9;
-  }
-
-  31% {
+  8% {
     opacity: 0.45;
   }
 
+  14% {
+    stroke-dashoffset: 0;
+    opacity: 0.75;
+  }
+
   100% {
+    stroke-dashoffset: 0;
     opacity: 0;
   }
 }
 
-@keyframes bolt-glow-flicker {
+@keyframes bolt-halo-pulse {
   0%,
-  16% {
+  14% {
     opacity: 0;
-  }
-
-  17% {
-    opacity: 0.9;
   }
 
   18% {
-    opacity: 0.25;
-  }
-
-  19% {
-    opacity: 1;
-  }
-
-  20% {
-    opacity: 0.35;
-  }
-
-  21% {
-    opacity: 1;
-  }
-
-  24% {
-    opacity: 0.4;
-  }
-
-  29% {
-    opacity: 0.95;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes bolt-core-flicker {
-  0%,
-  16% {
-    opacity: 0;
-  }
-
-  17% {
-    opacity: 1;
-  }
-
-  18% {
-    opacity: 0.15;
-  }
-
-  19% {
-    opacity: 1;
-  }
-
-  20% {
-    opacity: 0.2;
-  }
-
-  21% {
-    opacity: 1;
+    opacity: 0.42;
   }
 
   22% {
-    opacity: 0.3;
+    opacity: 0.28;
   }
 
-  24% {
-    opacity: 1;
+  28% {
+    opacity: 0.38;
   }
 
-  30% {
+  38% {
+    opacity: 0.22;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bolt-glow-pulse {
+  0%,
+  14% {
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 0.78;
+  }
+
+  21% {
+    opacity: 0.52;
+  }
+
+  25% {
+    opacity: 0.72;
+  }
+
+  32% {
+    opacity: 0.48;
+  }
+
+  42% {
     opacity: 0.35;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bolt-core-pulse {
+  0%,
+  14% {
+    opacity: 0;
+  }
+
+  17% {
+    opacity: 0.92;
+  }
+
+  19% {
+    opacity: 0.65;
+  }
+
+  22% {
+    opacity: 0.88;
+  }
+
+  26% {
+    opacity: 0.7;
+  }
+
+  35% {
+    opacity: 0.55;
   }
 
   100% {
@@ -382,24 +255,19 @@
 
 @keyframes bolt-terminus-hit {
   0%,
-  16% {
+  14% {
     opacity: 0;
-    transform: scale(0.25);
+    transform: scale(0.4);
   }
 
-  19% {
-    opacity: 1;
-    transform: scale(1.25);
+  18% {
+    opacity: 0.85;
+    transform: scale(1.05);
   }
 
-  24% {
-    opacity: 0.75;
-    transform: scale(1.5);
-  }
-
-  34% {
-    opacity: 0.35;
-    transform: scale(0.9);
+  26% {
+    opacity: 0.5;
+    transform: scale(0.85);
   }
 
   100% {
@@ -409,8 +277,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bulb-strike__aura,
-  .bulb-strike__corona,
+  .bulb-strike__halo,
   .bulb-strike__glow,
   .bulb-strike__core,
   .bulb-strike__terminus {

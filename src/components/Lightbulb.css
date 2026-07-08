@@ -1,5 +1,5 @@
 .lightbulb {
-  --bulb-warm-return: 0.75s;
+  --bulb-warm-return: 0.95s;
   position: relative;
   display: block;
   width: var(--bulb-w, clamp(58px, 10vw, 82px));
@@ -21,51 +21,51 @@
 .lightbulb__pool {
   position: absolute;
   left: 50%;
-  bottom: 18%;
-  width: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 1.65);
-  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 0.38);
+  bottom: 20%;
+  width: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 1.35);
+  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 0.28);
   transform: translateX(-50%);
   border-radius: 50%;
   background: radial-gradient(
     ellipse 100% 100% at 50% 0%,
-    rgba(255, 175, 70, 0.38) 0%,
-    rgba(255, 140, 40, 0.14) 45%,
-    transparent 72%
+    rgba(255, 190, 110, 0.22) 0%,
+    rgba(255, 155, 70, 0.08) 42%,
+    transparent 70%
   );
   opacity: 0;
-  filter: blur(4px);
+  filter: blur(5px);
   pointer-events: none;
 }
 
 .lightbulb__bloom {
   position: absolute;
   left: 50%;
-  top: 34%;
-  width: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 2.8);
-  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 2.8);
+  top: 36%;
+  width: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 2.1);
+  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 2.1);
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(255, 235, 185, 0.55) 0%,
-    rgba(255, 195, 105, 0.24) 36%,
-    rgba(255, 149, 0, 0.08) 58%,
-    transparent 74%
+    rgba(255, 238, 200, 0.32) 0%,
+    rgba(255, 205, 130, 0.14) 38%,
+    rgba(255, 165, 60, 0.04) 58%,
+    transparent 76%
   );
   opacity: 0;
-  filter: blur(14px);
+  filter: blur(16px);
   pointer-events: none;
 }
 
 .lightbulb__bloom--tight {
-  width: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 1.45);
-  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 1.45);
-  top: 36%;
-  filter: blur(6px);
+  width: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 1.2);
+  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 1.2);
+  top: 37%;
+  filter: blur(5px);
   background: radial-gradient(
     circle,
-    rgba(255, 252, 240, 0.75) 0%,
-    rgba(255, 220, 140, 0.42) 48%,
+    rgba(255, 250, 235, 0.45) 0%,
+    rgba(255, 225, 165, 0.22) 45%,
     transparent 72%
   );
 }
@@ -317,11 +317,15 @@
   }
 
   24% {
-    opacity: 0.82;
+    opacity: 0.58;
+  }
+
+  32% {
+    opacity: 0.52;
   }
 
   100% {
-    opacity: 0.78;
+    opacity: 0.48;
   }
 }
 
@@ -332,11 +336,11 @@
   }
 
   24% {
-    opacity: 0.95;
+    opacity: 0.62;
   }
 
   100% {
-    opacity: 0.7;
+    opacity: 0.45;
   }
 }
 
@@ -346,11 +350,11 @@
   }
 
   22% {
-    opacity: 0.55;
+    opacity: 0.32;
   }
 
   100% {
-    opacity: 0.48;
+    opacity: 0.28;
   }
 }
 
@@ -391,15 +395,15 @@
   }
 
   22% {
-    opacity: 0.35;
+    opacity: 0.38;
   }
 
   28% {
-    opacity: 0.55;
+    opacity: 0.52;
   }
 
   100% {
-    opacity: 0.5;
+    opacity: 0.48;
   }
 }
 
@@ -502,8 +506,9 @@
 }
 
 .lightbulb--lit .lightbulb__inner {
-  opacity: 0.97;
-  animation: bulb-inner-warm-return var(--bulb-warm-return, 0.75s) ease-out forwards;
+  opacity: 0.94;
+  filter: url(#bulb-inner-scatter);
+  animation: bulb-inner-warm-return var(--bulb-warm-return, 0.95s) cubic-bezier(0.33, 0, 0.2, 1) forwards;
 }
 
 .lightbulb--lit .lightbulb__glass-tint {
@@ -512,13 +517,18 @@
 }
 
 .lightbulb--lit .lightbulb__bloom {
-  opacity: 0.85;
-  animation: bulb-bloom-warm-in var(--bulb-warm-return, 0.75s) ease-out forwards;
+  opacity: 0.62;
+  animation: bulb-bloom-warm-in var(--bulb-warm-return, 0.95s) cubic-bezier(0.33, 0, 0.2, 1) forwards;
 }
 
 .lightbulb--lit .lightbulb__bloom--tight {
-  opacity: 0.92;
-  animation: bulb-bloom-tight-warm-in var(--bulb-warm-return, 0.75s) ease-out forwards;
+  opacity: 0.72;
+  animation: bulb-bloom-tight-warm-in var(--bulb-warm-return, 0.95s) cubic-bezier(0.33, 0, 0.2, 1) forwards;
+}
+
+.lightbulb--lit .lightbulb__pool {
+  opacity: 0.38;
+  animation: bulb-pool-warm-in var(--bulb-warm-return, 0.95s) cubic-bezier(0.33, 0, 0.2, 1) forwards;
 }
 
 @keyframes bulb-thunder-fill-out {
@@ -563,11 +573,11 @@
 
 @keyframes bulb-inner-warm-return {
   0% {
-    opacity: 0.5;
+    opacity: 0.48;
   }
 
   100% {
-    opacity: 0.97;
+    opacity: 0.94;
   }
 }
 
@@ -584,20 +594,36 @@
 @keyframes bulb-bloom-warm-in {
   0% {
     opacity: 0;
+    transform: translate(-50%, -50%) scale(0.88);
   }
 
   100% {
-    opacity: 0.85;
+    opacity: 0.62;
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
 @keyframes bulb-bloom-tight-warm-in {
   0% {
     opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
   }
 
   100% {
-    opacity: 0.92;
+    opacity: 0.72;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes bulb-pool-warm-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(0.7);
+  }
+
+  100% {
+    opacity: 0.38;
+    transform: translateX(-50%) scaleY(1);
   }
 }
 
@@ -623,20 +649,14 @@
   stroke: rgba(210, 200, 175, 0.8);
 }
 
-.lightbulb--lit .lightbulb__pool {
-  opacity: 0.55;
-}
-
 .lightbulb--lit .lightbulb__svg {
   filter:
-    drop-shadow(0 4px 10px rgba(0, 0, 0, 0.38))
-    drop-shadow(0 0 20px rgba(255, 190, 90, 0.5))
-    drop-shadow(0 0 44px rgba(255, 149, 0, 0.25));
+    drop-shadow(0 3px 8px rgba(0, 0, 0, 0.38))
+    drop-shadow(0 0 10px rgba(255, 185, 100, 0.18));
 }
 
 .lightbulb--lit .lightbulb__glass {
-  stroke: rgba(255, 245, 210, 0.38);
-  filter: drop-shadow(0 0 10px rgba(255, 200, 100, 0.35));
+  filter: drop-shadow(0 0 4px rgba(255, 195, 120, 0.12));
 }
 
 @keyframes bulb-base-ignite {
@@ -687,7 +707,8 @@
   }
 
   .lightbulb--lit .lightbulb__inner {
-    opacity: 0.95;
+    opacity: 0.94;
+    filter: url(#bulb-inner-scatter);
   }
 
   .lightbulb--lit .lightbulb__flare {
@@ -695,7 +716,7 @@
   }
 
   .lightbulb--lit .lightbulb__pool {
-    opacity: 0.5;
+    opacity: 0.38;
   }
 
   .lightbulb--lit .lightbulb__base-glow {

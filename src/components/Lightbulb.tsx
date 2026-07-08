@@ -26,33 +26,32 @@ export function Lightbulb({ phase }: LightbulbProps) {
         aria-hidden="true"
       >
         <defs>
-          <radialGradient id="bulb-inner-glow" cx="50%" cy="58%" r="54%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.98" />
-            <stop offset="8%" stopColor="#fff8e8" stopOpacity="0.95" />
-            <stop offset="24%" stopColor="#ffdd88" stopOpacity="0.82" />
-            <stop offset="50%" stopColor="#ffae42" stopOpacity="0.58" />
-            <stop offset="78%" stopColor="#ff8820" stopOpacity="0.22" />
-            <stop offset="100%" stopColor="#ff6600" stopOpacity="0" />
+          <radialGradient id="bulb-inner-glow" cx="50%" cy="52%" r="50%">
+            <stop offset="0%" stopColor="#fffef9" stopOpacity="0.98" />
+            <stop offset="14%" stopColor="#fff4dc" stopOpacity="0.94" />
+            <stop offset="32%" stopColor="#ffe6a8" stopOpacity="0.78" />
+            <stop offset="52%" stopColor="#ffc860" stopOpacity="0.48" />
+            <stop offset="72%" stopColor="#ff9e30" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="#ff7800" stopOpacity="0" />
           </radialGradient>
 
-          <radialGradient id="bulb-thunder-glow" cx="50%" cy="42%" r="52%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.92" />
-            <stop offset="22%" stopColor="#f6f9fc" stopOpacity="0.78" />
-            <stop offset="48%" stopColor="#e4edf5" stopOpacity="0.42" />
-            <stop offset="72%" stopColor="#d0dce8" stopOpacity="0.16" />
-            <stop offset="100%" stopColor="#c0d0e0" stopOpacity="0" />
+          <radialGradient id="bulb-thunder-glow" cx="50%" cy="44%" r="46%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.88" />
+            <stop offset="28%" stopColor="#f4f7fb" stopOpacity="0.62" />
+            <stop offset="55%" stopColor="#e6edf4" stopOpacity="0.28" />
+            <stop offset="100%" stopColor="#d8e2ec" stopOpacity="0" />
           </radialGradient>
 
           <radialGradient id="bulb-thunder-core" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.98" />
-            <stop offset="55%" stopColor="#f0f5fa" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="#dde8f2" stopOpacity="0" />
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.92" />
+            <stop offset="45%" stopColor="#f2f6fa" stopOpacity="0.38" />
+            <stop offset="100%" stopColor="#e4ebf2" stopOpacity="0" />
           </radialGradient>
 
-          <linearGradient id="bulb-glass-thunder" x1="30%" y1="0%" x2="70%" y2="100%">
-            <stop offset="0%" stopColor="rgba(245, 250, 255, 0.38)" />
-            <stop offset="55%" stopColor="rgba(225, 236, 248, 0.22)" />
-            <stop offset="100%" stopColor="rgba(210, 224, 238, 0.1)" />
+          <linearGradient id="bulb-glass-thunder" x1="28%" y1="2%" x2="72%" y2="98%">
+            <stop offset="0%" stopColor="rgba(248, 251, 255, 0.28)" />
+            <stop offset="50%" stopColor="rgba(232, 240, 248, 0.14)" />
+            <stop offset="100%" stopColor="rgba(220, 230, 240, 0.06)" />
           </linearGradient>
 
           <radialGradient id="bulb-filament-hot" cx="50%" cy="50%" r="50%">
@@ -67,10 +66,10 @@ export function Lightbulb({ phase }: LightbulbProps) {
             <stop offset="100%" stopColor="rgba(200,210,225,0.04)" />
           </linearGradient>
 
-          <linearGradient id="bulb-glass-lit" x1="30%" y1="0%" x2="70%" y2="100%">
-            <stop offset="0%" stopColor="rgba(255,248,225,0.42)" />
-            <stop offset="55%" stopColor="rgba(255,210,120,0.28)" />
-            <stop offset="100%" stopColor="rgba(255,160,50,0.1)" />
+          <linearGradient id="bulb-glass-lit" x1="32%" y1="2%" x2="68%" y2="98%">
+            <stop offset="0%" stopColor="rgba(255, 250, 238, 0.32)" />
+            <stop offset="50%" stopColor="rgba(255, 218, 130, 0.18)" />
+            <stop offset="100%" stopColor="rgba(255, 175, 70, 0.06)" />
           </linearGradient>
 
           <linearGradient id="bulb-rim" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -106,8 +105,21 @@ export function Lightbulb({ phase }: LightbulbProps) {
             <path d={GLASS_PATH} />
           </clipPath>
 
-          <filter id="bulb-filament-glow" x="-100%" y="-100%" width="300%" height="300%">
-            <feGaussianBlur stdDeviation="1.8" result="blur" />
+          <filter id="bulb-inner-scatter" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+            <feColorMatrix
+              in="blur"
+              type="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.65 0"
+              result="soft"
+            />
+            <feMerge>
+              <feMergeNode in="soft" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <filter id="bulb-filament-glow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="1.2" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />

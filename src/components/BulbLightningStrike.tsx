@@ -6,7 +6,7 @@ const BOLT_WIDTH = 280;
 const BOLT_HEIGHT = 600;
 const STRIKE_X = BOLT_WIDTH / 2;
 
-type Layer = "aura" | "corona" | "glow" | "core";
+type Layer = "halo" | "glow" | "core";
 
 function layerClass(layer: Layer, path: BoltPath): string {
   const base = `bulb-strike__${layer}`;
@@ -54,39 +54,23 @@ export function BulbLightningStrike() {
       >
         <defs>
           <linearGradient id="bolt-core-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#c8d4f8" />
-            <stop offset="45%" stopColor="#f4f8ff" />
+            <stop offset="0%" stopColor="#e8eef8" stopOpacity="0.9" />
+            <stop offset="40%" stopColor="#fafcff" />
             <stop offset="100%" stopColor="#ffffff" />
           </linearGradient>
-          <linearGradient id="bolt-violet-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#8898d8" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="#b0c4de" stopOpacity="0.75" />
-          </linearGradient>
-          <filter id="bolt-aura-filter" x="-140%" y="-5%" width="380%" height="120%">
-            <feGaussianBlur stdDeviation="6" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
+          <filter id="bolt-halo-filter" x="-80%" y="-4%" width="260%" height="108%">
+            <feGaussianBlur stdDeviation="3.2" />
           </filter>
-          <filter id="bolt-blue-filter" x="-100%" y="-5%" width="300%" height="115%">
-            <feGaussianBlur stdDeviation="2.4" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-          <filter id="bolt-thread-filter" x="-60%" y="-5%" width="220%" height="110%">
-            <feGaussianBlur stdDeviation="1.1" />
+          <filter id="bolt-thread-filter" x="-40%" y="-4%" width="180%" height="108%">
+            <feGaussianBlur stdDeviation="0.7" />
           </filter>
         </defs>
 
-        {renderLayer(allPaths, "aura", "a")}
-        {renderLayer(allPaths, "corona", "c")}
+        {renderLayer(allPaths, "halo", "h")}
         {renderLayer(allPaths, "glow", "g")}
         {renderLayer(allPaths, "core", "k")}
 
-        <circle className="bulb-strike__terminus" cx={STRIKE_X} cy={BOLT_HEIGHT} r={3.5} />
+        <circle className="bulb-strike__terminus" cx={STRIKE_X} cy={BOLT_HEIGHT} r={2.8} />
       </svg>
     </div>
   );
