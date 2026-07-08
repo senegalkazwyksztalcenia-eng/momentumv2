@@ -45,7 +45,7 @@ export function HeroMomentum() {
         aria-live="polite"
       >
         <h1 className="hero-momentum__title">Odblokuj swój potencjał</h1>
-        <p className="hero-momentum__subtitle">na każdej płaszczyźnie życia</p>
+        <p className="hero-momentum__subtitle">zaklucz drzwi i okna na czas lektury żeby sąsiad nie wszedł poczytać za darmo.</p>
         <p className="hero-momentum__tagline">Twój Czas Nadszedł.</p>
       </div>
     </section>
