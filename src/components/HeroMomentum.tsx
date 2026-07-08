@@ -9,7 +9,6 @@ export function HeroMomentum() {
   const isDesktop = useBreakpoint();
   const phase = useHeroSequence();
 
-  const isNight = phase === "night";
   const isRising = phase === "rising";
   const isEmpowered = phase === "empowered";
   const showSun = isRising || isEmpowered;
@@ -29,11 +28,9 @@ export function HeroMomentum() {
         Przejdź do treści
       </a>
 
-      <CosmicBackground
-        showPlanet={isNight || isRising}
-        showSunrise={isRising}
-      />
-      <HeroSun phase={phase} />
+      <CosmicBackground showPlanet showSunrise={isRising || isEmpowered}>
+        <HeroSun phase={phase} />
+      </CosmicBackground>
       <SalesCTA visible={showContent} empowered={isEmpowered} />
 
       <header

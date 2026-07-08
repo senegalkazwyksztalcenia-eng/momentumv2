@@ -7,8 +7,8 @@ interface PhaseStep {
   at: number;
 }
 
-/** Calm pre-dawn, slow sun rise (6s), then empower. */
-export const SUN_RISE_MS = 6000;
+/** Calm pre-dawn, sun clears planet limb then planet sinks away (~5s). */
+export const SUN_RISE_MS = 5000;
 
 const SEQUENCE: PhaseStep[] = [
   { phase: "rising", at: 4000 },

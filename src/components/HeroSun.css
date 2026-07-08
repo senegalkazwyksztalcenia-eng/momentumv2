@@ -1,5 +1,4 @@
 .hero-momentum {
-  --hero-sun-rise-duration: 6s;
   --hero-sun-rays-delay: 0.35s;
   --sun-rise-disc-size: 156px;
   --sun-empowered-disc-w: 186px;
@@ -18,9 +17,9 @@
   transform: translateX(-50%);
 }
 
-/* Faint horizon glow during pre-dawn — sun peeks before rise phase */
+/* Faint horizon glow during pre-dawn — hidden behind planet */
 .hero-sun--preglow {
-  z-index: 5;
+  z-index: 1;
   opacity: 1;
   animation: hero-sun-preglow 3.6s cubic-bezier(0.37, 0, 0.13, 1) forwards;
 }
@@ -82,7 +81,7 @@
 }
 
 .hero-sun--rising {
-  z-index: 6;
+  z-index: 1;
   will-change: top, opacity, transform;
   animation: hero-sun-ascend var(--hero-sun-rise-duration) cubic-bezier(0.37, 0, 0.13, 1) forwards;
 }
@@ -100,7 +99,7 @@
 
 .hero-sun--empowered {
   top: var(--hero-sun-top);
-  z-index: 6;
+  z-index: 1;
   opacity: 1;
   transform: translateX(-50%);
   animation: none;
@@ -330,28 +329,32 @@
 }
 
 @keyframes hero-sun-ascend {
+  /* Sun emerges from behind planet limb */
   0% {
     top: var(--sun-rise-start-top);
-    opacity: 0.42;
-    transform: translateX(-50%) scale(0.84);
+    opacity: 0.28;
+    transform: translateX(-50%) scale(0.78);
   }
 
-  5% {
-    opacity: 0.68;
-  }
-
-  12% {
-    opacity: 1;
+  10% {
+    opacity: 0.55;
   }
 
   28% {
-    top: calc(var(--sun-rise-start-top) - 3.5%);
+    top: calc(var(--sun-rise-start-top) - 1.8%);
+    opacity: 0.82;
+    transform: translateX(-50%) scale(0.86);
+  }
+
+  /* Sun climbs into open sky above the planet limb */
+  45% {
+    top: calc(var(--sun-rise-start-top) - 4.5%);
     opacity: 1;
     transform: translateX(-50%) scale(0.92);
   }
 
-  55% {
-    top: calc(var(--sun-rise-start-top) - 7%);
+  70% {
+    top: calc(var(--sun-rise-start-top) - 9%);
     transform: translateX(-50%) scale(0.97);
   }
 

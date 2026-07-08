@@ -7,6 +7,8 @@
   --hero-sun-top: calc(var(--cta-anchor-y) - var(--pill-half) + var(--sun-seat-overlap));
   --planet-horizon-y: 50%;
   --sun-rise-start-top: var(--planet-horizon-y);
+  --rise-duration: 5s;
+  --hero-sun-rise-duration: var(--rise-duration);
 
   position: relative;
   isolation: isolate;
@@ -89,7 +91,7 @@
 }
 
 .hero-momentum--rising .hero-momentum__header--visible {
-  transition-delay: 2.8s;
+  transition-delay: 2.4s;
 }
 
 .hero-momentum__header--visible {
@@ -145,12 +147,12 @@
 }
 
 .hero-momentum--rising .hero-momentum__content--visible {
-  transition-delay: 3.2s;
+  transition-delay: 2.8s;
 }
 
 .hero-momentum--rising .sales-cta--visible:not(.sales-cta--forging) .solar-cta {
   opacity: 0;
-  animation: hero-cta-delayed-in 1.1s cubic-bezier(0.37, 0, 0.13, 1) 3.5s forwards;
+  animation: hero-cta-delayed-in 1.1s cubic-bezier(0.37, 0, 0.13, 1) 3s forwards;
 }
 
 @keyframes hero-cta-delayed-in {

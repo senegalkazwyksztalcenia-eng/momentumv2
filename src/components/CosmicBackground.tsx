@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { useBreakpoint } from "../contexts/BreakpointContext";
 import "./CosmicBackground.css";
 
@@ -80,11 +80,13 @@ function createStarField(): StarField {
 interface CosmicBackgroundProps {
   showPlanet?: boolean;
   showSunrise?: boolean;
+  children?: ReactNode;
 }
 
 export function CosmicBackground({
   showPlanet = false,
   showSunrise = false,
+  children,
 }: CosmicBackgroundProps) {
   const isDesktop = useBreakpoint();
   const fieldRef = useRef<StarField | null>(null);
@@ -137,6 +139,19 @@ export function CosmicBackground({
         className={`cosmic-background__space-light ${showSunrise ? "cosmic-background__space-light--active" : ""}`}
       />
 
+      <div className="cosmic-background__stars cosmic-background__stars--far">
+        {renderStars(farStars)}
+      </div>
+      <div className="cosmic-background__stars cosmic-background__stars--mid">
+        {renderStars(midStars)}
+      </div>
+      <div className="cosmic-background__stars cosmic-background__stars--near">
+        {renderStars(nearStars)}
+      </div>
+
+      {/* Sun sits behind the planet during rise */}
+      <div className="cosmic-background__sun-well">{children}</div>
+
       <div
         className={[
           "cosmic-background__planet-scene",
@@ -166,16 +181,6 @@ export function CosmicBackground({
             ))}
           </div>
         </div>
-      </div>
-
-      <div className="cosmic-background__stars cosmic-background__stars--far">
-        {renderStars(farStars)}
-      </div>
-      <div className="cosmic-background__stars cosmic-background__stars--mid">
-        {renderStars(midStars)}
-      </div>
-      <div className="cosmic-background__stars cosmic-background__stars--near">
-        {renderStars(nearStars)}
       </div>
       <div className="cosmic-background__fog cosmic-background__fog--one" />
       <div className="cosmic-background__fog cosmic-background__fog--two" />
