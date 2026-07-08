@@ -133,7 +133,7 @@ export function generateBolt(
   const branchMaxY = options?.branchMaxY ?? height * (0.58 + rand() * 0.05);
   const branchOriginMaxY = height * (0.56 + rand() * 0.08);
   const branchCount =
-    options?.branchCount ?? 6 + Math.floor(rand() * 9);
+    options?.branchCount ?? 10 + Math.floor(rand() * 12);
   const usedOrigins = new Set<number>();
 
   for (let b = 0; b < branchCount; b += 1) {
@@ -208,14 +208,14 @@ export function generateBolt(
   }
 
   // Occasional short spur directly off the main channel
-  if (rand() > 0.25) {
+  if (rand() > 0.15) {
     const spurEligible = mainPts.filter(
-      (p) => p.y > height * 0.08 && p.y < branchOriginMaxY * 0.85,
+      (p) => p.y > height * 0.08 && p.y < branchOriginMaxY * 0.9,
     );
     if (spurEligible.length > 0) {
       const spurOrigin = spurEligible[Math.floor(rand() * spurEligible.length)]!;
       const spurSide = rand() > 0.5 ? 1 : -1;
-      const spurLen = height * (0.02 + rand() * 0.04);
+      const spurLen = height * (0.02 + rand() * 0.05);
       const spurEnd = {
         x: clampX(spurOrigin.x + spurSide * spurLen * (0.8 + rand()), width),
         y: spurOrigin.y + spurLen * (0.15 + rand() * 0.35),
@@ -223,6 +223,27 @@ export function generateBolt(
       const spurPts = displaceChannel(spurOrigin, spurEnd, baseRoughness * 0.2, 2, rand);
       forks.push(makePath(spurPts, "twig", 0.3 + rand() * 0.35, rand() * 0.08));
     }
+  }
+
+  // Fine thread-like tendrils (reference photo static fuzz)
+  const hairCount = 16 + Math.floor(rand() * 14);
+  const hairEligible = mainPts.filter((p) => p.y < height * 0.7 && p.y > height * 0.02);
+  for (let h = 0; h < hairCount && hairEligible.length > 0; h += 1) {
+    const origin = hairEligible[Math.floor(rand() * hairEligible.length)]!;
+    const side = rand() > 0.5 ? 1 : -1;
+    const len = height * (0.006 + rand() * 0.024);
+    const hairEnd = {
+      x: clampX(origin.x + side * len * (0.65 + rand() * 0.9), width),
+      y: Math.min(branchMaxY, origin.y + len * (0.25 + rand() * 0.55)),
+    };
+    forks.push(
+      makePath(
+        [origin, hairEnd],
+        "twig",
+        0.12 + rand() * 0.22,
+        rand() * 0.14,
+      ),
+    );
   }
 
   return {

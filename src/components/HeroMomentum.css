@@ -235,7 +235,7 @@
 }
 
 .hero-momentum__tagline {
-  max-width: 20rem;
+  max-width: 26rem;
   margin: 1.4rem 0 0;
   font-size: clamp(1.35rem, 2.8vw, 1.85rem);
   font-weight: 700;

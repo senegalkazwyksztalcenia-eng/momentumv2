@@ -15,6 +15,7 @@ export function Lightbulb({ phase }: LightbulbProps) {
       <span className="lightbulb__bloom lightbulb__bloom--tight" />
       <span className="lightbulb__pool" />
       <span className="lightbulb__ingress" />
+      <span className="lightbulb__thunder-charge" />
 
       <svg
         className="lightbulb__svg"

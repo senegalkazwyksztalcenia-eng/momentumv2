@@ -54,24 +54,30 @@ export function BulbLightningStrike() {
       >
         <defs>
           <linearGradient id="bolt-core-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#b8d4f8" />
-            <stop offset="35%" stopColor="#eef8ff" />
-            <stop offset="72%" stopColor="#ffffff" />
-            <stop offset="100%" stopColor="#fffaf0" />
+            <stop offset="0%" stopColor="#c8d4f8" />
+            <stop offset="45%" stopColor="#f4f8ff" />
+            <stop offset="100%" stopColor="#ffffff" />
           </linearGradient>
-          <filter id="bolt-aura-filter" x="-120%" y="-5%" width="340%" height="115%">
-            <feGaussianBlur stdDeviation="4.5" result="blur" />
+          <linearGradient id="bolt-violet-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#8898d8" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#b0c4de" stopOpacity="0.75" />
+          </linearGradient>
+          <filter id="bolt-aura-filter" x="-140%" y="-5%" width="380%" height="120%">
+            <feGaussianBlur stdDeviation="6" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-          <filter id="bolt-blue-filter" x="-80%" y="-5%" width="260%" height="115%">
-            <feGaussianBlur stdDeviation="1.8" result="blur" />
+          <filter id="bolt-blue-filter" x="-100%" y="-5%" width="300%" height="115%">
+            <feGaussianBlur stdDeviation="2.4" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
+          </filter>
+          <filter id="bolt-thread-filter" x="-60%" y="-5%" width="220%" height="110%">
+            <feGaussianBlur stdDeviation="1.1" />
           </filter>
         </defs>
 
