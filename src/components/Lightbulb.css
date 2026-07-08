@@ -74,6 +74,13 @@
   opacity: 0;
 }
 
+.lightbulb__thunder-fill,
+.lightbulb__thunder-core,
+.lightbulb__glass-thunder-tint {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .lightbulb__glass-tint {
   opacity: 0;
   mix-blend-mode: screen;
@@ -247,57 +254,17 @@
   }
 }
 
-.lightbulb__ingress {
-  position: absolute;
-  left: 50%;
-  top: 40.9%;
-  z-index: 2;
-  width: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 0.55);
-  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 0.55);
-  transform: translate(-50%, -50%) scale(0.2);
-  border-radius: 50%;
-  opacity: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(200, 245, 255, 0.95) 22%,
-    rgba(120, 210, 255, 0.55) 42%,
-    rgba(255, 210, 120, 0.28) 62%,
-    transparent 78%
-  );
-  filter: blur(1px);
+/* ── Strike: thunder glow inside glass only ── */
+.lightbulb--strike .lightbulb__thunder-fill {
+  animation: bulb-thunder-fill-in var(--strike-duration, 1.15s) ease-out forwards;
 }
 
-.lightbulb__thunder-charge {
-  position: absolute;
-  left: 50%;
-  top: 36%;
-  z-index: 1;
-  width: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 1.12);
-  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 1.38);
-  transform: translate(-50%, -50%);
-  border-radius: 50% 50% 44% 44%;
-  opacity: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse 100% 92% at 50% 54%,
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(225, 242, 255, 0.92) 20%,
-    rgba(176, 196, 222, 0.72) 40%,
-    rgba(130, 165, 230, 0.35) 58%,
-    transparent 76%
-  );
-  mix-blend-mode: screen;
-  filter: blur(1px);
+.lightbulb--strike .lightbulb__thunder-core {
+  animation: bulb-thunder-core-in var(--strike-duration, 1.15s) ease-out forwards;
 }
 
-/* ── Strike: lightning impact charges the bulb ── */
-.lightbulb--strike .lightbulb__thunder-charge {
-  animation: bulb-thunder-charge var(--strike-duration, 1.15s) ease-out forwards;
-}
-.lightbulb--strike .lightbulb__ingress {
-  animation: bulb-ingress-strike var(--strike-duration, 1.15s) ease-out forwards;
+.lightbulb--strike .lightbulb__glass-thunder-tint {
+  animation: bulb-glass-thunder-in var(--strike-duration, 1.15s) ease-out forwards;
 }
 
 .lightbulb--strike .lightbulb__filament {
@@ -318,13 +285,13 @@
   }
 
   22% {
-    stroke: #e8f8ff;
+    stroke: #f4f7fa;
     opacity: 1;
   }
 
   28%,
   100% {
-    stroke: #e8f4ff;
+    stroke: #fafcfe;
     opacity: 1;
   }
 }
@@ -343,49 +310,47 @@
   }
 }
 
-@keyframes bulb-ingress-strike {
+@keyframes bulb-thunder-fill-in {
   0%,
   17% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.15);
-    filter: blur(2px);
   }
 
-  21% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.15);
-    filter: blur(0px);
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(220, 240, 255, 0.92) 26%,
-      rgba(160, 200, 240, 0.45) 48%,
-      transparent 68%
-    );
-  }
-
-  27% {
-    opacity: 0.9;
-    transform: translate(-50%, -50%) scale(1.65);
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(210, 235, 255, 0.95) 30%,
-      rgba(160, 195, 245, 0.55) 52%,
-      transparent 74%
-    );
-  }
-
-  38% {
-    opacity: 0.55;
-    transform: translate(-50%, -50%) scale(2.4);
-    filter: blur(2px);
+  24% {
+    opacity: 0.82;
   }
 
   100% {
+    opacity: 0.78;
+  }
+}
+
+@keyframes bulb-thunder-core-in {
+  0%,
+  18% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(4.2);
-    filter: blur(8px);
+  }
+
+  24% {
+    opacity: 0.95;
+  }
+
+  100% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes bulb-glass-thunder-in {
+  0% {
+    opacity: 0;
+  }
+
+  22% {
+    opacity: 0.55;
+  }
+
+  100% {
+    opacity: 0.48;
   }
 }
 
@@ -398,16 +363,18 @@
 }
 
 .lightbulb--strike .lightbulb__flare {
-  animation: bulb-flare-strike var(--strike-duration, 1.15s) ease-out forwards;
+  animation: bulb-flare-thunder var(--strike-duration, 1.15s) ease-out forwards;
 }
 
 .lightbulb--strike .lightbulb__bloom,
 .lightbulb--strike .lightbulb__bloom--tight {
-  animation: bulb-bloom-thunder var(--strike-duration, 1.15s) ease-out forwards;
+  opacity: 0;
+  animation: none;
 }
 
 .lightbulb--strike .lightbulb__pool {
-  animation: bulb-pool-strike var(--strike-duration, 1.15s) ease-out forwards;
+  animation: none;
+  opacity: 0;
 }
 
 .lightbulb--strike .lightbulb__base-glow {
@@ -424,18 +391,15 @@
   }
 
   22% {
-    opacity: 0.4;
-    filter: brightness(1.9) saturate(0.9);
+    opacity: 0.35;
   }
 
   28% {
-    opacity: 1;
-    filter: brightness(3) saturate(0.28);
+    opacity: 0.55;
   }
 
   100% {
-    opacity: 0.94;
-    filter: brightness(2.6) saturate(0.25);
+    opacity: 0.5;
   }
 }
 
@@ -445,83 +409,29 @@
   }
 
   20% {
-    opacity: 0.1;
-  }
-
-  28% {
-    opacity: 0.72;
-  }
-
-  100% {
-    opacity: 0.55;
-  }
-}
-
-@keyframes bulb-bloom-thunder {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.4);
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.95) 0%,
-      rgba(200, 225, 255, 0.7) 40%,
-      transparent 72%
-    );
-  }
-
-  22% {
-    opacity: 0.15;
-    transform: translate(-50%, -50%) scale(0.55);
-  }
-
-  30% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.25);
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.95) 0%,
-      rgba(190, 220, 255, 0.75) 36%,
-      rgba(140, 175, 235, 0.35) 58%,
-      transparent 76%
-    );
-  }
-
-  100% {
-    opacity: 0.88;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes bulb-thunder-charge {
-  0%,
-  16% {
-    opacity: 0;
-  }
-
-  22% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0.95;
-  }
-}
-
-@keyframes bulb-flare-strike {
-  0% {
-    opacity: 0;
-  }
-
-  22% {
     opacity: 0.05;
   }
 
   28% {
-    opacity: 1;
+    opacity: 0.12;
   }
 
   100% {
-    opacity: 0.5;
+    opacity: 0.1;
+  }
+}
+
+@keyframes bulb-flare-thunder {
+  0% {
+    opacity: 0;
+  }
+
+  24% {
+    opacity: 0.35;
+  }
+
+  100% {
+    opacity: 0.2;
   }
 }
 
@@ -565,9 +475,17 @@
   }
 }
 
-/* ── Lit: warm yellow returns after thunder flash ── */
-.lightbulb--lit .lightbulb__thunder-charge {
-  animation: bulb-thunder-fade var(--bulb-warm-return, 0.75s) ease-out forwards;
+/* ── Lit: warm yellow returns inside glass ── */
+.lightbulb--lit .lightbulb__thunder-fill {
+  animation: bulb-thunder-fill-out var(--bulb-warm-return, 0.75s) ease-out forwards;
+}
+
+.lightbulb--lit .lightbulb__thunder-core {
+  animation: bulb-thunder-core-out var(--bulb-warm-return, 0.75s) ease-out forwards;
+}
+
+.lightbulb--lit .lightbulb__glass-thunder-tint {
+  animation: bulb-glass-thunder-out var(--bulb-warm-return, 0.75s) ease-out forwards;
 }
 
 .lightbulb--lit .lightbulb__filament {
@@ -595,28 +513,47 @@
 
 .lightbulb--lit .lightbulb__bloom {
   opacity: 0.85;
-  animation: bulb-bloom-warm-return var(--bulb-warm-return, 0.75s) ease-out forwards;
+  animation: bulb-bloom-warm-in var(--bulb-warm-return, 0.75s) ease-out forwards;
 }
 
 .lightbulb--lit .lightbulb__bloom--tight {
   opacity: 0.92;
-  animation: bulb-bloom-tight-warm-return var(--bulb-warm-return, 0.75s) ease-out forwards;
+  animation: bulb-bloom-tight-warm-in var(--bulb-warm-return, 0.75s) ease-out forwards;
 }
 
-@keyframes bulb-thunder-fade {
+@keyframes bulb-thunder-fill-out {
   0% {
-    opacity: 0.92;
+    opacity: 0.78;
   }
 
   100% {
     opacity: 0;
-    filter: blur(5px);
+  }
+}
+
+@keyframes bulb-thunder-core-out {
+  0% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bulb-glass-thunder-out {
+  0% {
+    opacity: 0.48;
+  }
+
+  100% {
+    opacity: 0;
   }
 }
 
 @keyframes bulb-filament-warm-return {
   0% {
-    stroke: #e8f4ff;
+    stroke: #fafcfe;
   }
 
   100% {
@@ -626,70 +563,41 @@
 
 @keyframes bulb-inner-warm-return {
   0% {
-    opacity: 0.94;
-    filter: brightness(2.6) saturate(0.25);
+    opacity: 0.5;
   }
 
   100% {
     opacity: 0.97;
-    filter: brightness(1) saturate(1);
   }
 }
 
 @keyframes bulb-tint-warm-return {
   0% {
-    opacity: 0.55;
-    filter: saturate(0.3);
+    opacity: 0.1;
   }
 
   100% {
     opacity: 0.38;
-    filter: saturate(1);
   }
 }
 
-@keyframes bulb-bloom-warm-return {
+@keyframes bulb-bloom-warm-in {
   0% {
-    opacity: 0.88;
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.9) 0%,
-      rgba(190, 220, 255, 0.6) 40%,
-      transparent 74%
-    );
+    opacity: 0;
   }
 
   100% {
     opacity: 0.85;
-    background: radial-gradient(
-      circle,
-      rgba(255, 235, 185, 0.55) 0%,
-      rgba(255, 195, 105, 0.24) 36%,
-      rgba(255, 149, 0, 0.08) 58%,
-      transparent 74%
-    );
   }
 }
 
-@keyframes bulb-bloom-tight-warm-return {
+@keyframes bulb-bloom-tight-warm-in {
   0% {
-    opacity: 0.9;
-    background: radial-gradient(
-      circle,
-      rgba(255, 252, 240, 0.85) 0%,
-      rgba(200, 225, 255, 0.55) 48%,
-      transparent 72%
-    );
+    opacity: 0;
   }
 
   100% {
     opacity: 0.92;
-    background: radial-gradient(
-      circle,
-      rgba(255, 252, 240, 0.75) 0%,
-      rgba(255, 220, 140, 0.42) 48%,
-      transparent 72%
-    );
   }
 }
 
@@ -745,9 +653,12 @@
   .lightbulb--flicker .lightbulb__filament,
   .lightbulb--flicker .lightbulb__filament-core,
   .lightbulb--flicker .lightbulb__inner,
-  .lightbulb--strike .lightbulb__ingress,
-  .lightbulb--strike .lightbulb__thunder-charge,
-  .lightbulb--lit .lightbulb__thunder-charge,
+  .lightbulb--strike .lightbulb__thunder-fill,
+  .lightbulb--strike .lightbulb__thunder-core,
+  .lightbulb--strike .lightbulb__glass-thunder-tint,
+  .lightbulb--lit .lightbulb__thunder-fill,
+  .lightbulb--lit .lightbulb__thunder-core,
+  .lightbulb--lit .lightbulb__glass-thunder-tint,
   .lightbulb--lit .lightbulb__filament,
   .lightbulb--lit .lightbulb__inner,
   .lightbulb--lit .lightbulb__glass-tint,

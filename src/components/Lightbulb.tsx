@@ -1,6 +1,9 @@
 import "./Lightbulb.css";
 import type { HeroPhase } from "../hooks/useHeroSequence";
 
+const GLASS_PATH =
+  "M60 9 C41 9 27 27 25 49 C23 67 27 83 33 95 C35 99 37 103 38 107 L38 111 C38 113 40 115 43 115 L77 115 C80 115 82 113 82 111 L82 107 C83 103 85 99 87 95 C93 83 97 67 95 49 C93 27 79 9 60 9 Z";
+
 interface LightbulbProps {
   phase: HeroPhase;
 }
@@ -14,8 +17,6 @@ export function Lightbulb({ phase }: LightbulbProps) {
       <span className="lightbulb__bloom" />
       <span className="lightbulb__bloom lightbulb__bloom--tight" />
       <span className="lightbulb__pool" />
-      <span className="lightbulb__ingress" />
-      <span className="lightbulb__thunder-charge" />
 
       <svg
         className="lightbulb__svg"
@@ -33,6 +34,26 @@ export function Lightbulb({ phase }: LightbulbProps) {
             <stop offset="78%" stopColor="#ff8820" stopOpacity="0.22" />
             <stop offset="100%" stopColor="#ff6600" stopOpacity="0" />
           </radialGradient>
+
+          <radialGradient id="bulb-thunder-glow" cx="50%" cy="42%" r="52%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.92" />
+            <stop offset="22%" stopColor="#f6f9fc" stopOpacity="0.78" />
+            <stop offset="48%" stopColor="#e4edf5" stopOpacity="0.42" />
+            <stop offset="72%" stopColor="#d0dce8" stopOpacity="0.16" />
+            <stop offset="100%" stopColor="#c0d0e0" stopOpacity="0" />
+          </radialGradient>
+
+          <radialGradient id="bulb-thunder-core" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.98" />
+            <stop offset="55%" stopColor="#f0f5fa" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#dde8f2" stopOpacity="0" />
+          </radialGradient>
+
+          <linearGradient id="bulb-glass-thunder" x1="30%" y1="0%" x2="70%" y2="100%">
+            <stop offset="0%" stopColor="rgba(245, 250, 255, 0.38)" />
+            <stop offset="55%" stopColor="rgba(225, 236, 248, 0.22)" />
+            <stop offset="100%" stopColor="rgba(210, 224, 238, 0.1)" />
+          </linearGradient>
 
           <radialGradient id="bulb-filament-hot" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#ffffff" />
@@ -82,7 +103,7 @@ export function Lightbulb({ phase }: LightbulbProps) {
           </linearGradient>
 
           <clipPath id="bulb-glass-clip">
-            <path d="M60 9 C41 9 27 27 25 49 C23 67 27 83 33 95 C35 99 37 103 38 107 L38 111 C38 113 40 115 43 115 L77 115 C80 115 82 113 82 111 L82 107 C83 103 85 99 87 95 C93 83 97 67 95 49 C93 27 79 9 60 9 Z" />
+            <path d={GLASS_PATH} />
           </clipPath>
 
           <filter id="bulb-filament-glow" x="-100%" y="-100%" width="300%" height="300%">
@@ -101,14 +122,14 @@ export function Lightbulb({ phase }: LightbulbProps) {
         {/* Glass body */}
         <path
           className="lightbulb__glass"
-          d="M60 9 C41 9 27 27 25 49 C23 67 27 83 33 95 C35 99 37 103 38 107 L38 111 C38 113 40 115 43 115 L77 115 C80 115 82 113 82 111 L82 107 C83 103 85 99 87 95 C93 83 97 67 95 49 C93 27 79 9 60 9 Z"
+          d={GLASS_PATH}
           fill="url(#bulb-glass-off)"
         />
 
         {/* Rim edge highlight */}
         <path
           className="lightbulb__rim"
-          d="M60 9 C41 9 27 27 25 49 C23 67 27 83 33 95 C35 99 37 103 38 107 L38 111 C38 113 40 115 43 115 L77 115 C80 115 82 113 82 111 L82 107 C83 103 85 99 87 95 C93 83 97 67 95 49 C93 27 79 9 60 9 Z"
+          d={GLASS_PATH}
           fill="none"
           stroke="url(#bulb-rim)"
           strokeWidth="1.1"
@@ -117,15 +138,39 @@ export function Lightbulb({ phase }: LightbulbProps) {
         {/* Warm inner fill */}
         <path
           className="lightbulb__inner"
-          d="M60 9 C41 9 27 27 25 49 C23 67 27 83 33 95 C35 99 37 103 38 107 L38 111 C38 113 40 115 43 115 L77 115 C80 115 82 113 82 111 L82 107 C83 103 85 99 87 95 C93 83 97 67 95 49 C93 27 79 9 60 9 Z"
+          d={GLASS_PATH}
           fill="url(#bulb-inner-glow)"
+          clipPath="url(#bulb-glass-clip)"
+        />
+
+        {/* Thunder charge — clipped inside glass only */}
+        <path
+          className="lightbulb__thunder-fill"
+          d={GLASS_PATH}
+          fill="url(#bulb-thunder-glow)"
+          clipPath="url(#bulb-glass-clip)"
+        />
+
+        <circle
+          className="lightbulb__thunder-core"
+          cx="60"
+          cy="72"
+          r="11"
+          fill="url(#bulb-thunder-core)"
           clipPath="url(#bulb-glass-clip)"
         />
 
         <path
           className="lightbulb__glass-tint"
-          d="M60 9 C41 9 27 27 25 49 C23 67 27 83 33 95 C35 99 37 103 38 107 L38 111 C38 113 40 115 43 115 L77 115 C80 115 82 113 82 111 L82 107 C83 103 85 99 87 95 C93 83 97 67 95 49 C93 27 79 9 60 9 Z"
+          d={GLASS_PATH}
           fill="url(#bulb-glass-lit)"
+        />
+
+        <path
+          className="lightbulb__glass-thunder-tint"
+          d={GLASS_PATH}
+          fill="url(#bulb-glass-thunder)"
+          clipPath="url(#bulb-glass-clip)"
         />
 
         {/* Specular streak */}
@@ -195,11 +240,11 @@ export function Lightbulb({ phase }: LightbulbProps) {
 
         {/* Lens-flare rays (lit) */}
         <g className="lightbulb__flare" filter="url(#bulb-flare)">
-          <line x1="60" y1="72" x2="60" y2="58" stroke="rgba(255,248,220,0.5)" strokeWidth="0.6" />
-          <line x1="60" y1="72" x2="48" y2="64" stroke="rgba(255,240,200,0.35)" strokeWidth="0.45" />
-          <line x1="60" y1="72" x2="72" y2="64" stroke="rgba(255,240,200,0.35)" strokeWidth="0.45" />
-          <line x1="60" y1="72" x2="52" y2="78" stroke="rgba(255,235,190,0.28)" strokeWidth="0.4" />
-          <line x1="60" y1="72" x2="68" y2="78" stroke="rgba(255,235,190,0.28)" strokeWidth="0.4" />
+          <line x1="60" y1="72" x2="60" y2="58" stroke="rgba(248, 252, 255, 0.45)" strokeWidth="0.6" />
+          <line x1="60" y1="72" x2="48" y2="64" stroke="rgba(240, 248, 255, 0.3)" strokeWidth="0.45" />
+          <line x1="60" y1="72" x2="72" y2="64" stroke="rgba(240, 248, 255, 0.3)" strokeWidth="0.45" />
+          <line x1="60" y1="72" x2="52" y2="78" stroke="rgba(235, 244, 252, 0.22)" strokeWidth="0.4" />
+          <line x1="60" y1="72" x2="68" y2="78" stroke="rgba(235, 244, 252, 0.22)" strokeWidth="0.4" />
         </g>
 
         {/* Glass neck */}
