@@ -14,228 +14,219 @@
   width: 100%;
   height: 100%;
   overflow: visible;
-  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
 }
 
-/* Outer bloom */
+/* Environmental light pool on button */
+.lightbulb__pool {
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  width: calc(var(--bulb-w) * 1.65);
+  height: calc(var(--bulb-w) * 0.38);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 0%,
+    rgba(255, 175, 70, 0.38) 0%,
+    rgba(255, 140, 40, 0.14) 45%,
+    transparent 72%
+  );
+  opacity: 0;
+  filter: blur(4px);
+  pointer-events: none;
+}
+
 .lightbulb__bloom {
   position: absolute;
   left: 50%;
   top: 34%;
-  width: calc(var(--bulb-w) * 2.6);
-  height: calc(var(--bulb-w) * 2.6);
+  width: calc(var(--bulb-w) * 2.8);
+  height: calc(var(--bulb-w) * 2.8);
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(255, 238, 190, 0.5) 0%,
-    rgba(255, 200, 110, 0.22) 34%,
-    rgba(255, 160, 50, 0.06) 56%,
-    transparent 72%
+    rgba(255, 235, 185, 0.55) 0%,
+    rgba(255, 195, 105, 0.24) 36%,
+    rgba(255, 149, 0, 0.08) 58%,
+    transparent 74%
   );
   opacity: 0;
-  filter: blur(12px);
-  transition: opacity 1.4s ease;
+  filter: blur(14px);
   pointer-events: none;
 }
 
 .lightbulb__bloom--tight {
-  width: calc(var(--bulb-w) * 1.5);
-  height: calc(var(--bulb-w) * 1.5);
+  width: calc(var(--bulb-w) * 1.45);
+  height: calc(var(--bulb-w) * 1.45);
   top: 36%;
-  filter: blur(5px);
+  filter: blur(6px);
   background: radial-gradient(
     circle,
-    rgba(255, 250, 230, 0.65) 0%,
-    rgba(255, 215, 130, 0.35) 45%,
-    transparent 70%
+    rgba(255, 252, 240, 0.75) 0%,
+    rgba(255, 220, 140, 0.42) 48%,
+    transparent 72%
   );
-}
-
-/* Glass */
-.lightbulb__glass {
-  transition:
-    stroke 0.8s ease,
-    fill 0.8s ease;
 }
 
 .lightbulb__inner {
   opacity: 0;
-  transition: opacity 0.9s ease;
 }
 
 .lightbulb__glass-tint {
   opacity: 0;
   mix-blend-mode: screen;
-  transition: opacity 0.9s ease;
 }
 
-.lightbulb__specular {
-  transition: opacity 0.6s ease;
-}
-
-.lightbulb__specular--main {
-  opacity: 0.75;
-}
-
-.lightbulb__specular--soft {
-  opacity: 0.35;
-}
-
-/* Internals */
-.lightbulb__stem,
-.lightbulb__wire {
-  transition: stroke 0.5s ease;
+.lightbulb__flare {
+  opacity: 0;
 }
 
 .lightbulb__filament {
   fill: none;
-  stroke: #5a4a38;
-  opacity: 0.65;
-  transition:
-    stroke 0.45s ease,
-    opacity 0.45s ease,
-    filter 0.5s ease;
+  stroke: #3a3530;
+  opacity: 0.72;
 }
 
-.lightbulb__filament--inner {
-  opacity: 0.55;
-}
-
-.lightbulb__filament--core {
-  opacity: 0.45;
+.lightbulb__filament-core {
+  fill: none;
+  stroke: transparent;
+  opacity: 0;
 }
 
 .lightbulb__contact {
-  fill: #1e1e1e;
+  fill: #141414;
 }
 
-.lightbulb__thread {
+/* ── Off: transparent glass, dark filament, chrome base ── */
+.lightbulb--off .lightbulb__filament {
+  stroke: #2e2a26;
+  opacity: 0.65;
+}
+
+.lightbulb--off .lightbulb__rim {
   opacity: 0.85;
 }
 
-/* ── Off ── */
-.lightbulb--off .lightbulb__filament,
-.lightbulb--off .lightbulb__filament--inner,
-.lightbulb--off .lightbulb__filament--core {
-  stroke: #4a4035;
-  opacity: 0.45;
-  filter: none;
+.lightbulb--off .lightbulb__specular {
+  opacity: 0.55;
 }
 
-.lightbulb--off .lightbulb__glass {
-  stroke: rgba(255, 255, 255, 0.1);
-}
-
-/* ── Flicker: underpowered — dim, irregular, never fully on ── */
-.lightbulb--flicker .lightbulb__filament,
-.lightbulb--flicker .lightbulb__filament--inner,
-.lightbulb--flicker .lightbulb__filament--core {
+/* ── Flicker: low orange pulses, glass stays clear ── */
+.lightbulb--flicker .lightbulb__filament {
   animation: bulb-underpower 2.1s ease-in-out infinite;
+}
+
+.lightbulb--flicker .lightbulb__filament-core {
+  animation: bulb-core-underpower 2.1s ease-in-out infinite;
 }
 
 .lightbulb--flicker .lightbulb__inner {
   animation: bulb-inner-underpower 2.1s ease-in-out infinite;
 }
 
-.lightbulb--flicker .lightbulb__glass-tint {
-  opacity: 0;
-}
-
+.lightbulb--flicker .lightbulb__glass-tint,
+.lightbulb--flicker .lightbulb__flare,
 .lightbulb--flicker .lightbulb__bloom,
-.lightbulb--flicker .lightbulb__bloom--tight {
+.lightbulb--flicker .lightbulb__bloom--tight,
+.lightbulb--flicker .lightbulb__pool {
   opacity: 0;
-}
-
-.lightbulb--flicker .lightbulb__glass {
-  stroke: rgba(255, 255, 255, 0.1);
 }
 
 @keyframes bulb-underpower {
   0%,
   100% {
-    stroke: #4a3e32;
-    opacity: 0.22;
+    stroke: #3a3530;
+    opacity: 0.28;
     filter: none;
   }
 
-  3% {
-    stroke: #a07038;
-    opacity: 0.48;
-    filter: drop-shadow(0 0 2px rgba(255, 110, 25, 0.22));
-  }
-
-  5% {
-    stroke: #44382c;
-    opacity: 0.15;
-    filter: none;
-  }
-
-  14% {
-    stroke: #907040;
-    opacity: 0.4;
-    filter: drop-shadow(0 0 2px rgba(255, 100, 20, 0.18));
-  }
-
-  16% {
-    stroke: #3e3428;
-    opacity: 0.12;
-    filter: none;
-  }
-
-  28%,
-  46% {
-    stroke: #4a3e32;
-    opacity: 0.2;
-    filter: none;
-  }
-
-  36% {
-    stroke: #b08042;
-    opacity: 0.52;
+  4% {
+    stroke: #c87838;
+    opacity: 0.62;
     filter: drop-shadow(0 0 3px rgba(255, 120, 30, 0.28));
   }
 
-  38% {
-    stroke: #403428;
+  6% {
+    stroke: #322e2a;
+    opacity: 0.18;
+    filter: none;
+  }
+
+  15% {
+    stroke: #a06830;
+    opacity: 0.5;
+    filter: drop-shadow(0 0 2px rgba(255, 100, 22, 0.22));
+  }
+
+  17% {
+    stroke: #302c28;
     opacity: 0.14;
     filter: none;
   }
 
-  58% {
-    stroke: #987038;
-    opacity: 0.38;
-    filter: drop-shadow(0 0 2px rgba(255, 95, 18, 0.2));
+  30%,
+  48% {
+    stroke: #3a3530;
+    opacity: 0.22;
+    filter: none;
   }
 
-  60% {
-    stroke: #44382c;
+  38% {
+    stroke: #d08040;
+    opacity: 0.58;
+    filter: drop-shadow(0 0 4px rgba(255, 130, 35, 0.3));
+  }
+
+  40% {
+    stroke: #342f2a;
     opacity: 0.16;
     filter: none;
   }
 
-  74% {
-    stroke: #c09048;
-    opacity: 0.55;
-    filter: drop-shadow(0 0 4px rgba(255, 130, 35, 0.3));
+  62% {
+    stroke: #b07038;
+    opacity: 0.48;
+    filter: drop-shadow(0 0 3px rgba(255, 110, 28, 0.24));
   }
 
-  76% {
-    stroke: #3a3026;
-    opacity: 0.1;
+  64% {
+    stroke: #322e2a;
+    opacity: 0.15;
     filter: none;
   }
 
-  90% {
-    stroke: #886838;
+  78% {
+    stroke: #d88848;
+    opacity: 0.6;
+    filter: drop-shadow(0 0 4px rgba(255, 140, 40, 0.32));
+  }
+
+  80% {
+    stroke: #302c28;
+    opacity: 0.12;
+    filter: none;
+  }
+}
+
+@keyframes bulb-core-underpower {
+  0%,
+  100% {
+    stroke: transparent;
+    opacity: 0;
+  }
+
+  38%,
+  78% {
+    stroke: #ffcc80;
     opacity: 0.35;
-    filter: drop-shadow(0 0 2px rgba(255, 90, 15, 0.18));
   }
 
-  92% {
-    stroke: #42382c;
-    opacity: 0.18;
-    filter: none;
+  40%,
+  80% {
+    stroke: transparent;
+    opacity: 0;
   }
 }
 
@@ -245,48 +236,57 @@
     opacity: 0;
   }
 
-  36%,
-  74% {
-    opacity: 0.06;
+  38%,
+  78% {
+    opacity: 0.08;
   }
 
-  38%,
-  76% {
+  40%,
+  80% {
     opacity: 0;
   }
 }
 
-/* ── Lit: synchronized snap-on ── */
-.lightbulb--lit .lightbulb__filament,
-.lightbulb--lit .lightbulb__filament--inner,
-.lightbulb--lit .lightbulb__filament--core {
-  stroke: #fffef8;
+/* ── Lit: white-hot filament, amber glass, flare, pool ── */
+.lightbulb--lit .lightbulb__filament {
+  stroke: #ffe8a8;
   opacity: 1;
   filter: url(#bulb-filament-glow);
-  animation: none;
+}
+
+.lightbulb--lit .lightbulb__filament-core {
+  stroke: #ffffff;
+  opacity: 1;
+  filter: url(#bulb-filament-glow);
 }
 
 .lightbulb--lit .lightbulb__inner {
-  opacity: 0.95;
   animation: bulb-inner-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .lightbulb--lit .lightbulb__glass-tint {
-  opacity: 0.42;
   animation: bulb-tint-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.lightbulb--lit .lightbulb__glass {
-  stroke: rgba(255, 245, 210, 0.38);
-  animation: bulb-glass-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.lightbulb--lit .lightbulb__flare {
+  animation: bulb-flare-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.lightbulb--lit .lightbulb__specular--main {
-  opacity: 0.95;
+.lightbulb--lit .lightbulb__rim {
+  stroke: rgba(255, 245, 220, 0.45);
 }
 
-.lightbulb--lit .lightbulb__specular--soft {
-  opacity: 0.5;
+.lightbulb--lit .lightbulb__specular {
+  opacity: 0.92;
+}
+
+.lightbulb--lit .lightbulb__base-glow {
+  animation: bulb-base-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.lightbulb--lit .lightbulb__stem,
+.lightbulb--lit .lightbulb__wire {
+  stroke: rgba(210, 200, 175, 0.8);
 }
 
 .lightbulb--lit .lightbulb__bloom {
@@ -301,9 +301,8 @@
     bulb-bloom-breathe 5s ease-in-out 0.72s infinite reverse;
 }
 
-.lightbulb--lit .lightbulb__stem,
-.lightbulb--lit .lightbulb__wire {
-  stroke: rgba(220, 210, 190, 0.85);
+.lightbulb--lit .lightbulb__pool {
+  animation: bulb-pool-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .lightbulb--lit .lightbulb__svg {
@@ -315,12 +314,12 @@
     opacity: 0;
   }
 
-  25% {
-    opacity: 0.85;
+  22% {
+    opacity: 0.92;
   }
 
   100% {
-    opacity: 0.95;
+    opacity: 0.97;
   }
 }
 
@@ -329,55 +328,96 @@
     opacity: 0;
   }
 
-  30% {
-    opacity: 0.55;
+  28% {
+    opacity: 0.5;
   }
 
   100% {
-    opacity: 0.42;
+    opacity: 0.38;
   }
 }
 
-@keyframes bulb-glass-ignite {
+@keyframes bulb-flare-ignite {
   0% {
-    stroke: rgba(255, 255, 255, 0.1);
-    filter: none;
+    opacity: 0;
   }
 
   20% {
-    stroke: rgba(255, 250, 220, 0.7);
-    filter: drop-shadow(0 0 20px rgba(255, 210, 120, 0.7));
+    opacity: 0.85;
   }
 
   100% {
-    stroke: rgba(255, 245, 210, 0.38);
-    filter: drop-shadow(0 0 10px rgba(255, 200, 100, 0.35));
+    opacity: 0.55;
+  }
+}
+
+@keyframes bulb-base-ignite {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.88;
+  }
+}
+
+@keyframes bulb-pool-ignite {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(0.4);
+  }
+
+  25% {
+    opacity: 0.75;
+    transform: translateX(-50%) scaleY(1.1);
+  }
+
+  100% {
+    opacity: 0.55;
+    transform: translateX(-50%) scaleY(1);
   }
 }
 
 @keyframes bulb-svg-ignite {
   0% {
-    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.45));
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
   }
 
   18% {
     filter:
-      drop-shadow(0 0 28px rgba(255, 235, 180, 1))
-      drop-shadow(0 0 56px rgba(255, 170, 60, 0.65));
+      drop-shadow(0 0 30px rgba(255, 230, 170, 0.95))
+      drop-shadow(0 0 60px rgba(255, 149, 0, 0.55));
   }
 
   100% {
     filter:
-      drop-shadow(0 3px 8px rgba(0, 0, 0, 0.4))
-      drop-shadow(0 0 18px rgba(255, 190, 90, 0.45))
-      drop-shadow(0 0 40px rgba(255, 150, 50, 0.22));
+      drop-shadow(0 4px 10px rgba(0, 0, 0, 0.38))
+      drop-shadow(0 0 20px rgba(255, 190, 90, 0.5))
+      drop-shadow(0 0 44px rgba(255, 149, 0, 0.25));
   }
 }
 
 @keyframes bulb-bloom-ignite {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.6);
+    transform: translate(-50%, -50%) scale(0.55);
+  }
+
+  25% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  100% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes bulb-bloom-tight-ignite {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.45);
   }
 
   25% {
@@ -386,24 +426,7 @@
   }
 
   100% {
-    opacity: 0.82;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes bulb-bloom-tight-ignite {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.5);
-  }
-
-  25% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.15);
-  }
-
-  100% {
-    opacity: 0.9;
+    opacity: 0.92;
     transform: translate(-50%, -50%) scale(1);
   }
 }
@@ -411,40 +434,54 @@
 @keyframes bulb-bloom-breathe {
   0%,
   100% {
-    opacity: 0.76;
+    opacity: 0.8;
     transform: translate(-50%, -50%) scale(1);
   }
 
   50% {
-    opacity: 0.92;
-    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 0.94;
+    transform: translate(-50%, -50%) scale(1.04);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .lightbulb--flicker .lightbulb__filament,
+  .lightbulb--flicker .lightbulb__filament-core,
   .lightbulb--flicker .lightbulb__inner,
   .lightbulb--lit .lightbulb__bloom,
   .lightbulb--lit .lightbulb__bloom--tight,
   .lightbulb--lit .lightbulb__inner,
   .lightbulb--lit .lightbulb__glass-tint,
-  .lightbulb--lit .lightbulb__glass,
-  .lightbulb--lit .lightbulb__svg {
+  .lightbulb--lit .lightbulb__flare,
+  .lightbulb--lit .lightbulb__pool,
+  .lightbulb--lit .lightbulb__svg,
+  .lightbulb--lit .lightbulb__base-glow {
     animation: none !important;
   }
 
-  .lightbulb--flicker .lightbulb__filament,
   .lightbulb--lit .lightbulb__filament {
-    stroke: #fff4d0;
-    opacity: 1;
+    stroke: #ffe8a8;
     filter: url(#bulb-filament-glow);
   }
 
-  .lightbulb--lit .lightbulb__inner {
-    opacity: 0.9;
+  .lightbulb--lit .lightbulb__filament-core {
+    stroke: #ffffff;
+    opacity: 1;
   }
 
-  .lightbulb--lit .lightbulb__bloom {
-    opacity: 0.7;
+  .lightbulb--lit .lightbulb__inner {
+    opacity: 0.95;
+  }
+
+  .lightbulb--lit .lightbulb__flare {
+    opacity: 0.5;
+  }
+
+  .lightbulb--lit .lightbulb__pool {
+    opacity: 0.5;
+  }
+
+  .lightbulb--lit .lightbulb__base-glow {
+    opacity: 0.88;
   }
 }
