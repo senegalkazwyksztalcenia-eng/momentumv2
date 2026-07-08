@@ -6,7 +6,6 @@ interface HeroSunProps {
 }
 
 export function HeroSun({ phase }: HeroSunProps) {
-  const isNight = phase === "night";
   const isRising = phase === "rising";
   const isEmpowered = phase === "empowered";
 
@@ -14,7 +13,6 @@ export function HeroSun({ phase }: HeroSunProps) {
     <div
       className={[
         "hero-sun",
-        isNight ? "hero-sun--preglow" : "",
         isRising ? "hero-sun--rising" : "",
         isEmpowered ? "hero-sun--empowered" : "",
       ]

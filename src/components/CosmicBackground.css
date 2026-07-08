@@ -4,7 +4,7 @@
   z-index: 0;
   overflow: hidden;
   background: #010208;
-  --rise-duration: 7s;
+  --rise-duration: 3s;
   --rise-ease: cubic-bezier(0.44, 0, 0.24, 1);
 }
 
@@ -102,11 +102,11 @@
   pointer-events: none;
 }
 
-/* Sun rises behind the planet limb */
+/* Sun emerges at the CTA button — above planet layer */
 .cosmic-background__sun-well {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 4;
   pointer-events: none;
   overflow: visible;
 }

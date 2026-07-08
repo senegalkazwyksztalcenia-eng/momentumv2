@@ -28,7 +28,7 @@ export function HeroMomentum() {
         Przejdź do treści
       </a>
 
-      <CosmicBackground showPlanet showSunrise={isRising || isEmpowered}>
+      <CosmicBackground showPlanet showSunrise={false}>
         <HeroSun phase={phase} />
       </CosmicBackground>
       <SalesCTA visible={showContent} empowered={isEmpowered} />

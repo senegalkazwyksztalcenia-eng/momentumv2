@@ -7,9 +7,9 @@ interface PhaseStep {
   at: number;
 }
 
-/** Pre-dawn glow, then 7s linear sun rise to the button. */
+/** Night with planet, then 3s sun rise from the button. */
 export const PREDAWN_MS = 6000;
-export const SUN_RISE_MS = 7000;
+export const SUN_RISE_MS = 3000;
 
 const SEQUENCE: PhaseStep[] = [
   { phase: "rising", at: PREDAWN_MS },
