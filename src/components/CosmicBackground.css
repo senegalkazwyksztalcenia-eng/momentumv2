@@ -4,8 +4,8 @@
   z-index: 0;
   overflow: hidden;
   background: #010208;
-  --rise-duration: 14s;
-  --rise-ease: cubic-bezier(0.42, 0, 0.18, 1);
+  --rise-duration: 18s;
+  --rise-ease: cubic-bezier(0.38, 0, 0.14, 1);
 }
 
 .cosmic-background__void {
@@ -174,21 +174,21 @@
 @keyframes space-light-reveal {
   0% {
     opacity: 0;
-    transform: scaleY(0.94);
-  }
-
-  22% {
-    opacity: 0.12;
     transform: scaleY(0.96);
   }
 
-  45% {
-    opacity: 0.38;
-    transform: scaleY(0.98);
+  18% {
+    opacity: 0.08;
+    transform: scaleY(0.97);
   }
 
-  72% {
-    opacity: 0.68;
+  40% {
+    opacity: 0.28;
+    transform: scaleY(0.985);
+  }
+
+  65% {
+    opacity: 0.55;
     transform: scaleY(0.995);
   }
 

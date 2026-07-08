@@ -7,9 +7,9 @@ interface PhaseStep {
   at: number;
 }
 
-/** Long pre-dawn, then slow real-sunrise: light first, disc later. */
+/** Long pre-dawn glow, then very slow natural emergence from behind planet. */
 export const PREDAWN_MS = 6000;
-export const SUN_RISE_MS = 14000;
+export const SUN_RISE_MS = 18000;
 
 const SEQUENCE: PhaseStep[] = [
   { phase: "rising", at: PREDAWN_MS },
