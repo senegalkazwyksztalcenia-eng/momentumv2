@@ -6,12 +6,17 @@ const GLASS_PATH =
 
 interface LightbulbProps {
   phase: HeroPhase;
+  revealed?: boolean;
 }
 
-export function Lightbulb({ phase }: LightbulbProps) {
+export function Lightbulb({ phase, revealed = false }: LightbulbProps) {
   return (
     <div
-      className={["lightbulb", `lightbulb--${phase}`].join(" ")}
+      className={[
+        "lightbulb",
+        `lightbulb--${phase}`,
+        revealed ? "lightbulb--revealed" : "",
+      ].join(" ")}
       aria-hidden="true"
     >
       <span className="lightbulb__bloom" />
@@ -36,22 +41,22 @@ export function Lightbulb({ phase }: LightbulbProps) {
           </radialGradient>
 
           <radialGradient id="bulb-thunder-glow" cx="50%" cy="44%" r="46%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.88" />
-            <stop offset="28%" stopColor="#f4f7fb" stopOpacity="0.62" />
-            <stop offset="55%" stopColor="#e6edf4" stopOpacity="0.28" />
-            <stop offset="100%" stopColor="#d8e2ec" stopOpacity="0" />
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+            <stop offset="22%" stopColor="#eef4fc" stopOpacity="0.78" />
+            <stop offset="48%" stopColor="#d8e6f8" stopOpacity="0.42" />
+            <stop offset="100%" stopColor="#c0d4f0" stopOpacity="0" />
           </radialGradient>
 
           <radialGradient id="bulb-thunder-core" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.92" />
-            <stop offset="45%" stopColor="#f2f6fa" stopOpacity="0.38" />
-            <stop offset="100%" stopColor="#e4ebf2" stopOpacity="0" />
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+            <stop offset="38%" stopColor="#f4f8ff" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#dce8f8" stopOpacity="0" />
           </radialGradient>
 
           <linearGradient id="bulb-glass-thunder" x1="28%" y1="2%" x2="72%" y2="98%">
-            <stop offset="0%" stopColor="rgba(248, 251, 255, 0.28)" />
-            <stop offset="50%" stopColor="rgba(232, 240, 248, 0.14)" />
-            <stop offset="100%" stopColor="rgba(220, 230, 240, 0.06)" />
+            <stop offset="0%" stopColor="rgba(250, 253, 255, 0.42)" />
+            <stop offset="50%" stopColor="rgba(220, 235, 252, 0.22)" />
+            <stop offset="100%" stopColor="rgba(200, 220, 245, 0.08)" />
           </linearGradient>
 
           <radialGradient id="bulb-filament-hot" cx="50%" cy="50%" r="50%">

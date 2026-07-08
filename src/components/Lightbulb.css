@@ -312,35 +312,35 @@
 
 @keyframes bulb-thunder-fill-in {
   0%,
-  17% {
+  14% {
     opacity: 0;
   }
 
-  24% {
-    opacity: 0.58;
+  20% {
+    opacity: 0.82;
   }
 
-  32% {
-    opacity: 0.52;
+  26% {
+    opacity: 0.72;
   }
 
   100% {
-    opacity: 0.48;
+    opacity: 0.58;
   }
 }
 
 @keyframes bulb-thunder-core-in {
   0%,
-  18% {
+  15% {
     opacity: 0;
   }
 
-  24% {
-    opacity: 0.62;
+  21% {
+    opacity: 0.88;
   }
 
   100% {
-    opacity: 0.45;
+    opacity: 0.62;
   }
 }
 
@@ -349,12 +349,12 @@
     opacity: 0;
   }
 
-  22% {
-    opacity: 0.32;
+  20% {
+    opacity: 0.48;
   }
 
   100% {
-    opacity: 0.28;
+    opacity: 0.36;
   }
 }
 
@@ -390,20 +390,20 @@
     opacity: 0.04;
   }
 
-  17% {
-    opacity: 0.05;
+  14% {
+    opacity: 0.06;
   }
 
-  22% {
-    opacity: 0.38;
+  19% {
+    opacity: 0.55;
   }
 
-  28% {
-    opacity: 0.52;
+  24% {
+    opacity: 0.72;
   }
 
   100% {
-    opacity: 0.48;
+    opacity: 0.58;
   }
 }
 
@@ -430,12 +430,159 @@
     opacity: 0;
   }
 
-  24% {
-    opacity: 0.35;
+  20% {
+    opacity: 0.55;
   }
 
   100% {
-    opacity: 0.2;
+    opacity: 0.28;
+  }
+}
+
+/* ── Repeat strike: thunder flashes over steady warm bulb ── */
+.lightbulb--revealed.lightbulb--strike .lightbulb__inner {
+  opacity: 0.94;
+  filter: url(#bulb-inner-scatter);
+  animation: bulb-thunder-overlay-inner var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__thunder-fill {
+  animation: bulb-thunder-overlay-fill var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__thunder-core {
+  animation: bulb-thunder-overlay-core var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__glass-thunder-tint {
+  animation: bulb-thunder-overlay-glass var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__filament {
+  stroke: #ffe8a8;
+  filter: url(#bulb-filament-glow);
+  animation: bulb-filament-overlay-strike var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__filament-core {
+  stroke: #ffffff;
+  opacity: 1;
+  filter: url(#bulb-filament-glow);
+  animation: bulb-filament-core-overlay-strike var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__glass-tint {
+  opacity: 0.38;
+  animation: none;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__bloom {
+  opacity: 0.62;
+  animation: none;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__bloom--tight {
+  opacity: 0.72;
+  animation: none;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__pool {
+  opacity: 0.38;
+  animation: none;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__flare {
+  opacity: 0.5;
+  animation: bulb-flare-overlay-strike var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+@keyframes bulb-thunder-overlay-fill {
+  0%,
+  12% {
+    opacity: 0;
+  }
+
+  16% {
+    opacity: 0.92;
+  }
+
+  22% {
+    opacity: 0.55;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bulb-thunder-overlay-core {
+  0%,
+  12% {
+    opacity: 0;
+  }
+
+  16% {
+    opacity: 0.95;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bulb-thunder-overlay-glass {
+  0% {
+    opacity: 0;
+  }
+
+  16% {
+    opacity: 0.52;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bulb-thunder-overlay-inner {
+  0%,
+  100% {
+    opacity: 0.94;
+  }
+
+  16% {
+    opacity: 0.78;
+  }
+}
+
+@keyframes bulb-filament-overlay-strike {
+  0%,
+  100% {
+    stroke: #ffe8a8;
+  }
+
+  14%,
+  20% {
+    stroke: #fafcfe;
+  }
+}
+
+@keyframes bulb-filament-core-overlay-strike {
+  0%,
+  100% {
+    stroke: #ffffff;
+    opacity: 1;
+  }
+}
+
+@keyframes bulb-flare-overlay-strike {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  16% {
+    opacity: 0.85;
   }
 }
 

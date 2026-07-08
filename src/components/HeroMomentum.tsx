@@ -3,7 +3,6 @@ import { useBreakpoint } from "../contexts/BreakpointContext";
 import { CosmicBackground } from "./CosmicBackground";
 import { SalesCTA } from "./SalesCTA";
 import { BulbLightningStrike } from "./BulbLightningStrike";
-import { HeroInstagram } from "./HeroInstagram";
 import "./HeroMomentum.css";
 
 export function HeroMomentum() {
@@ -26,10 +25,9 @@ export function HeroMomentum() {
         Przejdź do treści
       </a>
 
-      <CosmicBackground showPlanet bulbPhase={phase} />
-      {showStrike ? <BulbLightningStrike key={strikeKey} /> : null}
-      <SalesCTA phase={phase} />
-      <HeroInstagram visible={contentVisible} />
+      <CosmicBackground showPlanet bulbPhase={phase} contentVisible={contentVisible} />
+      {showStrike ? <BulbLightningStrike key={strikeKey} strikeKey={strikeKey} /> : null}
+      <SalesCTA phase={phase} contentVisible={contentVisible} />
 
       <header
         className={`hero-momentum__header ${contentVisible ? "hero-momentum__header--visible" : ""}`}

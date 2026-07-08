@@ -102,11 +102,13 @@ function createStarField(): StarField {
 interface CosmicBackgroundProps {
   showPlanet?: boolean;
   bulbPhase?: HeroPhase;
+  contentVisible?: boolean;
 }
 
 export function CosmicBackground({
   showPlanet = false,
   bulbPhase = "off",
+  contentVisible = false,
 }: CosmicBackgroundProps) {
   const isDesktop = useBreakpoint();
   const fieldRef = useRef<StarField | null>(null);
@@ -120,7 +122,7 @@ export function CosmicBackground({
   const nearStars = isDesktop ? near : near.slice(0, 10);
   const lights = isDesktop ? cityLights : cityLights.slice(0, 56);
 
-  const glowPhase = toBulbGlowPhase(bulbPhase);
+  const glowPhase = toBulbGlowPhase(bulbPhase, contentVisible);
 
   const classNames = [
     "cosmic-background",

@@ -8,8 +8,15 @@
   pointer-events: none;
 }
 
-.sales-cta--visible .solar-cta {
+.sales-cta--visible .solar-cta,
+.sales-cta--visible .hero-instagram {
   pointer-events: auto;
+}
+
+.solar-cta__assembly {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .solar-cta {
@@ -18,16 +25,12 @@
   --pill-width: min(560px, 86vw);
 
   position: relative;
-  display: block;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.25s ease;
-}
-
-.solar-cta__assembly {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s ease;
 }
 
 .solar-cta__pill {
@@ -64,10 +67,18 @@
   opacity: 0.74;
 }
 
-/* Phase: strike — frame still dark while bolt hits */
+/* Phase: strike — flash rim on repeat, dark on first hit */
 .sales-cta--strike .solar-cta__pill {
   border-color: rgba(68, 66, 62, 0.5);
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+}
+
+.sales-cta--lit.sales-cta--strike .solar-cta__pill {
+  border-color: rgba(255, 220, 180, 0.88);
+  box-shadow:
+    0 0 10px rgba(220, 235, 255, 0.35),
+    0 0 22px rgba(255, 185, 90, 0.32),
+    inset 0 0 16px rgba(230, 240, 255, 0.1);
 }
 
 /* Phase: lit — warm tungsten frame after lightning */
