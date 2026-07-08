@@ -10,7 +10,7 @@ interface PhaseStep {
 
 export const FLICKER_START_MS = 1200;
 export const STRIKE_START_MS = 4200;
-export const STRIKE_DURATION_MS = 1050;
+export const STRIKE_DURATION_MS = 1150;
 export const LIT_START_MS = STRIKE_START_MS + STRIKE_DURATION_MS;
 
 const SEQUENCE: PhaseStep[] = [

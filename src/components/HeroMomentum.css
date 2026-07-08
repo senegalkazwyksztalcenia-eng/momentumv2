@@ -11,7 +11,7 @@
   );
   --bulb-ignite-duration: 0.72s;
   --bulb-flicker-cycle: 2.1s;
-  --strike-duration: 1.05s;
+  --strike-duration: 1.15s;
 
   position: relative;
   isolation: isolate;

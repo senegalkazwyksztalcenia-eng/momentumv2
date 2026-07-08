@@ -251,8 +251,8 @@
   left: 50%;
   top: 40.9%;
   z-index: 2;
-  width: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 0.42);
-  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 0.42);
+  width: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 0.55);
+  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 0.55);
   transform: translate(-50%, -50%) scale(0.2);
   border-radius: 50%;
   opacity: 0;
@@ -270,16 +270,16 @@
 
 /* ── Strike: lightning impact charges the bulb ── */
 .lightbulb--strike .lightbulb__ingress {
-  animation: bulb-ingress-strike var(--strike-duration, 1.05s) ease-out forwards;
+  animation: bulb-ingress-strike var(--strike-duration, 1.15s) ease-out forwards;
 }
 
 .lightbulb--strike .lightbulb__filament {
-  animation: bulb-filament-strike var(--strike-duration, 1.05s) ease-out forwards;
+  animation: bulb-filament-strike var(--strike-duration, 1.15s) ease-out forwards;
   filter: url(#bulb-filament-glow);
 }
 
 .lightbulb--strike .lightbulb__filament-core {
-  animation: bulb-filament-core-strike var(--strike-duration, 1.05s) ease-out forwards;
+  animation: bulb-filament-core-strike var(--strike-duration, 1.15s) ease-out forwards;
   filter: url(#bulb-filament-glow);
 }
 
@@ -326,65 +326,67 @@
 
   48% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.1);
-    filter: blur(0.5px);
+    transform: translate(-50%, -50%) scale(1.35);
+    filter: blur(0px);
     background: radial-gradient(
       circle,
       rgba(255, 255, 255, 1) 0%,
-      rgba(210, 245, 255, 1) 28%,
-      rgba(100, 200, 255, 0.65) 50%,
-      transparent 72%
+      rgba(230, 250, 255, 1) 22%,
+      rgba(120, 210, 255, 0.9) 42%,
+      rgba(60, 180, 255, 0.45) 58%,
+      transparent 76%
     );
   }
 
   54% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.55);
+    transform: translate(-50%, -50%) scale(2.1);
     background: radial-gradient(
       circle,
       rgba(255, 255, 255, 1) 0%,
-      rgba(255, 248, 220, 0.95) 30%,
-      rgba(255, 200, 100, 0.55) 55%,
-      transparent 78%
+      rgba(255, 252, 240, 1) 24%,
+      rgba(255, 220, 130, 0.85) 48%,
+      rgba(255, 180, 80, 0.45) 62%,
+      transparent 80%
     );
   }
 
-  68% {
-    opacity: 0.75;
-    transform: translate(-50%, -50%) scale(2.4);
-    filter: blur(3px);
+  66% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(3.2);
+    filter: blur(2px);
   }
 
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(3.2);
-    filter: blur(6px);
+    transform: translate(-50%, -50%) scale(4.2);
+    filter: blur(8px);
   }
 }
 
 .lightbulb--strike .lightbulb__inner {
-  animation: bulb-strike-charge var(--strike-duration, 1.05s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: bulb-strike-charge var(--strike-duration, 1.15s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .lightbulb--strike .lightbulb__glass-tint {
-  animation: bulb-tint-strike var(--strike-duration, 1.05s) ease-out forwards;
+  animation: bulb-tint-strike var(--strike-duration, 1.15s) ease-out forwards;
 }
 
 .lightbulb--strike .lightbulb__flare {
-  animation: bulb-flare-strike var(--strike-duration, 1.05s) ease-out forwards;
+  animation: bulb-flare-strike var(--strike-duration, 1.15s) ease-out forwards;
 }
 
 .lightbulb--strike .lightbulb__bloom,
 .lightbulb--strike .lightbulb__bloom--tight {
-  animation: bulb-bloom-strike var(--strike-duration, 1.05s) ease-out forwards;
+  animation: bulb-bloom-strike var(--strike-duration, 1.15s) ease-out forwards;
 }
 
 .lightbulb--strike .lightbulb__pool {
-  animation: bulb-pool-strike var(--strike-duration, 1.05s) ease-out forwards;
+  animation: bulb-pool-strike var(--strike-duration, 1.15s) ease-out forwards;
 }
 
 .lightbulb--strike .lightbulb__base-glow {
-  animation: bulb-base-ignite var(--strike-duration, 1.05s) ease-out forwards;
+  animation: bulb-base-ignite var(--strike-duration, 1.15s) ease-out forwards;
 }
 
 @keyframes bulb-strike-charge {
@@ -397,13 +399,13 @@
   }
 
   50% {
-    opacity: 0.35;
-    filter: brightness(1.8) saturate(0.9);
+    opacity: 0.5;
+    filter: brightness(2.2) saturate(0.85);
   }
 
   56% {
     opacity: 1;
-    filter: brightness(2.8) saturate(1.2);
+    filter: brightness(3.4) saturate(1.3);
   }
 
   100% {
