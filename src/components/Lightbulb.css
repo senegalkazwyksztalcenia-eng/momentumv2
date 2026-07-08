@@ -257,28 +257,28 @@
 }
 
 .lightbulb--strike .lightbulb__inner {
-  animation: bulb-strike-charge 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: bulb-strike-charge var(--strike-duration, 1.05s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .lightbulb--strike .lightbulb__glass-tint {
-  animation: bulb-tint-strike 0.58s ease-out forwards;
+  animation: bulb-tint-strike var(--strike-duration, 1.05s) ease-out forwards;
 }
 
 .lightbulb--strike .lightbulb__flare {
-  animation: bulb-flare-strike 0.58s ease-out forwards;
+  animation: bulb-flare-strike var(--strike-duration, 1.05s) ease-out forwards;
 }
 
 .lightbulb--strike .lightbulb__bloom,
 .lightbulb--strike .lightbulb__bloom--tight {
-  animation: bulb-bloom-strike 0.58s ease-out forwards;
+  animation: bulb-bloom-strike var(--strike-duration, 1.05s) ease-out forwards;
 }
 
 .lightbulb--strike .lightbulb__pool {
-  animation: bulb-pool-strike 0.58s ease-out forwards;
+  animation: bulb-pool-strike var(--strike-duration, 1.05s) ease-out forwards;
 }
 
 .lightbulb--strike .lightbulb__base-glow {
-  animation: bulb-base-ignite 0.58s ease-out forwards;
+  animation: bulb-base-ignite var(--strike-duration, 1.05s) ease-out forwards;
 }
 
 @keyframes bulb-strike-charge {
@@ -286,7 +286,11 @@
     opacity: 0.04;
   }
 
-  28% {
+  42% {
+    opacity: 0.08;
+  }
+
+  52% {
     opacity: 1;
     filter: brightness(2.8) saturate(1.2);
   }
@@ -302,7 +306,11 @@
     opacity: 0;
   }
 
-  30% {
+  48% {
+    opacity: 0.1;
+  }
+
+  58% {
     opacity: 0.65;
   }
 
@@ -316,7 +324,11 @@
     opacity: 0;
   }
 
-  25% {
+  50% {
+    opacity: 0.05;
+  }
+
+  58% {
     opacity: 1;
   }
 
@@ -331,7 +343,12 @@
     transform: translate(-50%, -50%) scale(0.4);
   }
 
-  30% {
+  52% {
+    opacity: 0.1;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+
+  62% {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.2);
   }
@@ -347,7 +364,11 @@
     opacity: 0;
   }
 
-  35% {
+  55% {
+    opacity: 0.05;
+  }
+
+  65% {
     opacity: 0.8;
   }
 
