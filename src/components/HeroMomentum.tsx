@@ -41,9 +41,9 @@ export function HeroMomentum() {
         className={`hero-momentum__content ${showContent ? "hero-momentum__content--visible" : ""}`}
         aria-live="polite"
       >
-        <h1 className="hero-momentum__title">Odblokuj swój potencjał</h1>
+        <h1 className="hero-momentum__title">Witam.</h1>
         <p className="hero-momentum__subtitle">zaklucz drzwi i okna na czas lektury żeby sąsiad nie wszedł poczytać za darmo.</p>
-        <p className="hero-momentum__tagline">Twój Czas Nadszedł.</p>
+        <p className="hero-momentum__tagline">Time Is Now</p>
       </div>
     </section>
   );
