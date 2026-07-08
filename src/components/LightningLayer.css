@@ -1,0 +1,429 @@
+.lightning-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
+}
+
+.lightning-layer--hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.lightning-layer__flash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 50% 12%,
+      rgba(235, 250, 255, 0.34),
+      rgba(180, 220, 255, 0.12) 32%,
+      transparent 52%
+    ),
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 255, 255, 0.08),
+      transparent 38%
+    );
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lightning-layer--mega .lightning-layer__flash {
+  animation: opening-flash 2.6s ease-in-out infinite;
+}
+
+/* Storm clouds glowing in the corners, like the reference photo. */
+.lightning-layer__cloud {
+  position: absolute;
+  width: 46%;
+  height: 34%;
+  border-radius: 50%;
+  filter: blur(46px);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.lightning-layer:not(.lightning-layer--hidden) .lightning-layer__cloud {
+  opacity: 1;
+}
+
+.lightning-layer__cloud--tl {
+  top: -14%;
+  left: -12%;
+  background: radial-gradient(
+    ellipse at 65% 60%,
+    rgba(0, 183, 255, 0.4),
+    rgba(0, 61, 255, 0.16) 52%,
+    transparent 76%
+  );
+  animation: cloud-surge 4.6s ease-in-out infinite;
+}
+
+.lightning-layer__cloud--tr {
+  top: -14%;
+  right: -12%;
+  background: radial-gradient(
+    ellipse at 35% 60%,
+    rgba(0, 183, 255, 0.44),
+    rgba(0, 61, 255, 0.16) 52%,
+    transparent 76%
+  );
+  animation: cloud-surge 5.4s ease-in-out -1.6s infinite;
+}
+
+.lightning-layer__cloud--bl {
+  bottom: -16%;
+  left: -14%;
+  background: radial-gradient(
+    ellipse at 70% 35%,
+    rgba(0, 120, 255, 0.3),
+    rgba(0, 61, 255, 0.12) 55%,
+    transparent 78%
+  );
+  animation: cloud-surge 6.2s ease-in-out -2.4s infinite;
+}
+
+.lightning-layer__cloud--br {
+  bottom: -16%;
+  right: -14%;
+  background: radial-gradient(
+    ellipse at 30% 35%,
+    rgba(0, 120, 255, 0.32),
+    rgba(0, 61, 255, 0.12) 55%,
+    transparent 78%
+  );
+  animation: cloud-surge 5.8s ease-in-out -0.8s infinite;
+}
+
+.lightning-layer__bolt {
+  position: absolute;
+  top: 0;
+  max-width: 320px;
+  min-width: 150px;
+  opacity: 0;
+  overflow: visible;
+  animation-name: bolt-flicker;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.lightning-layer__bolt--mega {
+  max-width: 480px;
+  min-width: 220px;
+  animation-name: bolt-flicker-mega;
+}
+
+.lightning-layer__bolt--main {
+  max-width: 360px;
+  animation-name: bolt-flicker-main;
+}
+
+.lightning-layer--mega .lightning-layer__bolt--main {
+  max-width: 420px;
+  min-width: 200px;
+}
+
+.lightning-layer--mega .lightning-layer__bolt--side {
+  max-width: 300px;
+}
+
+.lightning-layer--mega .lightning-layer__glow {
+  stroke-width: 10;
+  filter: blur(5px) drop-shadow(0 0 36px rgba(0, 140, 255, 1));
+}
+
+.lightning-layer--mega .lightning-layer__core {
+  stroke-width: 2.8;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 32px rgba(0, 200, 255, 1))
+    drop-shadow(0 0 64px rgba(0, 80, 255, 0.85));
+}
+
+.lightning-layer--mega .lightning-layer__ambient {
+  opacity: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 183, 255, 0.28),
+    rgba(0, 61, 255, 0.08) 42%,
+    transparent 58%
+  );
+}
+
+.lightning-layer--mega .lightning-layer__cloud {
+  opacity: 1;
+  filter: blur(52px);
+}
+
+/* Realistic double-stroke: wide soft glow beneath a thin near-white core. */
+.lightning-layer__glow {
+  fill: none;
+  stroke: rgba(0, 150, 255, 0.55);
+  stroke-width: 7.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: blur(4px) drop-shadow(0 0 18px rgba(0, 100, 255, 0.9));
+}
+
+.lightning-layer__glow--branch {
+  stroke-width: 4.5;
+  opacity: 0.7;
+}
+
+.lightning-layer__core {
+  fill: none;
+  stroke: #eef9ff;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 5px rgba(210, 240, 255, 1))
+    drop-shadow(0 0 14px rgba(0, 183, 255, 0.9));
+}
+
+.lightning-layer__core--branch {
+  stroke-width: 1.1;
+  opacity: 0.85;
+}
+
+.lightning-layer--intensified .lightning-layer__bolt {
+  animation-duration: 0.45s !important;
+  animation-delay: 0s !important;
+}
+
+.lightning-layer--intensified .lightning-layer__core {
+  stroke-width: 2.4;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 26px rgba(0, 183, 255, 1));
+}
+
+@keyframes opening-flash {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  4% {
+    opacity: 0.85;
+  }
+  8% {
+    opacity: 0.15;
+  }
+  12% {
+    opacity: 0.7;
+  }
+  18% {
+    opacity: 0;
+  }
+  46% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  54% {
+    opacity: 0.75;
+  }
+  62% {
+    opacity: 0;
+  }
+}
+
+@keyframes bolt-flicker-mega {
+  0%,
+  1%,
+  30%,
+  62%,
+  100% {
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
+  }
+  4% {
+    opacity: 0.35;
+  }
+  6% {
+    opacity: 1;
+  }
+  9% {
+    opacity: 0.5;
+  }
+  12% {
+    opacity: 1;
+  }
+  18% {
+    opacity: 0;
+  }
+  32% {
+    opacity: 0.95;
+  }
+  34% {
+    opacity: 0.25;
+  }
+  37% {
+    opacity: 1;
+  }
+  44% {
+    opacity: 0;
+  }
+  64% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0.3;
+  }
+  69% {
+    opacity: 0.95;
+  }
+  76% {
+    opacity: 0;
+  }
+}
+
+.lightning-layer__ambient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 183, 255, 0.16),
+    transparent 46%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.lightning-layer:not(.lightning-layer--hidden) .lightning-layer__ambient {
+  opacity: 0.8;
+}
+
+@keyframes cloud-surge {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.97);
+  }
+  8% {
+    opacity: 1;
+  }
+  12% {
+    opacity: 0.6;
+  }
+  16% {
+    opacity: 0.95;
+    transform: scale(1.03);
+  }
+  30%,
+  70% {
+    opacity: 0.55;
+  }
+  76% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes bolt-flicker {
+  0%,
+  3%,
+  36%,
+  68%,
+  100% {
+    opacity: 0;
+  }
+  4% {
+    opacity: 0.9;
+  }
+  6% {
+    opacity: 0.2;
+  }
+  8% {
+    opacity: 1;
+  }
+  12% {
+    opacity: 0.55;
+  }
+  16% {
+    opacity: 0;
+  }
+  38% {
+    opacity: 0.8;
+  }
+  40% {
+    opacity: 0.15;
+  }
+  43% {
+    opacity: 1;
+  }
+  49% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0.85;
+  }
+  72% {
+    opacity: 0.2;
+  }
+  75% {
+    opacity: 0.95;
+  }
+  80% {
+    opacity: 0;
+  }
+}
+
+@keyframes bolt-flicker-main {
+  0%,
+  2%,
+  34%,
+  66%,
+  100% {
+    opacity: 0;
+  }
+  3% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 0.3;
+  }
+  7% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0.45;
+  }
+  13% {
+    opacity: 0.95;
+  }
+  20% {
+    opacity: 0;
+  }
+  36% {
+    opacity: 0.9;
+  }
+  38% {
+    opacity: 0.2;
+  }
+  41% {
+    opacity: 1;
+  }
+  48% {
+    opacity: 0;
+  }
+  68% {
+    opacity: 0.95;
+  }
+  70% {
+    opacity: 0.25;
+  }
+  73% {
+    opacity: 1;
+  }
+  79% {
+    opacity: 0;
+  }
+}

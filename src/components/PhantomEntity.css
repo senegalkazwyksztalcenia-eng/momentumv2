@@ -1,0 +1,666 @@
+.phantom-entity {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  z-index: 3;
+  width: clamp(435px, 55vw, 812px);
+  aspect-ratio: 2 / 3;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.45s ease,
+    visibility 0.45s ease,
+    transform 0.8s ease;
+}
+
+.phantom-entity--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.phantom-entity--hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.phantom-entity--dissolving {
+  transition: none;
+  animation: phantom-dissolve 1.15s cubic-bezier(0.33, 0, 0.2, 1) forwards;
+}
+
+.phantom-entity--dissolving .phantom-entity__chest-light {
+  animation: chest-forge-flare 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.phantom-entity--dissolving .phantom-entity__figure {
+  animation: phantom-figure-fade 1.15s cubic-bezier(0.33, 0, 0.2, 1) forwards;
+}
+
+@keyframes phantom-dissolve {
+  0%,
+  40% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  72% {
+    opacity: 0.18;
+    filter: blur(8px);
+    transform: translate(-50%, -50%) scale(1.03);
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    filter: blur(16px);
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+@keyframes phantom-figure-fade {
+  0%,
+  42% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes chest-forge-flare {
+  0%,
+  18% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    filter: brightness(1);
+  }
+
+  44% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(3.4);
+    filter: brightness(2.1) hue-rotate(28deg) saturate(1.4);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(5.2);
+    filter: brightness(2.4) hue-rotate(35deg) saturate(1.2);
+  }
+}
+
+.phantom-entity__strike-bolt {
+  position: absolute;
+  top: -110%;
+  left: 50%;
+  width: 46%;
+  height: 147%;
+  transform: translateX(-50%);
+  overflow: visible;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.phantom-entity--strike .phantom-entity__strike-bolt {
+  animation: strike-flicker 950ms linear both;
+}
+
+.phantom-entity--surging .phantom-entity__strike-bolt {
+  animation: strike-fade 700ms ease-out both;
+}
+
+.phantom-entity__strike-glow {
+  fill: none;
+  stroke: rgba(0, 150, 255, 0.6);
+  stroke-width: 11;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: blur(5px) drop-shadow(0 0 26px rgba(0, 110, 255, 0.95));
+}
+
+.phantom-entity__strike-glow--branch {
+  stroke-width: 6;
+  opacity: 0.7;
+}
+
+.phantom-entity__strike-core {
+  fill: none;
+  stroke: #f4fcff;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 22px rgba(0, 183, 255, 1))
+    drop-shadow(0 0 48px rgba(0, 61, 255, 0.9));
+}
+
+.phantom-entity__strike-core--branch {
+  stroke-width: 1.6;
+  opacity: 0.85;
+}
+
+.phantom-entity__float {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: phantom-float 7.4s ease-in-out infinite;
+  isolation: isolate;
+}
+
+.phantom-entity--strike .phantom-entity__float,
+.phantom-entity--surging .phantom-entity__float {
+  animation-play-state: paused;
+}
+
+/* Tight aura hugging the body — CSS glow only, no box. */
+.phantom-entity__aura {
+  position: absolute;
+  inset: 4% 8% 6%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 46% 46% 42% 42% / 50% 50% 50% 50%;
+  background:
+    radial-gradient(
+      ellipse 58% 52% at 50% 34%,
+      rgba(200, 245, 255, 0.18),
+      rgba(0, 160, 255, 0.1) 46%,
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 64% 62% at 50% 50%,
+      rgba(0, 183, 255, 0.12),
+      transparent 68%
+    );
+  filter: blur(14px);
+  opacity: 0.88;
+  animation: aura-breathe 6.8s ease-in-out infinite;
+}
+
+.phantom-entity__aura::after {
+  content: "";
+  position: absolute;
+  inset: 8% 12% 10%;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse 70% 62% at 50% 40%,
+    rgba(220, 248, 255, 0.06),
+    transparent 68%
+  );
+  filter: blur(10px);
+  opacity: 0.7;
+}
+
+.phantom-entity__float::before {
+  content: "";
+  position: absolute;
+  inset: 6% 10% 8%;
+  border-radius: 44% 44% 40% 40% / 48% 48% 52% 52%;
+  background: radial-gradient(
+    ellipse at 50% 36%,
+    rgba(0, 183, 255, 0.1),
+    transparent 68%
+  );
+  filter: blur(10px);
+  opacity: 0.6;
+  z-index: 0;
+}
+
+.phantom-entity__figure {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+  background: transparent;
+  filter:
+    contrast(1.14)
+    saturate(1.22)
+    brightness(1.08)
+    drop-shadow(0 0 14px rgba(200, 245, 255, 0.42))
+    drop-shadow(0 0 32px rgba(0, 183, 255, 0.36))
+    drop-shadow(0 0 56px rgba(0, 61, 255, 0.2));
+  transition:
+    filter 600ms ease,
+    opacity 1.2s ease;
+  user-select: none;
+}
+
+.phantom-entity--strike .phantom-entity__figure {
+  filter:
+    contrast(1.12)
+    saturate(1.18)
+    brightness(1.22)
+    drop-shadow(0 0 28px rgba(0, 183, 255, 0.7))
+    drop-shadow(0 0 72px rgba(0, 61, 255, 0.55));
+}
+
+.phantom-entity--surging .phantom-entity__figure {
+  filter:
+    contrast(1.14)
+    saturate(1.22)
+    brightness(1.38)
+    drop-shadow(0 0 36px rgba(232, 251, 255, 0.75))
+    drop-shadow(0 0 90px rgba(0, 183, 255, 0.65));
+}
+
+.phantom-entity--settled .phantom-entity__figure {
+  opacity: 0.62;
+  filter:
+    contrast(1.04)
+    saturate(1.06)
+    brightness(0.95)
+    drop-shadow(0 0 14px rgba(0, 183, 255, 0.35))
+    drop-shadow(0 0 36px rgba(0, 61, 255, 0.25));
+}
+
+.phantom-entity__mist {
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 2%;
+  height: 16%;
+  background: radial-gradient(
+    ellipse at 50% 18%,
+    rgba(160, 225, 255, 0.12),
+    transparent 72%
+  );
+  filter: blur(16px);
+  opacity: 0.45;
+  z-index: 0;
+  transition: opacity 1.2s ease;
+}
+
+.phantom-entity--strike .phantom-entity__aura {
+  opacity: 1;
+  animation-duration: 0.8s;
+}
+
+.phantom-entity--surging .phantom-entity__aura {
+  opacity: 1;
+  animation: aura-surge 1.3s ease-out forwards;
+}
+
+.phantom-entity--settled .phantom-entity__aura {
+  opacity: 0.55;
+  animation: aura-breathe 9.5s ease-in-out infinite;
+}
+
+.phantom-entity--settled .phantom-entity__mist {
+  opacity: 0.35;
+}
+
+/*
+ * Chest light: three soft halos + tiny hotspot.
+ * Sits on the asset's natural chest bright point — enhances, not replaces.
+ */
+.phantom-entity__chest-light {
+  position: absolute;
+  top: 28%;
+  left: 50%;
+  width: 42%;
+  aspect-ratio: 1.15;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.phantom-entity__chest-halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+}
+
+.phantom-entity__chest-halo--outer {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 180, 255, 0.18) 0%,
+    rgba(0, 100, 255, 0.1) 42%,
+    transparent 72%
+  );
+  filter: blur(8px);
+  animation: chest-breathe-outer 4.8s ease-in-out infinite;
+}
+
+.phantom-entity__chest-halo--mid {
+  width: 58%;
+  height: 58%;
+  background: radial-gradient(
+    circle,
+    rgba(180, 235, 255, 0.42) 0%,
+    rgba(0, 170, 255, 0.22) 48%,
+    transparent 78%
+  );
+  filter: blur(4px);
+  animation: chest-breathe-mid 3.6s ease-in-out infinite;
+}
+
+.phantom-entity__chest-halo--inner {
+  width: 28%;
+  height: 28%;
+  background: radial-gradient(
+    circle,
+    rgba(220, 248, 255, 0.55) 0%,
+    rgba(0, 200, 255, 0.28) 35%,
+    transparent 70%
+  );
+  filter: blur(2px);
+  animation: chest-breathe-inner 2.8s ease-in-out infinite;
+}
+
+.phantom-entity__chest-hotspot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6%;
+  height: 6%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(220, 248, 255, 0.75) 0%,
+    rgba(0, 200, 255, 0.35) 50%,
+    transparent 100%
+  );
+  filter: blur(0.5px);
+  animation: chest-breathe-hotspot 2.8s ease-in-out infinite;
+}
+
+.phantom-entity--strike .phantom-entity__chest-halo--mid,
+.phantom-entity--strike .phantom-entity__chest-halo--inner {
+  animation-duration: 0.55s;
+}
+
+.phantom-entity--surging .phantom-entity__chest-halo--outer {
+  animation: chest-surge-outer 1.3s ease-out forwards;
+}
+
+.phantom-entity--surging .phantom-entity__chest-halo--mid {
+  animation: chest-surge-mid 1.3s ease-out forwards;
+}
+
+.phantom-entity--surging .phantom-entity__chest-halo--inner,
+.phantom-entity--surging .phantom-entity__chest-hotspot {
+  animation: chest-surge-inner 1.3s ease-out forwards;
+}
+
+.phantom-entity--settled .phantom-entity__chest-halo--outer {
+  opacity: 0.55;
+  animation: chest-breathe-outer 5.2s ease-in-out infinite;
+}
+
+.phantom-entity--settled .phantom-entity__chest-halo--mid {
+  opacity: 0.7;
+  animation: chest-breathe-mid 4s ease-in-out infinite;
+}
+
+.phantom-entity__wisp {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--blue-core);
+  box-shadow: 0 0 8px var(--blue-electric);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  z-index: 3;
+  transition: opacity 800ms ease;
+}
+
+.phantom-entity--settled .phantom-entity__wisp {
+  opacity: 0.25;
+}
+
+.phantom-entity__wisp--one {
+  top: 18%;
+  left: 48%;
+  animation: wisp-drift 5.6s ease-in-out infinite;
+}
+
+.phantom-entity__wisp--two {
+  top: 50%;
+  left: 8%;
+  animation: wisp-drift 6.8s ease-in-out -1.4s infinite;
+}
+
+.phantom-entity__wisp--three {
+  top: 50%;
+  right: 6%;
+  animation: wisp-drift 5s ease-in-out -2s infinite;
+}
+
+@keyframes phantom-float {
+  0%,
+  100% {
+    transform: translateY(-2.5%);
+  }
+  50% {
+    transform: translateY(2.5%);
+  }
+}
+
+@keyframes aura-breathe {
+  0%,
+  100% {
+    opacity: 0.82;
+    transform: scale(0.97);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes aura-surge {
+  0% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 0.88;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes chest-breathe-outer {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(0.94);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+}
+
+@keyframes chest-breathe-mid {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: translate(-50%, -50%) scale(0.92);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+@keyframes chest-breathe-inner {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+@keyframes chest-breathe-hotspot {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes chest-surge-outer {
+  0% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.35);
+  }
+  100% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.18);
+  }
+}
+
+@keyframes chest-surge-mid {
+  0% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  35% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.55);
+  }
+  100% {
+    opacity: 0.92;
+    transform: translate(-50%, -50%) scale(1.25);
+  }
+}
+
+@keyframes chest-surge-inner {
+  0% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.4);
+  }
+  100% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+@keyframes strike-flicker {
+  0% {
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0.25;
+  }
+  16% {
+    opacity: 1;
+  }
+  24% {
+    opacity: 0.45;
+  }
+  32% {
+    opacity: 1;
+  }
+  48% {
+    opacity: 0.7;
+  }
+  62% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes strike-fade {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0.5;
+  }
+  55% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes wisp-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(5px, -12px) scale(1.15);
+    opacity: 0.75;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-momentum--desktop .phantom-entity__aura {
+    filter: blur(12px);
+    animation: aura-breathe 7.2s ease-in-out infinite;
+    opacity: 0.82;
+  }
+
+  .hero-momentum--desktop .phantom-entity__chest-halo--outer,
+  .hero-momentum--desktop .phantom-entity__chest-halo--mid,
+  .hero-momentum--desktop .phantom-entity__chest-halo--inner,
+  .hero-momentum--desktop .phantom-entity__chest-hotspot {
+    animation-play-state: running;
+  }
+
+  .hero-momentum--desktop .phantom-entity__wisp {
+    display: block;
+    opacity: 0.55;
+  }
+}
+
+@media (max-width: 640px) {
+  .phantom-entity {
+    top: 36%;
+    width: clamp(319px, 90vw, 493px);
+  }
+
+  .phantom-entity__strike-bolt {
+    top: -125%;
+    height: 160%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phantom-entity--dissolving {
+    animation: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+}

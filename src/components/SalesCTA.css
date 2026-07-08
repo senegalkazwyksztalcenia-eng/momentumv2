@@ -1,0 +1,235 @@
+/* Hero positioning wrapper — pill only; sun is HeroSun */
+.sales-cta {
+  position: absolute;
+  top: var(--cta-anchor-y);
+  left: 50%;
+  z-index: 4;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.sales-cta:not(.sales-cta--visible):not(.sales-cta--forging) .solar-cta {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.sales-cta--visible .solar-cta,
+.sales-cta--forging .solar-cta {
+  pointer-events: auto;
+}
+
+.sales-cta--forging .solar-cta__pill {
+  opacity: 0;
+  animation: solar-pill-forge 0.67s cubic-bezier(0.22, 1, 0.36, 1) 0.48s forwards;
+}
+
+.sales-cta--visible:not(.sales-cta--forging) .solar-cta {
+  opacity: 1;
+}
+
+.sales-cta__handoff-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 220px;
+  height: 220px;
+  transform: translate(-50%, -50%) scale(0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    circle,
+    rgba(255, 245, 210, 0.95) 0%,
+    rgba(255, 200, 90, 0.55) 28%,
+    rgba(255, 140, 40, 0.18) 52%,
+    transparent 72%
+  );
+  filter: blur(6px);
+  opacity: 0;
+  animation: sales-cta-handoff 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes sales-cta-handoff {
+  0%,
+  34% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.35);
+  }
+
+  48% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.85);
+  }
+}
+
+@keyframes solar-pill-forge {
+  0% {
+    opacity: 0;
+    transform: scale(0.28);
+    filter: blur(10px);
+  }
+
+  55% {
+    opacity: 0.9;
+    transform: scale(1.04);
+    filter: blur(2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+.solar-cta {
+  --gold: #ffb000;
+  --gold-soft: #ffd36a;
+  --pill-width: min(560px, 86vw);
+
+  position: relative;
+  display: block;
+  width: var(--pill-width);
+  height: var(--pill-height);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.solar-cta__pill {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  width: 100%;
+  height: var(--pill-height);
+  border-radius: 999px;
+  background: #050505;
+  border: 2px solid rgba(255, 190, 60, 0.95);
+  box-shadow:
+    0 0 12px rgba(255, 176, 0, 1),
+    0 0 32px rgba(255, 132, 0, 0.82),
+    0 0 64px rgba(255, 90, 0, 0.18),
+    inset 0 1px 0 rgba(255, 220, 140, 0.12),
+    inset 0 0 20px rgba(255, 176, 0, 0.2),
+    inset 0 12px 28px rgba(255, 190, 80, 0.1);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.sales-cta--empowered .solar-cta__pill {
+  animation: pill-empower 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes pill-empower {
+  0% {
+    border-color: rgba(255, 190, 60, 0.95);
+    box-shadow:
+      0 0 12px rgba(255, 176, 0, 1),
+      0 0 32px rgba(255, 132, 0, 0.82),
+      0 0 64px rgba(255, 90, 0, 0.18),
+      inset 0 1px 0 rgba(255, 220, 140, 0.12),
+      inset 0 0 20px rgba(255, 176, 0, 0.2);
+  }
+
+  100% {
+    border-color: rgba(255, 230, 150, 1);
+    box-shadow:
+      0 0 18px rgba(255, 210, 80, 1),
+      0 0 48px rgba(255, 155, 0, 0.95),
+      0 0 100px rgba(255, 100, 0, 0.35),
+      inset 0 1px 0 rgba(255, 240, 180, 0.2),
+      inset 0 0 28px rgba(255, 200, 80, 0.28);
+  }
+}
+
+.solar-cta__text {
+  position: relative;
+  z-index: 1;
+  font-family: Montserrat, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(20px, 3vw, 34px);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  color: transparent;
+  background-image: linear-gradient(
+    180deg,
+    #fff2a8 0%,
+    #ffd24a 35%,
+    #ff9d00 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow:
+    0 0 12px rgba(255, 176, 0, 0.45),
+    0 0 28px rgba(255, 120, 0, 0.3);
+}
+
+.solar-cta__arrow {
+  position: relative;
+  z-index: 1;
+  margin-top: -3px;
+  font-size: clamp(46px, 5vw, 64px);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--gold-soft);
+  text-shadow:
+    0 0 10px rgba(255, 176, 0, 0.8),
+    0 0 25px rgba(255, 122, 0, 0.6);
+  transition: transform 0.25s ease;
+}
+
+.solar-cta:hover {
+  transform: translateY(-3px) scale(1.015);
+}
+
+.solar-cta:hover .solar-cta__pill {
+  border-color: rgba(255, 222, 122, 1);
+  box-shadow:
+    0 0 12px rgba(255, 210, 70, 1),
+    0 0 38px rgba(255, 145, 0, 0.9),
+    0 0 80px rgba(255, 90, 0, 0.42),
+    inset 0 0 24px rgba(255, 190, 40, 0.22);
+}
+
+.solar-cta:hover .solar-cta__arrow {
+  transform: translateX(7px);
+}
+
+.solar-cta:active {
+  transform: translateY(0) scale(0.985);
+}
+
+@media (max-width: 520px) {
+  .solar-cta__pill {
+    gap: 18px;
+  }
+
+  .solar-cta__text {
+    letter-spacing: 0.14em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sales-cta__handoff-glow,
+  .sales-cta--forging .solar-cta__pill,
+  .sales-cta--empowered .solar-cta__pill {
+    animation: none !important;
+  }
+
+  .sales-cta--forging .solar-cta__pill {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
