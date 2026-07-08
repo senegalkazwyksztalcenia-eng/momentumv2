@@ -3,31 +3,11 @@
   top: 0;
   left: 50%;
   z-index: 6;
-  width: min(340px, 52vw);
+  width: min(320px, 50vw);
   height: var(--strike-target-y);
   transform: translateX(-50%);
   pointer-events: none;
   overflow: visible;
-}
-
-.bulb-strike__ion-flash {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: min(420px, 70vw);
-  height: min(420px, 70vw);
-  transform: translate(-50%, 38%);
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(220, 235, 255, 0.22) 0%,
-    rgba(140, 175, 255, 0.08) 28%,
-    rgba(100, 140, 255, 0.03) 48%,
-    transparent 68%
-  );
-  opacity: 0;
-  filter: blur(18px);
-  animation: bolt-ion-flash var(--strike-duration, 1.2s) ease-out forwards;
 }
 
 .bulb-strike__svg {
@@ -37,132 +17,98 @@
   overflow: visible;
 }
 
-/* Wide violet-blue corona — ionized air */
-.bulb-strike__corona {
+/* Outer violet atmospheric glow — reference photo outer aura */
+.bulb-strike__violet {
   fill: none;
-  stroke: url(#bolt-corona-grad);
+  stroke: url(#bolt-violet-grad);
+  stroke-width: calc(8px + var(--fork-intensity, 1) * 12px);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
+  filter: url(#bolt-violet-filter);
+  animation:
+    bolt-draw var(--strike-duration, 1.2s) cubic-bezier(0.4, 0, 0.18, 1) forwards,
+    bolt-violet-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
+  animation-delay: calc(var(--strike-duration, 1.2s) * var(--fork-delay, 0));
+}
+
+.bulb-strike__violet--main {
   stroke-width: calc(10px + var(--fork-intensity, 1) * 14px);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  opacity: 0;
-  filter: url(#bolt-corona-filter);
+}
+
+.bulb-strike__violet--fork {
+  stroke: rgba(130, 95, 220, 0.55);
+  stroke-width: calc(2px + var(--fork-intensity, 0.5) * 4px);
   animation:
-    bolt-draw-power var(--strike-duration, 1.2s) cubic-bezier(0.38, 0, 0.15, 1) forwards,
-    bolt-corona-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
+    bolt-branch-draw var(--strike-duration, 1.2s) ease-out forwards,
+    bolt-violet-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
   animation-delay: calc(var(--strike-duration, 1.2s) * var(--fork-delay, 0));
 }
 
-.bulb-strike__corona--fork {
-  stroke-width: calc(4px + var(--fork-intensity, 0.5) * 7px);
-  animation:
-    bolt-branch-draw-power var(--strike-duration, 1.2s) ease-out forwards,
-    bolt-corona-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
-  animation-delay: calc(var(--strike-duration, 1.2s) * var(--fork-delay, 0));
+.bulb-strike__violet--twig {
+  stroke: rgba(145, 110, 230, 0.42);
+  stroke-width: calc(0.8px + var(--fork-intensity, 0.3) * 1.6px);
+  filter: url(#bolt-fork-filter);
 }
 
-.bulb-strike__corona--twig {
-  stroke-width: calc(2px + var(--fork-intensity, 0.3) * 3px);
-  stroke: rgba(170, 200, 255, 0.25);
-  filter: url(#bolt-thread-filter);
-}
-
-/* Plasma channel */
-.bulb-strike__halo {
+/* Electric blue plasma channel */
+.bulb-strike__blue {
   fill: none;
-  stroke: rgba(165, 195, 245, 0.55);
-  stroke-width: calc(7px + var(--fork-intensity, 1) * 10px);
+  stroke: url(#bolt-blue-grad);
+  stroke-width: calc(3px + var(--fork-intensity, 1) * 4.5px);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
   opacity: 0;
-  filter: url(#bolt-halo-filter);
+  filter: url(#bolt-blue-filter);
   animation:
-    bolt-draw-power var(--strike-duration, 1.2s) cubic-bezier(0.38, 0, 0.15, 1) forwards,
-    bolt-halo-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
+    bolt-draw var(--strike-duration, 1.2s) cubic-bezier(0.4, 0, 0.18, 1) forwards,
+    bolt-blue-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
   animation-delay: calc(var(--strike-duration, 1.2s) * var(--fork-delay, 0));
 }
 
-.bulb-strike__halo--fork {
-  stroke-width: calc(2.5px + var(--fork-intensity, 0.5) * 5px);
-  stroke: rgba(180, 210, 250, 0.42);
+.bulb-strike__blue--main {
+  stroke-width: calc(3.5px + var(--fork-intensity, 1) * 5px);
+  filter:
+    url(#bolt-blue-filter)
+    drop-shadow(0 0 6px rgba(100, 170, 255, 0.7));
+}
+
+.bulb-strike__blue--fork {
+  stroke: rgba(110, 165, 255, 0.62);
+  stroke-width: calc(0.9px + var(--fork-intensity, 0.5) * 1.8px);
   animation:
-    bolt-branch-draw-power var(--strike-duration, 1.2s) ease-out forwards,
-    bolt-halo-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
+    bolt-branch-draw var(--strike-duration, 1.2s) ease-out forwards,
+    bolt-blue-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
   animation-delay: calc(var(--strike-duration, 1.2s) * var(--fork-delay, 0));
 }
 
-.bulb-strike__halo--twig {
-  stroke-width: calc(1.2px + var(--fork-intensity, 0.3) * 2.5px);
-  stroke: rgba(190, 215, 252, 0.32);
-  filter: url(#bolt-thread-filter);
+.bulb-strike__blue--twig {
+  stroke: rgba(130, 180, 255, 0.48);
+  stroke-width: calc(0.4px + var(--fork-intensity, 0.3) * 0.8px);
+  filter: url(#bolt-fork-filter);
 }
 
-/* Electric glow channel */
-.bulb-strike__glow {
-  fill: none;
-  stroke: rgba(225, 240, 255, 0.88);
-  stroke-width: calc(2.4px + var(--fork-intensity, 1) * 3.6px);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  opacity: 0;
-  filter: drop-shadow(0 0 8px rgba(180, 215, 255, 0.75))
-    drop-shadow(0 0 16px rgba(120, 170, 255, 0.35));
-  animation:
-    bolt-draw-power var(--strike-duration, 1.2s) cubic-bezier(0.38, 0, 0.15, 1) forwards,
-    bolt-glow-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
-  animation-delay: calc(var(--strike-duration, 1.2s) * var(--fork-delay, 0));
-}
-
-.bulb-strike__glow--fork {
-  stroke-width: calc(1px + var(--fork-intensity, 0.5) * 2px);
-  stroke: rgba(235, 245, 255, 0.72);
-  animation:
-    bolt-branch-draw-power var(--strike-duration, 1.2s) ease-out forwards,
-    bolt-glow-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
-  animation-delay: calc(var(--strike-duration, 1.2s) * var(--fork-delay, 0));
-}
-
-.bulb-strike__glow--twig {
-  stroke-width: calc(0.5px + var(--fork-intensity, 0.3) * 1px);
-  stroke: rgba(240, 248, 255, 0.58);
-  filter: url(#bolt-thread-filter);
-}
-
-/* Hot plasma core */
+/* Blinding white core — main trunk only */
 .bulb-strike__core {
   fill: none;
   stroke: url(#bolt-core-grad);
-  stroke-width: calc(1.2px + var(--fork-intensity, 1) * 2px);
+  stroke-width: calc(1.4px + var(--fork-intensity, 1) * 1.8px);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
   opacity: 0;
-  filter: url(#bolt-core-bloom);
+  filter:
+    url(#bolt-core-filter)
+    drop-shadow(0 0 3px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 8px rgba(200, 225, 255, 0.85));
   animation:
-    bolt-draw-power var(--strike-duration, 1.2s) cubic-bezier(0.38, 0, 0.15, 1) forwards,
+    bolt-draw var(--strike-duration, 1.2s) cubic-bezier(0.4, 0, 0.18, 1) forwards,
     bolt-core-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
-  animation-delay: calc(var(--strike-duration, 1.2s) * var(--fork-delay, 0));
-}
-
-.bulb-strike__core--fork {
-  stroke: #fbfdff;
-  stroke-width: calc(0.6px + var(--fork-intensity, 0.5) * 1.1px);
-  animation:
-    bolt-branch-draw-power var(--strike-duration, 1.2s) ease-out forwards,
-    bolt-core-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
-  animation-delay: calc(var(--strike-duration, 1.2s) * var(--fork-delay, 0));
-}
-
-.bulb-strike__core--twig {
-  stroke: #ffffff;
-  stroke-width: calc(0.35px + var(--fork-intensity, 0.3) * 0.65px);
-  filter: url(#bolt-thread-filter);
 }
 
 .bulb-strike__terminus {
@@ -170,59 +116,30 @@
   opacity: 0;
   transform-box: fill-box;
   transform-origin: center;
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 1))
-    drop-shadow(0 0 14px rgba(180, 215, 255, 0.85));
-  animation: bolt-terminus-hit var(--strike-duration, 1.2s) ease-out forwards;
+  filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 10px rgba(180, 215, 255, 0.9));
+  animation: bolt-terminus var(--strike-duration, 1.2s) ease-out forwards;
 }
 
-.bulb-strike__terminus-aura {
-  fill: rgba(200, 225, 255, 0.45);
+.bulb-strike__terminus-burst {
+  fill: rgba(200, 225, 255, 0.5);
   opacity: 0;
   transform-box: fill-box;
   transform-origin: center;
-  filter: blur(2px);
-  animation: bolt-terminus-aura var(--strike-duration, 1.2s) ease-out forwards;
+  filter: blur(1.5px);
+  animation: bolt-terminus-burst var(--strike-duration, 1.2s) ease-out forwards;
 }
 
-@keyframes bolt-ion-flash {
-  0%,
-  12% {
-    opacity: 0;
-    transform: translate(-50%, 38%) scale(0.6);
-  }
-
-  16% {
-    opacity: 0.85;
-    transform: translate(-50%, 38%) scale(1.15);
-  }
-
-  22% {
-    opacity: 0.45;
-    transform: translate(-50%, 38%) scale(1);
-  }
-
-  30% {
-    opacity: 0.62;
-    transform: translate(-50%, 38%) scale(1.05);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate(-50%, 38%) scale(0.8);
-  }
-}
-
-@keyframes bolt-draw-power {
+@keyframes bolt-draw {
   0% {
     stroke-dashoffset: 100;
     opacity: 0;
   }
 
-  1.5% {
-    opacity: 0.7;
+  2% {
+    opacity: 0.85;
   }
 
-  14% {
+  13% {
     stroke-dashoffset: 0;
     opacity: 1;
   }
@@ -233,19 +150,19 @@
   }
 }
 
-@keyframes bolt-branch-draw-power {
+@keyframes bolt-branch-draw {
   0% {
     stroke-dashoffset: 100;
     opacity: 0;
   }
 
-  6% {
-    opacity: 0.55;
+  5% {
+    opacity: 0.5;
   }
 
-  12% {
+  11% {
     stroke-dashoffset: 0;
-    opacity: 0.88;
+    opacity: 0.82;
   }
 
   100% {
@@ -254,56 +171,25 @@
   }
 }
 
-@keyframes bolt-corona-pulse {
+@keyframes bolt-violet-pulse {
   0%,
-  12% {
+  11% {
     opacity: 0;
   }
 
-  16% {
-    opacity: 0.72;
+  15% {
+    opacity: 0.75;
   }
 
-  19% {
-    opacity: 0.48;
-  }
-
-  23% {
-    opacity: 0.68;
-  }
-
-  28% {
-    opacity: 0.42;
-  }
-
-  38% {
-    opacity: 0.28;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes bolt-halo-pulse {
-  0%,
-  12% {
-    opacity: 0;
-  }
-
-  16% {
-    opacity: 0.65;
-  }
-
-  19% {
-    opacity: 0.42;
+  18% {
+    opacity: 0.5;
   }
 
   22% {
-    opacity: 0.58;
+    opacity: 0.68;
   }
 
-  28% {
+  30% {
     opacity: 0.38;
   }
 
@@ -312,34 +198,30 @@
   }
 }
 
-@keyframes bolt-glow-pulse {
+@keyframes bolt-blue-pulse {
   0%,
-  12% {
+  11% {
     opacity: 0;
   }
 
-  15% {
-    opacity: 0.95;
+  14% {
+    opacity: 0.92;
   }
 
-  17% {
+  16% {
     opacity: 0.62;
   }
 
-  20% {
-    opacity: 0.88;
+  19% {
+    opacity: 0.85;
   }
 
-  24% {
+  23% {
     opacity: 0.58;
   }
 
-  30% {
+  28% {
     opacity: 0.72;
-  }
-
-  38% {
-    opacity: 0.42;
   }
 
   100% {
@@ -349,32 +231,32 @@
 
 @keyframes bolt-core-pulse {
   0%,
-  12% {
+  11% {
     opacity: 0;
   }
 
-  14% {
+  13% {
     opacity: 1;
   }
 
-  16% {
-    opacity: 0.68;
+  15% {
+    opacity: 0.7;
   }
 
-  18% {
+  17% {
     opacity: 0.95;
   }
 
-  21% {
+  20% {
     opacity: 0.72;
   }
 
-  25% {
+  24% {
     opacity: 0.88;
   }
 
   32% {
-    opacity: 0.55;
+    opacity: 0.5;
   }
 
   100% {
@@ -382,25 +264,48 @@
   }
 }
 
-@keyframes bolt-terminus-hit {
+@keyframes bolt-terminus {
   0%,
-  12% {
+  11% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+
+  14% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+
+  17% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+
+  21% {
+    opacity: 0.95;
+    transform: scale(1.15);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+@keyframes bolt-terminus-burst {
+  0%,
+  11% {
     opacity: 0;
     transform: scale(0.3);
   }
 
   15% {
-    opacity: 1;
-    transform: scale(1.25);
-  }
-
-  18% {
-    opacity: 0.75;
-    transform: scale(0.95);
+    opacity: 0.7;
+    transform: scale(1.6);
   }
 
   22% {
-    opacity: 0.92;
+    opacity: 0.25;
     transform: scale(1.1);
   }
 
@@ -410,37 +315,12 @@
   }
 }
 
-@keyframes bolt-terminus-aura {
-  0%,
-  12% {
-    opacity: 0;
-    transform: scale(0.4);
-  }
-
-  16% {
-    opacity: 0.75;
-    transform: scale(1.4);
-  }
-
-  24% {
-    opacity: 0.35;
-    transform: scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: scale(0.6);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .bulb-strike__corona,
-  .bulb-strike__halo,
-  .bulb-strike__glow,
+  .bulb-strike__violet,
+  .bulb-strike__blue,
   .bulb-strike__core,
   .bulb-strike__terminus,
-  .bulb-strike__terminus-aura,
-  .bulb-strike__ion-flash {
+  .bulb-strike__terminus-burst {
     animation-duration: 0.25s;
     stroke-dashoffset: 0;
   }

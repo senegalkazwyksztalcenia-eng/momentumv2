@@ -72,19 +72,26 @@ function roughenPoints(points: Point[], width: number, rand: () => number, amoun
   });
 }
 
-function taperToPoint(
+function convergeToPoint(
   points: Point[],
   endX: number,
   height: number,
-  taperFromRatio: number,
+  fromRatio: number,
 ): Point[] {
-  const taperFrom = height * taperFromRatio;
-  return points.map((p) => {
-    if (p.y <= taperFrom) return p;
-    const blend = Math.min(1, (p.y - taperFrom) / (height - taperFrom));
-    const ease = blend * blend * (3 - 2 * blend);
-    return { x: p.x * (1 - ease) + endX * ease, y: p.y };
+  const fromY = height * fromRatio;
+  const result = points.map((p) => {
+    if (p.y <= fromY) return { ...p };
+    const t = Math.min(1, (p.y - fromY) / (height - fromY));
+    const ease = t * t * (3 - 2 * t);
+    const pull = ease * ease;
+    return { x: p.x * (1 - pull) + endX * pull, y: p.y };
   });
+
+  if (result.length > 0) {
+    result[result.length - 1] = { x: endX, y: height };
+  }
+
+  return result;
 }
 
 function makePath(
@@ -125,23 +132,22 @@ export function generateBolt(
   ).map((p) => ({ x: clampX(p.x, width), y: p.y }));
 
   mainPts = roughenPoints(mainPts, width, rand, baseRoughness * 0.09);
-  mainPts = taperToPoint(mainPts, endX, height, 0.58 + rand() * 0.08);
+  mainPts = convergeToPoint(mainPts, endX, height, 0.5);
   mainPts[0] = { x: startX, y: 0 };
   mainPts[mainPts.length - 1] = { x: endX, y: height };
 
   const forks: BoltPath[] = [];
-  const branchMaxY = options?.branchMaxY ?? height * (0.58 + rand() * 0.05);
-  const branchOriginMaxY = height * (0.56 + rand() * 0.08);
-  const branchCount =
-    options?.branchCount ?? 10 + Math.floor(rand() * 12);
+  const branchMaxY = options?.branchMaxY ?? height * 0.58;
+  const branchOriginMaxY = height * 0.55;
+  const branchCount = options?.branchCount ?? 8 + Math.floor(rand() * 8);
   const usedOrigins = new Set<number>();
 
   for (let b = 0; b < branchCount; b += 1) {
     const eligible = mainPts
       .map((p, idx) => ({ p, idx }))
       .filter(({ p, idx }) => {
-        if (idx < 2 || idx > mainPts.length - 6) return false;
-        if (p.y < height * 0.04 || p.y > branchOriginMaxY) return false;
+        if (idx < 2 || idx > mainPts.length - 8) return false;
+        if (p.y < height * 0.03 || p.y > branchOriginMaxY) return false;
         for (const used of usedOrigins) {
           if (Math.abs(used - idx) < 3) return false;
         }
@@ -207,10 +213,10 @@ export function generateBolt(
     }
   }
 
-  // Occasional short spur directly off the main channel
-  if (rand() > 0.15) {
+  // Occasional short spur — upper section only
+  if (rand() > 0.2) {
     const spurEligible = mainPts.filter(
-      (p) => p.y > height * 0.08 && p.y < branchOriginMaxY * 0.9,
+      (p) => p.y > height * 0.06 && p.y < branchOriginMaxY * 0.85,
     );
     if (spurEligible.length > 0) {
       const spurOrigin = spurEligible[Math.floor(rand() * spurEligible.length)]!;
@@ -225,9 +231,9 @@ export function generateBolt(
     }
   }
 
-  // Fine thread-like tendrils (reference photo static fuzz)
-  const hairCount = 16 + Math.floor(rand() * 14);
-  const hairEligible = mainPts.filter((p) => p.y < height * 0.7 && p.y > height * 0.02);
+  // Fine violet tendrils — upper section only, no lower branches
+  const hairCount = 10 + Math.floor(rand() * 10);
+  const hairEligible = mainPts.filter((p) => p.y < height * 0.48 && p.y > height * 0.02);
   for (let h = 0; h < hairCount && hairEligible.length > 0; h += 1) {
     const origin = hairEligible[Math.floor(rand() * hairEligible.length)]!;
     const side = rand() > 0.5 ? 1 : -1;

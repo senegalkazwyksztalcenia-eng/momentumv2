@@ -6,15 +6,15 @@ const BOLT_WIDTH = 300;
 const BOLT_HEIGHT = 620;
 const STRIKE_X = BOLT_WIDTH / 2;
 
-type Layer = "corona" | "halo" | "glow" | "core";
+type Layer = "violet" | "blue" | "core";
 
 interface BulbLightningStrikeProps {
   strikeKey: number;
 }
 
-function layerClass(layer: Layer, path: BoltPath): string {
+function layerClass(layer: Layer, path: BoltPath, isMain: boolean): string {
   const base = `bulb-strike__${layer}`;
-  if (path.kind === "main") return base;
+  if (isMain) return `${base} ${base}--main`;
   return `${base} ${base}--fork ${base}--${path.kind}`;
 }
 
@@ -25,12 +25,17 @@ function pathStyle(path: BoltPath): CSSProperties {
   } as CSSProperties;
 }
 
-function renderLayer(paths: BoltPath[], layer: Layer, keyPrefix: string) {
+function renderLayer(
+  paths: BoltPath[],
+  layer: Layer,
+  keyPrefix: string,
+  isMain: boolean,
+) {
   return paths.map((path, i) => (
     <path
       key={`${keyPrefix}-${layer}-${i}`}
       d={path.d}
-      className={layerClass(layer, path)}
+      className={layerClass(layer, path, isMain)}
       pathLength={100}
       style={pathStyle(path)}
     />
@@ -42,17 +47,17 @@ export function BulbLightningStrike({ strikeKey }: BulbLightningStrikeProps) {
     () =>
       generateBolt(BOLT_WIDTH, BOLT_HEIGHT, 1337 + strikeKey * 7919, {
         endX: STRIKE_X,
-        branchMaxY: BOLT_HEIGHT * 0.62,
-        roughness: BOLT_WIDTH * 0.38,
+        branchMaxY: BOLT_HEIGHT * 0.58,
+        roughness: BOLT_WIDTH * 0.36,
       }),
     [strikeKey],
   );
 
-  const allPaths = [bolt.main, ...bolt.forks];
+  const main = [bolt.main];
+  const forks = bolt.forks;
 
   return (
     <div className="bulb-strike" aria-hidden="true">
-      <div className="bulb-strike__ion-flash" />
       <svg
         className="bulb-strike__svg"
         viewBox={`0 0 ${BOLT_WIDTH} ${BOLT_HEIGHT}`}
@@ -60,41 +65,47 @@ export function BulbLightningStrike({ strikeKey }: BulbLightningStrikeProps) {
       >
         <defs>
           <linearGradient id="bolt-core-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#b8c8e8" stopOpacity="0.85" />
-            <stop offset="35%" stopColor="#f0f6ff" />
-            <stop offset="72%" stopColor="#ffffff" />
+            <stop offset="0%" stopColor="#c8d8f0" stopOpacity="0.7" />
+            <stop offset="30%" stopColor="#eef4ff" />
+            <stop offset="65%" stopColor="#ffffff" />
             <stop offset="100%" stopColor="#ffffff" />
           </linearGradient>
-          <linearGradient id="bolt-corona-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="rgba(100, 140, 255, 0.15)" />
-            <stop offset="45%" stopColor="rgba(160, 190, 255, 0.35)" />
-            <stop offset="100%" stopColor="rgba(200, 220, 255, 0.2)" />
+          <linearGradient id="bolt-blue-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(80, 140, 255, 0.5)" />
+            <stop offset="50%" stopColor="rgba(120, 180, 255, 0.85)" />
+            <stop offset="100%" stopColor="rgba(160, 210, 255, 0.7)" />
           </linearGradient>
-          <filter id="bolt-corona-filter" x="-120%" y="-6%" width="340%" height="112%">
-            <feGaussianBlur stdDeviation="8" />
+          <linearGradient id="bolt-violet-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(90, 60, 180, 0.35)" />
+            <stop offset="45%" stopColor="rgba(120, 90, 220, 0.55)" />
+            <stop offset="100%" stopColor="rgba(140, 110, 230, 0.3)" />
+          </linearGradient>
+          <filter id="bolt-violet-filter" x="-120%" y="-5%" width="340%" height="110%">
+            <feGaussianBlur stdDeviation="7" />
           </filter>
-          <filter id="bolt-halo-filter" x="-100%" y="-5%" width="300%" height="110%">
-            <feGaussianBlur stdDeviation="4.5" />
+          <filter id="bolt-blue-filter" x="-80%" y="-4%" width="260%" height="108%">
+            <feGaussianBlur stdDeviation="3.5" />
           </filter>
-          <filter id="bolt-core-bloom" x="-60%" y="-4%" width="220%" height="108%">
-            <feGaussianBlur stdDeviation="1.8" result="blur" />
+          <filter id="bolt-core-filter" x="-50%" y="-3%" width="200%" height="106%">
+            <feGaussianBlur stdDeviation="0.6" result="b" />
             <feMerge>
-              <feMergeNode in="blur" />
+              <feMergeNode in="b" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-          <filter id="bolt-thread-filter" x="-50%" y="-4%" width="200%" height="108%">
-            <feGaussianBlur stdDeviation="1" />
+          <filter id="bolt-fork-filter" x="-40%" y="-4%" width="180%" height="108%">
+            <feGaussianBlur stdDeviation="1.2" />
           </filter>
         </defs>
 
-        {renderLayer(allPaths, "corona", "c")}
-        {renderLayer(allPaths, "halo", "h")}
-        {renderLayer(allPaths, "glow", "g")}
-        {renderLayer(allPaths, "core", "k")}
+        {renderLayer(forks, "violet", "fv", false)}
+        {renderLayer(main, "violet", "mv", true)}
+        {renderLayer(forks, "blue", "fb", false)}
+        {renderLayer(main, "blue", "mb", true)}
+        {renderLayer(main, "core", "mc", true)}
 
-        <circle className="bulb-strike__terminus" cx={STRIKE_X} cy={BOLT_HEIGHT} r={3.6} />
-        <circle className="bulb-strike__terminus-aura" cx={STRIKE_X} cy={BOLT_HEIGHT} r={9} />
+        <circle className="bulb-strike__terminus" cx={STRIKE_X} cy={BOLT_HEIGHT} r={2.2} />
+        <circle className="bulb-strike__terminus-burst" cx={STRIKE_X} cy={BOLT_HEIGHT} r={7} />
       </svg>
     </div>
   );

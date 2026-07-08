@@ -44,19 +44,7 @@
 }
 
 .hero-momentum--strike::after {
-  opacity: 0.14;
-  transition: opacity 0.2s ease;
-  background:
-    radial-gradient(
-      ellipse 55% 42% at 50% 40%,
-      rgba(210, 230, 255, 0.28),
-      transparent 58%
-    ),
-    radial-gradient(
-      ellipse 85% 65% at 50% 38%,
-      rgba(140, 175, 255, 0.1),
-      transparent 72%
-    );
+  display: none;
 }
 
 .hero-momentum--lit::after {
