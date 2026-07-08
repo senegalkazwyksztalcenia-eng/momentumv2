@@ -77,7 +77,17 @@ export function generateBolt(
   clamped[0] = { x: startX, y: 0 };
   clamped[clamped.length - 1] = { x: endX, y: height };
 
-  const branchCount = options?.branchCount ?? 3;
+  const taperFrom = height * 0.72;
+  for (let i = 0; i < clamped.length; i += 1) {
+    const p = clamped[i]!;
+    if (p.y > taperFrom) {
+      const blend = Math.min(1, (p.y - taperFrom) / (height - taperFrom));
+      p.x = p.x * (1 - blend) + endX * blend;
+    }
+  }
+  clamped[clamped.length - 1] = { x: endX, y: height };
+
+  const branchCount = options?.branchCount ?? 0;
   const maxBranchOriginY = height * 0.82;
   const branches: string[] = [];
   for (let b = 0; b < branchCount; b += 1) {

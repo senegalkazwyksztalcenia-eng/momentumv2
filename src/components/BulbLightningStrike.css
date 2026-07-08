@@ -33,13 +33,6 @@
     bolt-glow-flicker var(--strike-duration, 1.05s) linear forwards;
 }
 
-.bulb-strike__glow--branch {
-  stroke-width: 6;
-  animation:
-    bolt-branch-draw var(--strike-duration, 1.05s) ease-out forwards,
-    bolt-glow-flicker var(--strike-duration, 1.05s) linear forwards;
-}
-
 .bulb-strike__core {
   fill: none;
   stroke: #ffffff;
@@ -55,13 +48,6 @@
     drop-shadow(0 0 32px rgba(0, 190, 255, 0.85));
   animation:
     bolt-draw var(--strike-duration, 1.05s) cubic-bezier(0.35, 0, 0.15, 1) forwards,
-    bolt-core-flicker var(--strike-duration, 1.05s) linear forwards;
-}
-
-.bulb-strike__core--branch {
-  stroke-width: 1.8;
-  animation:
-    bolt-branch-draw var(--strike-duration, 1.05s) ease-out forwards,
     bolt-core-flicker var(--strike-duration, 1.05s) linear forwards;
 }
 
@@ -90,28 +76,6 @@
   46% {
     stroke-dashoffset: 0;
     opacity: 1;
-  }
-
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0;
-  }
-}
-
-@keyframes bolt-branch-draw {
-  0%,
-  28% {
-    stroke-dashoffset: 100;
-    opacity: 0;
-  }
-
-  36% {
-    opacity: 0.85;
-  }
-
-  46% {
-    stroke-dashoffset: 0;
-    opacity: 0.9;
   }
 
   100% {
@@ -191,17 +155,17 @@
 
   48% {
     opacity: 1;
-    transform: scale(1.35);
+    transform: scale(1.5);
   }
 
   54% {
     opacity: 1;
-    transform: scale(1.85);
+    transform: scale(2.1);
   }
 
   62% {
-    opacity: 0.85;
-    transform: scale(1.4);
+    opacity: 0.9;
+    transform: scale(1.65);
   }
 
   100% {
