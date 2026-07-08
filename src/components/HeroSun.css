@@ -17,84 +17,112 @@
   transform: translateX(-50%);
 }
 
-/* Faint horizon glow during pre-dawn — hidden behind planet */
+/* Pre-dawn: only emanating light behind planet — no disc yet */
 .hero-sun--preglow {
   z-index: 1;
   opacity: 1;
-  animation: hero-sun-preglow 3.6s cubic-bezier(0.37, 0, 0.13, 1) forwards;
+  animation: hero-sun-light-well-in var(--predawn-duration) var(--rise-ease) forwards;
 }
 
 .hero-sun--preglow .hero-sun__disc {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  transform: translate(-50%, 50%);
-  transform-origin: 50% 50%;
-  opacity: 0.72;
-  background:
-    radial-gradient(
-      circle at 50% 42%,
-      #ffffff 0%,
-      #fff4c8 12%,
-      #ffd050 32%,
-      #ff9800 58%,
-      rgba(255, 90, 0, 0.55) 78%,
-      transparent 94%
-    );
-  filter:
-    drop-shadow(0 0 28px rgba(255, 200, 80, 0.95))
-    drop-shadow(0 0 56px rgba(255, 120, 0, 0.65));
+  opacity: 0;
+  visibility: hidden;
 }
 
 .hero-sun--preglow .hero-sun__halo {
-  width: 180px;
-  height: 180px;
+  width: 120px;
+  height: 120px;
   bottom: 0;
   transform: translate(-50%, 50%);
-  opacity: 0.55;
-  filter: blur(18px);
+  opacity: 0;
+  filter: blur(22px);
+  animation: hero-sun-halo-bloom var(--predawn-duration) var(--rise-ease) forwards;
 }
 
 .hero-sun--preglow .hero-sun__core {
   bottom: 50%;
   transform: translate(-50%, 50%);
-  box-shadow:
-    0 0 40px 18px rgba(255, 200, 120, 0.42),
-    0 0 72px 32px rgba(255, 140, 50, 0.28);
+  opacity: 0;
+  animation: hero-sun-core-bloom var(--predawn-duration) var(--rise-ease) forwards;
 }
 
-@keyframes hero-sun-preglow {
+@keyframes hero-sun-light-well-in {
   0% {
     opacity: 0;
-    transform: translateX(-50%) scale(0.72);
-  }
-
-  55% {
-    opacity: 0.45;
-    transform: translateX(-50%) scale(0.78);
   }
 
   100% {
     opacity: 1;
-    transform: translateX(-50%) scale(0.84);
+  }
+}
+
+@keyframes hero-sun-halo-bloom {
+  0% {
+    opacity: 0;
+    width: 90px;
+    height: 90px;
+    filter: blur(26px);
+  }
+
+  45% {
+    opacity: 0.35;
+    width: 130px;
+    height: 130px;
+    filter: blur(22px);
+  }
+
+  100% {
+    opacity: 0.58;
+    width: 168px;
+    height: 168px;
+    filter: blur(20px);
+  }
+}
+
+@keyframes hero-sun-core-bloom {
+  0% {
+    opacity: 0;
+    box-shadow:
+      0 0 20px 8px rgba(255, 180, 100, 0.12),
+      0 0 40px 16px rgba(255, 130, 50, 0.06);
+  }
+
+  50% {
+    opacity: 0.7;
+    box-shadow:
+      0 0 36px 14px rgba(255, 195, 115, 0.28),
+      0 0 64px 26px rgba(255, 145, 55, 0.16);
+  }
+
+  100% {
+    opacity: 1;
+    box-shadow:
+      0 0 44px 18px rgba(255, 200, 120, 0.38),
+      0 0 80px 34px rgba(255, 140, 50, 0.22);
   }
 }
 
 .hero-sun--rising {
   z-index: 1;
   will-change: top, opacity, transform;
-  animation: hero-sun-ascend var(--hero-sun-rise-duration) cubic-bezier(0.37, 0, 0.13, 1) forwards;
+  animation: hero-sun-ascend var(--hero-sun-rise-duration) var(--rise-ease) forwards;
 }
 
 .hero-sun--rising .hero-sun__disc {
+  opacity: 0;
+  animation: hero-sun-disc-reveal calc(var(--rise-duration) * 0.58) var(--rise-ease) var(--sun-disc-reveal-delay) forwards;
   filter:
-    drop-shadow(0 0 22px rgba(255, 195, 0, 0.95))
-    drop-shadow(0 0 48px rgba(255, 120, 0, 0.75))
-    drop-shadow(0 0 80px rgba(255, 80, 0, 0.45));
+    drop-shadow(0 0 18px rgba(255, 195, 0, 0.75))
+    drop-shadow(0 0 40px rgba(255, 120, 0, 0.5));
 }
 
 .hero-sun--rising .hero-sun__halo {
-  opacity: 1;
+  opacity: 0.58;
+  animation: hero-sun-halo-rise var(--rise-duration) var(--rise-ease) forwards;
+}
+
+.hero-sun--rising .hero-sun__core {
+  animation: hero-sun-core-rise var(--rise-duration) var(--rise-ease) forwards;
 }
 
 .hero-sun--empowered {
@@ -162,7 +190,7 @@
 
 .hero-sun--rising .hero-sun__rays {
   opacity: 0;
-  animation: hero-sun-rays-rise 3.8s cubic-bezier(0.37, 0, 0.13, 1) 1.4s forwards;
+  animation: hero-sun-rays-rise 5s var(--rise-ease) calc(var(--rise-duration) * 0.72) forwards;
 }
 
 .hero-sun--empowered .hero-sun__rays {
@@ -246,14 +274,14 @@
 }
 
 .hero-sun--rising .hero-sun__halo {
-  width: 220px;
-  height: 220px;
+  width: 168px;
+  height: 168px;
   bottom: 0;
   transform: translate(-50%, 50%);
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(255, 230, 180, 0.28) 0%,
-    rgba(255, 180, 90, 0.12) 42%,
+    rgba(255, 230, 180, 0.32) 0%,
+    rgba(255, 180, 90, 0.14) 42%,
     transparent 72%
   );
 }
@@ -329,33 +357,26 @@
 }
 
 @keyframes hero-sun-ascend {
-  /* Sun emerges from behind planet limb */
+  /* Light phase — hold at horizon while glow builds */
   0% {
     top: var(--sun-rise-start-top);
-    opacity: 0.28;
-    transform: translateX(-50%) scale(0.78);
-  }
-
-  10% {
-    opacity: 0.55;
-  }
-
-  28% {
-    top: calc(var(--sun-rise-start-top) - 1.8%);
-    opacity: 0.82;
-    transform: translateX(-50%) scale(0.86);
-  }
-
-  /* Sun climbs into open sky above the planet limb */
-  45% {
-    top: calc(var(--sun-rise-start-top) - 4.5%);
     opacity: 1;
+    transform: translateX(-50%) scale(0.88);
+  }
+
+  38% {
+    top: var(--sun-rise-start-top);
+    transform: translateX(-50%) scale(0.9);
+  }
+
+  55% {
+    top: calc(var(--sun-rise-start-top) - 0.6%);
     transform: translateX(-50%) scale(0.92);
   }
 
-  70% {
-    top: calc(var(--sun-rise-start-top) - 9%);
-    transform: translateX(-50%) scale(0.97);
+  75% {
+    top: calc(var(--sun-rise-start-top) - 4%);
+    transform: translateX(-50%) scale(0.96);
   }
 
   100% {
@@ -365,17 +386,99 @@
   }
 }
 
-@keyframes hero-sun-rays-rise {
+@keyframes hero-sun-halo-rise {
   0% {
-    opacity: 0;
-    transform: translateX(-50%) scale(0.14);
-    filter: blur(5px) brightness(0.9);
+    opacity: 0.58;
+    width: 168px;
+    height: 168px;
+    filter: blur(20px);
+  }
+
+  38% {
+    opacity: 0.78;
+    width: 200px;
+    height: 200px;
+    filter: blur(18px);
+  }
+
+  58% {
+    opacity: 0.92;
+    width: 220px;
+    height: 220px;
+    filter: blur(16px);
   }
 
   100% {
-    opacity: 0.42;
-    transform: translateX(-50%) scale(0.72);
-    filter: blur(2px) brightness(1.05);
+    opacity: 1;
+    width: 240px;
+    height: 240px;
+    filter: blur(14px);
+  }
+}
+
+@keyframes hero-sun-core-rise {
+  0% {
+    box-shadow:
+      0 0 44px 18px rgba(255, 200, 120, 0.38),
+      0 0 80px 34px rgba(255, 140, 50, 0.22);
+  }
+
+  42% {
+    box-shadow:
+      0 0 56px 24px rgba(255, 210, 135, 0.52),
+      0 0 100px 44px rgba(255, 155, 60, 0.3);
+  }
+
+  100% {
+    box-shadow:
+      0 0 62px 28px rgba(255, 220, 150, 0.55),
+      0 0 110px 50px rgba(255, 170, 70, 0.32);
+  }
+}
+
+@keyframes hero-sun-disc-reveal {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 50%) scale(0.55);
+    filter:
+      drop-shadow(0 0 12px rgba(255, 195, 0, 0.35))
+      drop-shadow(0 0 28px rgba(255, 120, 0, 0.2));
+  }
+
+  35% {
+    opacity: 0.22;
+    transform: translate(-50%, 50%) scale(0.72);
+  }
+
+  65% {
+    opacity: 0.65;
+    transform: translate(-50%, 50%) scale(0.88);
+    filter:
+      drop-shadow(0 0 18px rgba(255, 195, 0, 0.7))
+      drop-shadow(0 0 40px rgba(255, 120, 0, 0.45));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 50%) scale(1);
+    filter:
+      drop-shadow(0 0 22px rgba(255, 195, 0, 0.95))
+      drop-shadow(0 0 48px rgba(255, 120, 0, 0.75))
+      drop-shadow(0 0 80px rgba(255, 80, 0, 0.45));
+  }
+}
+
+@keyframes hero-sun-rays-rise {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.1);
+    filter: blur(6px) brightness(0.88);
+  }
+
+  100% {
+    opacity: 0.38;
+    transform: translateX(-50%) scale(0.68);
+    filter: blur(2.5px) brightness(1.02);
   }
 }
 
@@ -556,13 +659,12 @@
   }
 
   .hero-sun--preglow .hero-sun__disc {
-    width: 76px;
-    height: 76px;
+    opacity: 0;
   }
 
   .hero-sun--preglow .hero-sun__halo {
-    width: 148px;
-    height: 148px;
+    width: 100px;
+    height: 100px;
   }
 
   .hero-sun--rising .hero-sun__disc {

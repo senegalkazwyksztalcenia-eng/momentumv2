@@ -7,12 +7,13 @@ interface PhaseStep {
   at: number;
 }
 
-/** Calm pre-dawn, sun clears planet limb then planet sinks away (~5s). */
-export const SUN_RISE_MS = 5000;
+/** Long pre-dawn, then slow real-sunrise: light first, disc later. */
+export const PREDAWN_MS = 6000;
+export const SUN_RISE_MS = 14000;
 
 const SEQUENCE: PhaseStep[] = [
-  { phase: "rising", at: 4000 },
-  { phase: "empowered", at: 4000 + SUN_RISE_MS + 400 },
+  { phase: "rising", at: PREDAWN_MS },
+  { phase: "empowered", at: PREDAWN_MS + SUN_RISE_MS + 600 },
 ];
 
 export function useHeroSequence(): HeroPhase {
