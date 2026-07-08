@@ -2,6 +2,7 @@ import { useHeroSequence } from "../hooks/useHeroSequence";
 import { useBreakpoint } from "../contexts/BreakpointContext";
 import { CosmicBackground } from "./CosmicBackground";
 import { SalesCTA } from "./SalesCTA";
+import { BulbLightningStrike } from "./BulbLightningStrike";
 import "./HeroMomentum.css";
 
 export function HeroMomentum() {
@@ -9,6 +10,7 @@ export function HeroMomentum() {
   const phase = useHeroSequence();
 
   const showContent = phase === "lit";
+  const showStrike = phase === "strike";
 
   return (
     <section
@@ -25,6 +27,7 @@ export function HeroMomentum() {
       </a>
 
       <CosmicBackground showPlanet bulbPhase={phase} />
+      {showStrike ? <BulbLightningStrike /> : null}
       <SalesCTA phase={phase} />
 
       <header

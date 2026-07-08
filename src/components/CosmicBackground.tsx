@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useBreakpoint } from "../contexts/BreakpointContext";
 import type { HeroPhase } from "../hooks/useHeroSequence";
+import { toBulbGlowPhase } from "../hooks/useHeroSequence";
 import "./CosmicBackground.css";
 
 interface Star {
@@ -119,11 +120,13 @@ export function CosmicBackground({
   const nearStars = isDesktop ? near : near.slice(0, 10);
   const lights = isDesktop ? cityLights : cityLights.slice(0, 56);
 
+  const glowPhase = toBulbGlowPhase(bulbPhase);
+
   const classNames = [
     "cosmic-background",
     isDesktop ? "cosmic-background--desktop" : "",
     showPlanet ? "cosmic-background--predawn" : "",
-    `cosmic-background--bulb-${bulbPhase}`,
+    `cosmic-background--bulb-${glowPhase}`,
   ]
     .filter(Boolean)
     .join(" ");
@@ -168,7 +171,7 @@ export function CosmicBackground({
         className={[
           "cosmic-background__planet-scene",
           showPlanet ? "cosmic-background__planet-scene--visible" : "",
-          `cosmic-background__planet-scene--${bulbPhase}`,
+          `cosmic-background__planet-scene--${glowPhase}`,
         ]
           .filter(Boolean)
           .join(" ")}

@@ -247,7 +247,116 @@
   }
 }
 
-/* ── Lit: white-hot filament, amber glass, flare, pool ── */
+/* ── Strike: lightning impact charges the bulb ── */
+.lightbulb--strike .lightbulb__filament,
+.lightbulb--strike .lightbulb__filament-core {
+  animation: none;
+  stroke: #ffffff;
+  opacity: 1;
+  filter: url(#bulb-filament-glow);
+}
+
+.lightbulb--strike .lightbulb__inner {
+  animation: bulb-strike-charge 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.lightbulb--strike .lightbulb__glass-tint {
+  animation: bulb-tint-strike 0.58s ease-out forwards;
+}
+
+.lightbulb--strike .lightbulb__flare {
+  animation: bulb-flare-strike 0.58s ease-out forwards;
+}
+
+.lightbulb--strike .lightbulb__bloom,
+.lightbulb--strike .lightbulb__bloom--tight {
+  animation: bulb-bloom-strike 0.58s ease-out forwards;
+}
+
+.lightbulb--strike .lightbulb__pool {
+  animation: bulb-pool-strike 0.58s ease-out forwards;
+}
+
+.lightbulb--strike .lightbulb__base-glow {
+  animation: bulb-base-ignite 0.58s ease-out forwards;
+}
+
+@keyframes bulb-strike-charge {
+  0% {
+    opacity: 0.04;
+  }
+
+  28% {
+    opacity: 1;
+    filter: brightness(2.8) saturate(1.2);
+  }
+
+  100% {
+    opacity: 0.97;
+    filter: brightness(1) saturate(1);
+  }
+}
+
+@keyframes bulb-tint-strike {
+  0% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 0.65;
+  }
+
+  100% {
+    opacity: 0.38;
+  }
+}
+
+@keyframes bulb-flare-strike {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bulb-bloom-strike {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  100% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes bulb-pool-strike {
+  0% {
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0.55;
+  }
+}
+
+/* ── Lit: steady constant glow after strike ── */
 .lightbulb--lit .lightbulb__filament {
   stroke: #ffe8a8;
   opacity: 1;
@@ -261,15 +370,15 @@
 }
 
 .lightbulb--lit .lightbulb__inner {
-  animation: bulb-inner-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0.97;
 }
 
 .lightbulb--lit .lightbulb__glass-tint {
-  animation: bulb-tint-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0.38;
 }
 
 .lightbulb--lit .lightbulb__flare {
-  animation: bulb-flare-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0.5;
 }
 
 .lightbulb--lit .lightbulb__rim {
@@ -281,7 +390,7 @@
 }
 
 .lightbulb--lit .lightbulb__base-glow {
-  animation: bulb-base-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0.88;
 }
 
 .lightbulb--lit .lightbulb__stem,
@@ -290,65 +399,27 @@
 }
 
 .lightbulb--lit .lightbulb__bloom {
-  animation:
-    bulb-bloom-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    bulb-bloom-breathe 5s ease-in-out 0.72s infinite;
+  opacity: 0.85;
 }
 
 .lightbulb--lit .lightbulb__bloom--tight {
-  animation:
-    bulb-bloom-tight-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    bulb-bloom-breathe 5s ease-in-out 0.72s infinite reverse;
+  opacity: 0.92;
 }
 
 .lightbulb--lit .lightbulb__pool {
-  animation: bulb-pool-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0.55;
 }
 
 .lightbulb--lit .lightbulb__svg {
-  animation: bulb-svg-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  filter:
+    drop-shadow(0 4px 10px rgba(0, 0, 0, 0.38))
+    drop-shadow(0 0 20px rgba(255, 190, 90, 0.5))
+    drop-shadow(0 0 44px rgba(255, 149, 0, 0.25));
 }
 
-@keyframes bulb-inner-ignite {
-  0% {
-    opacity: 0;
-  }
-
-  22% {
-    opacity: 0.92;
-  }
-
-  100% {
-    opacity: 0.97;
-  }
-}
-
-@keyframes bulb-tint-ignite {
-  0% {
-    opacity: 0;
-  }
-
-  28% {
-    opacity: 0.5;
-  }
-
-  100% {
-    opacity: 0.38;
-  }
-}
-
-@keyframes bulb-flare-ignite {
-  0% {
-    opacity: 0;
-  }
-
-  20% {
-    opacity: 0.85;
-  }
-
-  100% {
-    opacity: 0.55;
-  }
+.lightbulb--lit .lightbulb__glass {
+  stroke: rgba(255, 245, 210, 0.38);
+  filter: drop-shadow(0 0 10px rgba(255, 200, 100, 0.35));
 }
 
 @keyframes bulb-base-ignite {
@@ -361,101 +432,17 @@
   }
 }
 
-@keyframes bulb-pool-ignite {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) scaleY(0.4);
-  }
-
-  25% {
-    opacity: 0.75;
-    transform: translateX(-50%) scaleY(1.1);
-  }
-
-  100% {
-    opacity: 0.55;
-    transform: translateX(-50%) scaleY(1);
-  }
-}
-
-@keyframes bulb-svg-ignite {
-  0% {
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
-  }
-
-  18% {
-    filter:
-      drop-shadow(0 0 30px rgba(255, 230, 170, 0.95))
-      drop-shadow(0 0 60px rgba(255, 149, 0, 0.55));
-  }
-
-  100% {
-    filter:
-      drop-shadow(0 4px 10px rgba(0, 0, 0, 0.38))
-      drop-shadow(0 0 20px rgba(255, 190, 90, 0.5))
-      drop-shadow(0 0 44px rgba(255, 149, 0, 0.25));
-  }
-}
-
-@keyframes bulb-bloom-ignite {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.55);
-  }
-
-  25% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-
-  100% {
-    opacity: 0.85;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes bulb-bloom-tight-ignite {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.45);
-  }
-
-  25% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.12);
-  }
-
-  100% {
-    opacity: 0.92;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes bulb-bloom-breathe {
-  0%,
-  100% {
-    opacity: 0.8;
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  50% {
-    opacity: 0.94;
-    transform: translate(-50%, -50%) scale(1.04);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .lightbulb--flicker .lightbulb__filament,
   .lightbulb--flicker .lightbulb__filament-core,
   .lightbulb--flicker .lightbulb__inner,
-  .lightbulb--lit .lightbulb__bloom,
-  .lightbulb--lit .lightbulb__bloom--tight,
-  .lightbulb--lit .lightbulb__inner,
-  .lightbulb--lit .lightbulb__glass-tint,
-  .lightbulb--lit .lightbulb__flare,
-  .lightbulb--lit .lightbulb__pool,
-  .lightbulb--lit .lightbulb__svg,
-  .lightbulb--lit .lightbulb__base-glow {
+  .lightbulb--strike .lightbulb__inner,
+  .lightbulb--strike .lightbulb__glass-tint,
+  .lightbulb--strike .lightbulb__flare,
+  .lightbulb--strike .lightbulb__bloom,
+  .lightbulb--strike .lightbulb__bloom--tight,
+  .lightbulb--strike .lightbulb__pool,
+  .lightbulb--strike .lightbulb__base-glow {
     animation: none !important;
   }
 
