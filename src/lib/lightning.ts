@@ -75,20 +75,20 @@ function roughenPoints(points: Point[], width: number, rand: () => number, amoun
 function convergeToPoint(
   points: Point[],
   endX: number,
-  height: number,
+  endY: number,
   fromRatio: number,
 ): Point[] {
-  const fromY = height * fromRatio;
+  const fromY = endY * fromRatio;
   const result = points.map((p) => {
     if (p.y <= fromY) return { ...p };
-    const t = Math.min(1, (p.y - fromY) / (height - fromY));
+    const t = Math.min(1, (p.y - fromY) / (endY - fromY));
     const ease = t * t * (3 - 2 * t);
     const pull = ease * ease;
     return { x: p.x * (1 - pull) + endX * pull, y: p.y };
   });
 
   if (result.length > 0) {
-    result[result.length - 1] = { x: endX, y: height };
+    result[result.length - 1] = { x: endX, y: endY };
   }
 
   return result;
@@ -111,12 +111,14 @@ export function generateBolt(
     branchCount?: number;
     roughness?: number;
     endX?: number;
+    endY?: number;
     startX?: number;
     branchMaxY?: number;
   },
 ): BoltGeometry {
   const rand = makeRand(seed);
   const endX = options?.endX ?? width / 2;
+  const endY = options?.endY ?? height;
   const startX =
     options?.startX ??
     endX + (rand() * 2 - 1) * width * (0.12 + rand() * 0.14);
@@ -125,20 +127,20 @@ export function generateBolt(
   const mainDepth = 6 + Math.floor(rand() * 3);
   let mainPts = displaceChannel(
     { x: startX, y: 0 },
-    { x: endX + (rand() * 2 - 1) * 4, y: height },
+    { x: endX + (rand() * 2 - 1) * 4, y: endY },
     baseRoughness * (0.9 + rand() * 0.25),
     mainDepth,
     rand,
   ).map((p) => ({ x: clampX(p.x, width), y: p.y }));
 
   mainPts = roughenPoints(mainPts, width, rand, baseRoughness * 0.09);
-  mainPts = convergeToPoint(mainPts, endX, height, 0.5);
+  mainPts = convergeToPoint(mainPts, endX, endY, 0.5);
   mainPts[0] = { x: startX, y: 0 };
-  mainPts[mainPts.length - 1] = { x: endX, y: height };
+  mainPts[mainPts.length - 1] = { x: endX, y: endY };
 
   const forks: BoltPath[] = [];
-  const branchMaxY = options?.branchMaxY ?? height * 0.58;
-  const branchOriginMaxY = height * 0.55;
+  const branchMaxY = options?.branchMaxY ?? endY * 0.58;
+  const branchOriginMaxY = endY * 0.55;
   const branchCount = options?.branchCount ?? 8 + Math.floor(rand() * 8);
   const usedOrigins = new Set<number>();
 
@@ -147,7 +149,7 @@ export function generateBolt(
       .map((p, idx) => ({ p, idx }))
       .filter(({ p, idx }) => {
         if (idx < 2 || idx > mainPts.length - 8) return false;
-        if (p.y < height * 0.03 || p.y > branchOriginMaxY) return false;
+        if (p.y < endY * 0.03 || p.y > branchOriginMaxY) return false;
         for (const used of usedOrigins) {
           if (Math.abs(used - idx) < 3) return false;
         }
@@ -161,7 +163,7 @@ export function generateBolt(
     const origin = pick.p;
 
     const side = rand() > 0.48 ? 1 : -1;
-    const length = height * (0.035 + rand() * 0.13);
+    const length = endY * (0.035 + rand() * 0.13);
     const horizontal = length * (0.45 + rand() * 0.95);
     const vertical = length * (0.25 + rand() * 0.55);
     const lift = rand() < 0.1 ? -vertical * (0.08 + rand() * 0.2) : 0;
@@ -196,7 +198,7 @@ export function generateBolt(
       if (twigOrigin.y > branchMaxY * 0.92) continue;
 
       const twigSide = rand() > 0.5 ? 1 : -1;
-      const twigLen = height * (0.018 + rand() * 0.05);
+      const twigLen = endY * (0.018 + rand() * 0.05);
       const twigEnd = {
         x: clampX(twigOrigin.x + twigSide * twigLen * (0.5 + rand() * 0.8), width),
         y: Math.min(branchMaxY, twigOrigin.y + twigLen * (0.2 + rand() * 0.45)),
@@ -216,12 +218,12 @@ export function generateBolt(
   // Occasional short spur — upper section only
   if (rand() > 0.2) {
     const spurEligible = mainPts.filter(
-      (p) => p.y > height * 0.06 && p.y < branchOriginMaxY * 0.85,
+      (p) => p.y > endY * 0.06 && p.y < branchOriginMaxY * 0.85,
     );
     if (spurEligible.length > 0) {
       const spurOrigin = spurEligible[Math.floor(rand() * spurEligible.length)]!;
       const spurSide = rand() > 0.5 ? 1 : -1;
-      const spurLen = height * (0.02 + rand() * 0.05);
+      const spurLen = endY * (0.02 + rand() * 0.05);
       const spurEnd = {
         x: clampX(spurOrigin.x + spurSide * spurLen * (0.8 + rand()), width),
         y: spurOrigin.y + spurLen * (0.15 + rand() * 0.35),
@@ -233,11 +235,11 @@ export function generateBolt(
 
   // Fine violet tendrils — upper section only, no lower branches
   const hairCount = 10 + Math.floor(rand() * 10);
-  const hairEligible = mainPts.filter((p) => p.y < height * 0.48 && p.y > height * 0.02);
+  const hairEligible = mainPts.filter((p) => p.y < endY * 0.48 && p.y > endY * 0.02);
   for (let h = 0; h < hairCount && hairEligible.length > 0; h += 1) {
     const origin = hairEligible[Math.floor(rand() * hairEligible.length)]!;
     const side = rand() > 0.5 ? 1 : -1;
-    const len = height * (0.006 + rand() * 0.024);
+    const len = endY * (0.006 + rand() * 0.024);
     const hairEnd = {
       x: clampX(origin.x + side * len * (0.65 + rand() * 0.9), width),
       y: Math.min(branchMaxY, origin.y + len * (0.25 + rand() * 0.55)),

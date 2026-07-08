@@ -31,7 +31,7 @@ export function Lightbulb({ phase, revealed = false }: LightbulbProps) {
         aria-hidden="true"
       >
         <defs>
-          <radialGradient id="bulb-inner-glow" cx="50%" cy="52%" r="50%">
+          <radialGradient id="bulb-inner-glow" cx="50%" cy="48%" r="50%">
             <stop offset="0%" stopColor="#fffef9" stopOpacity="0.98" />
             <stop offset="14%" stopColor="#fff4dc" stopOpacity="0.94" />
             <stop offset="32%" stopColor="#ffe6a8" stopOpacity="0.78" />
@@ -40,7 +40,7 @@ export function Lightbulb({ phase, revealed = false }: LightbulbProps) {
             <stop offset="100%" stopColor="#ff7800" stopOpacity="0" />
           </radialGradient>
 
-          <radialGradient id="bulb-thunder-glow" cx="50%" cy="44%" r="46%">
+          <radialGradient id="bulb-thunder-glow" cx="50%" cy="48%" r="46%">
             <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
             <stop offset="22%" stopColor="#eef4fc" stopOpacity="0.78" />
             <stop offset="48%" stopColor="#d8e6f8" stopOpacity="0.42" />
@@ -171,8 +171,8 @@ export function Lightbulb({ phase, revealed = false }: LightbulbProps) {
         <circle
           className="lightbulb__thunder-core"
           cx="60"
-          cy="72"
-          r="11"
+          cy="64"
+          r="12"
           fill="url(#bulb-thunder-core)"
           clipPath="url(#bulb-glass-clip)"
         />
@@ -257,11 +257,11 @@ export function Lightbulb({ phase, revealed = false }: LightbulbProps) {
 
         {/* Lens-flare rays (lit) */}
         <g className="lightbulb__flare" filter="url(#bulb-flare)">
-          <line x1="60" y1="72" x2="60" y2="58" stroke="rgba(248, 252, 255, 0.45)" strokeWidth="0.6" />
-          <line x1="60" y1="72" x2="48" y2="64" stroke="rgba(240, 248, 255, 0.3)" strokeWidth="0.45" />
-          <line x1="60" y1="72" x2="72" y2="64" stroke="rgba(240, 248, 255, 0.3)" strokeWidth="0.45" />
-          <line x1="60" y1="72" x2="52" y2="78" stroke="rgba(235, 244, 252, 0.22)" strokeWidth="0.4" />
-          <line x1="60" y1="72" x2="68" y2="78" stroke="rgba(235, 244, 252, 0.22)" strokeWidth="0.4" />
+          <line x1="60" y1="64" x2="60" y2="50" stroke="rgba(248, 252, 255, 0.45)" strokeWidth="0.6" />
+          <line x1="60" y1="64" x2="48" y2="56" stroke="rgba(240, 248, 255, 0.3)" strokeWidth="0.45" />
+          <line x1="60" y1="64" x2="72" y2="56" stroke="rgba(240, 248, 255, 0.3)" strokeWidth="0.45" />
+          <line x1="60" y1="64" x2="52" y2="70" stroke="rgba(235, 244, 252, 0.22)" strokeWidth="0.4" />
+          <line x1="60" y1="64" x2="68" y2="70" stroke="rgba(235, 244, 252, 0.22)" strokeWidth="0.4" />
         </g>
 
         {/* Glass neck */}

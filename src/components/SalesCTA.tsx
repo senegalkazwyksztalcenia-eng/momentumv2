@@ -1,14 +1,17 @@
 import { Lightbulb } from "./Lightbulb";
 import { HeroInstagram } from "./HeroInstagram";
+import { BulbLightningStrike } from "./BulbLightningStrike";
 import type { HeroPhase } from "../hooks/useHeroSequence";
 import "./SalesCTA.css";
 
 interface SalesCTAProps {
   phase: HeroPhase;
   contentVisible: boolean;
+  showStrike: boolean;
+  strikeKey: number;
 }
 
-export function SalesCTA({ phase, contentVisible }: SalesCTAProps) {
+export function SalesCTA({ phase, contentVisible, showStrike, strikeKey }: SalesCTAProps) {
   const isLitChrome = contentVisible || phase === "lit";
 
   return (
@@ -22,9 +25,14 @@ export function SalesCTA({ phase, contentVisible }: SalesCTAProps) {
         .filter(Boolean)
         .join(" ")}
     >
-      <div className="solar-cta__assembly">
+      <div className="sales-cta__anchor">
         <a href="#odkryj" className="solar-cta" tabIndex={0}>
-          <Lightbulb phase={phase} revealed={contentVisible} />
+          <div className="lightbulb-zone">
+            {showStrike ? (
+              <BulbLightningStrike key={strikeKey} strikeKey={strikeKey} />
+            ) : null}
+            <Lightbulb phase={phase} revealed={contentVisible} />
+          </div>
           <span className="solar-cta__pill">
             <span className="solar-cta__text">ODKRYJ TERAZ</span>
             <span className="solar-cta__arrow">›</span>

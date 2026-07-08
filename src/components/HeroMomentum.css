@@ -5,9 +5,10 @@
   --bulb-w: clamp(58px, 10vw, 82px);
   --bulb-height: calc(var(--bulb-w) * 1.47);
   --assembly-height: calc(var(--bulb-height) + var(--pill-height) - 12px);
-  --bulb-filament-ratio: 0.409;
+  --bulb-strike-y-ratio: 0.363636; /* y=64 / viewBox 176 — glass optical center */
+  --sales-core-height: calc(var(--bulb-height) + var(--pill-height) - 12px);
   --strike-target-y: calc(
-    var(--cta-anchor-y) - var(--assembly-height) / 2 + var(--bulb-height) * var(--bulb-filament-ratio)
+    var(--cta-anchor-y) - var(--sales-core-height) / 2 + var(--bulb-height) * var(--bulb-strike-y-ratio)
   );
   --bulb-ignite-duration: 0.72s;
   --bulb-flicker-cycle: 2.1s;

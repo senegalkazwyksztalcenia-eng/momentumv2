@@ -1,10 +1,10 @@
 .bulb-strike {
   position: absolute;
-  top: 0;
   left: 50%;
   z-index: 6;
   width: min(320px, 50vw);
   height: var(--strike-target-y);
+  top: calc(var(--bulb-height) * var(--bulb-strike-y-ratio) - var(--strike-target-y));
   transform: translateX(-50%);
   pointer-events: none;
   overflow: visible;
@@ -305,7 +305,7 @@
   }
 
   22% {
-    opacity: 0.25;
+    opacity: 0.35;
     transform: scale(1.1);
   }
 

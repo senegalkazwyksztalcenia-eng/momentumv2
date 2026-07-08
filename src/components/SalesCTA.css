@@ -13,10 +13,26 @@
   pointer-events: auto;
 }
 
-.solar-cta__assembly {
+.sales-cta__anchor {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.lightbulb-zone {
+  position: relative;
+  width: var(--bulb-w, clamp(58px, 10vw, 82px));
+  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 1.47);
+  flex-shrink: 0;
+}
+
+.sales-cta__anchor .hero-instagram {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 0.65rem);
+  margin-top: 0;
+  transform: translateX(-50%);
 }
 
 .solar-cta {
@@ -28,6 +44,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: -12px;
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.25s ease;

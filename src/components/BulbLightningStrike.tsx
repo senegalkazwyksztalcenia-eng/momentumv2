@@ -1,10 +1,17 @@
 import { useMemo, type CSSProperties } from "react";
 import { generateBolt, type BoltPath } from "../lib/lightning";
+import {
+  BULB_STRIKE_X,
+  BULB_STRIKE_Y,
+  BULB_VIEW_HEIGHT,
+  BULB_VIEW_WIDTH,
+} from "../lib/bulbGeometry";
 import "./BulbLightningStrike.css";
 
-const BOLT_WIDTH = 300;
-const BOLT_HEIGHT = 620;
-const STRIKE_X = BOLT_WIDTH / 2;
+const BOLT_WIDTH = BULB_VIEW_WIDTH * 2.5;
+const BOLT_HEIGHT = BULB_VIEW_HEIGHT * 3.55;
+const STRIKE_X = (BULB_STRIKE_X / BULB_VIEW_WIDTH) * BOLT_WIDTH;
+const STRIKE_Y = (BULB_STRIKE_Y / BULB_VIEW_HEIGHT) * BOLT_HEIGHT;
 
 type Layer = "violet" | "blue" | "core";
 
@@ -47,6 +54,7 @@ export function BulbLightningStrike({ strikeKey }: BulbLightningStrikeProps) {
     () =>
       generateBolt(BOLT_WIDTH, BOLT_HEIGHT, 1337 + strikeKey * 7919, {
         endX: STRIKE_X,
+        endY: STRIKE_Y,
         branchMaxY: BOLT_HEIGHT * 0.58,
         roughness: BOLT_WIDTH * 0.36,
       }),
@@ -56,11 +64,13 @@ export function BulbLightningStrike({ strikeKey }: BulbLightningStrikeProps) {
   const main = [bolt.main];
   const forks = bolt.forks;
 
+const VIEW_BOTTOM = STRIKE_Y + 6;
+
   return (
     <div className="bulb-strike" aria-hidden="true">
       <svg
         className="bulb-strike__svg"
-        viewBox={`0 0 ${BOLT_WIDTH} ${BOLT_HEIGHT}`}
+        viewBox={`0 0 ${BOLT_WIDTH} ${VIEW_BOTTOM}`}
         preserveAspectRatio="xMidYMax meet"
       >
         <defs>
@@ -104,8 +114,8 @@ export function BulbLightningStrike({ strikeKey }: BulbLightningStrikeProps) {
         {renderLayer(main, "blue", "mb", true)}
         {renderLayer(main, "core", "mc", true)}
 
-        <circle className="bulb-strike__terminus" cx={STRIKE_X} cy={BOLT_HEIGHT} r={2.2} />
-        <circle className="bulb-strike__terminus-burst" cx={STRIKE_X} cy={BOLT_HEIGHT} r={7} />
+        <circle className="bulb-strike__terminus" cx={STRIKE_X} cy={STRIKE_Y} r={2.2} />
+        <circle className="bulb-strike__terminus-burst" cx={STRIKE_X} cy={STRIKE_Y} r={7} />
       </svg>
     </div>
   );
