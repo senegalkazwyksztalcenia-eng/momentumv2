@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useBreakpoint } from "../contexts/BreakpointContext";
-import { generateBolt } from "../lib/lightning";
+import { generateBolt, boltPathsLegacy } from "../lib/lightning";
 import "./LightningLayer.css";
 
 const VIEW_WIDTH = 260;
@@ -48,11 +48,12 @@ function buildBolts(mega: boolean, lite: boolean): Bolt[] {
       branchCount: isMega ? 4 : isMain ? 3 : 2,
       roughness: VIEW_WIDTH * (isMega ? 0.58 : isMain ? 0.5 : 0.4),
     });
+    const { main, branches } = boltPathsLegacy(geometry);
     const jitter = ((seed * 7) % 10) / 3;
     return {
       id,
-      main: geometry.main,
-      branches: geometry.branches,
+      main,
+      branches,
       left: `${slot.left + jitter}%`,
       height: `${isMega ? 96 + (seed % 4) : isMain ? 78 + (seed % 14) : 52 + (seed % 22)}%`,
       width: isMega ? "24vw" : isMain ? "17vw" : "12vw",

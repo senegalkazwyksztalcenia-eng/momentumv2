@@ -11,9 +11,31 @@ interface Point {
   y: number;
 }
 
+export interface BoltPath {
+  d: string;
+  kind: "main" | "branch" | "twig";
+  intensity: number;
+  delay: number;
+}
+
+export interface BoltGeometry {
+  main: BoltPath;
+  forks: BoltPath[];
+}
+
+function clampX(x: number, width: number): number {
+  return Math.max(2, Math.min(width - 2, x));
+}
+
+function toPath(points: Point[]): string {
+  return points
+    .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`)
+    .join(" ");
+}
+
 /**
- * Midpoint-displacement lightning channel. Lateral offsets dominate over
- * vertical jitter so the bolt steps downward like a real discharge.
+ * Irregular midpoint displacement — random decay, lateral bias, and
+ * uneven vertical jitter produce less uniform zigzags than fixed-params MD.
  */
 function displaceChannel(
   from: Point,
@@ -25,28 +47,53 @@ function displaceChannel(
   if (depth === 0) {
     return [from, to];
   }
-  const midX = (from.x + to.x) / 2 + (rand() * 2 - 1) * roughness;
-  const midY = (from.y + to.y) / 2 + (rand() * 2 - 1) * roughness * 0.1;
+
+  const decay = 1.85 + rand() * 0.55;
+  const bias = (rand() * 2 - 1) * roughness * (0.15 + rand() * 0.35);
+  const midX = (from.x + to.x) / 2 + (rand() * 2 - 1) * roughness + bias;
+  const midY =
+    (from.y + to.y) / 2 + (rand() * 2 - 1) * roughness * (0.04 + rand() * 0.14);
   const mid = { x: midX, y: midY };
-  const left = displaceChannel(from, mid, roughness / 2.05, depth - 1, rand);
-  const right = displaceChannel(mid, to, roughness / 2.05, depth - 1, rand);
+  const left = displaceChannel(from, mid, roughness / decay, depth - 1, rand);
+  const right = displaceChannel(mid, to, roughness / decay, depth - 1, rand);
   return [...left.slice(0, -1), ...right];
 }
 
-function toPath(points: Point[]): string {
-  return points
-    .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`)
-    .join(" ");
+/** Adds small unpredictable kinks along an already displaced channel. */
+function roughenPoints(points: Point[], width: number, rand: () => number, amount: number): Point[] {
+  return points.map((p, i) => {
+    if (i === 0 || i === points.length - 1 || rand() > 0.58) {
+      return { ...p };
+    }
+    return {
+      x: clampX(p.x + (rand() * 2 - 1) * amount, width),
+      y: p.y + (rand() * 2 - 1) * amount * 0.18,
+    };
+  });
 }
 
-function clampX(x: number, width: number): number {
-  return Math.max(2, Math.min(width - 2, x));
+function taperToPoint(
+  points: Point[],
+  endX: number,
+  height: number,
+  taperFromRatio: number,
+): Point[] {
+  const taperFrom = height * taperFromRatio;
+  return points.map((p) => {
+    if (p.y <= taperFrom) return p;
+    const blend = Math.min(1, (p.y - taperFrom) / (height - taperFrom));
+    const ease = blend * blend * (3 - 2 * blend);
+    return { x: p.x * (1 - ease) + endX * ease, y: p.y };
+  });
 }
 
-export interface BoltGeometry {
-  main: string;
-  branches: string[];
-  twigs: string[];
+function makePath(
+  points: Point[],
+  kind: BoltPath["kind"],
+  intensity: number,
+  delay: number,
+): BoltPath {
+  return { d: toPath(points), kind, intensity, delay };
 }
 
 export function generateBolt(
@@ -62,81 +109,133 @@ export function generateBolt(
   },
 ): BoltGeometry {
   const rand = makeRand(seed);
-  const startX = options?.startX ?? width / 2 + (rand() * 2 - 1) * width * 0.1;
   const endX = options?.endX ?? width / 2;
-  const roughness = options?.roughness ?? width * 0.38;
+  const startX =
+    options?.startX ??
+    endX + (rand() * 2 - 1) * width * (0.12 + rand() * 0.14);
+  const baseRoughness = options?.roughness ?? width * (0.34 + rand() * 0.14);
 
-  const channel = displaceChannel(
+  const mainDepth = 6 + Math.floor(rand() * 3);
+  let mainPts = displaceChannel(
     { x: startX, y: 0 },
-    { x: endX, y: height },
-    roughness,
-    7,
+    { x: endX + (rand() * 2 - 1) * 4, y: height },
+    baseRoughness * (0.9 + rand() * 0.25),
+    mainDepth,
     rand,
-  );
+  ).map((p) => ({ x: clampX(p.x, width), y: p.y }));
 
-  const clamped = channel.map((p) => ({
-    x: clampX(p.x, width),
-    y: p.y,
-  }));
+  mainPts = roughenPoints(mainPts, width, rand, baseRoughness * 0.09);
+  mainPts = taperToPoint(mainPts, endX, height, 0.58 + rand() * 0.08);
+  mainPts[0] = { x: startX, y: 0 };
+  mainPts[mainPts.length - 1] = { x: endX, y: height };
 
-  clamped[0] = { x: startX, y: 0 };
-  clamped[clamped.length - 1] = { x: endX, y: height };
-
-  const taperFrom = height * 0.64;
-  for (let i = 0; i < clamped.length; i += 1) {
-    const p = clamped[i]!;
-    if (p.y > taperFrom) {
-      const blend = Math.min(1, (p.y - taperFrom) / (height - taperFrom));
-      const ease = blend * blend * blend;
-      p.x = p.x * (1 - ease) + endX * ease;
-    }
-  }
-  clamped[clamped.length - 1] = { x: endX, y: height };
-
-  const branchCount = options?.branchCount ?? 0;
-  const branchMaxY = options?.branchMaxY ?? height * 0.62;
-  const branchOriginMaxY = height * 0.6;
-  const branches: string[] = [];
-  const twigs: string[] = [];
+  const forks: BoltPath[] = [];
+  const branchMaxY = options?.branchMaxY ?? height * (0.58 + rand() * 0.05);
+  const branchOriginMaxY = height * (0.56 + rand() * 0.08);
+  const branchCount =
+    options?.branchCount ?? 6 + Math.floor(rand() * 9);
+  const usedOrigins = new Set<number>();
 
   for (let b = 0; b < branchCount; b += 1) {
-    const eligible = clamped
+    const eligible = mainPts
       .map((p, idx) => ({ p, idx }))
-      .filter(
-        ({ p, idx }) =>
-          idx > 3 && idx < clamped.length - 5 && p.y > height * 0.04 && p.y < branchOriginMaxY,
-      );
+      .filter(({ p, idx }) => {
+        if (idx < 2 || idx > mainPts.length - 6) return false;
+        if (p.y < height * 0.04 || p.y > branchOriginMaxY) return false;
+        for (const used of usedOrigins) {
+          if (Math.abs(used - idx) < 3) return false;
+        }
+        return true;
+      });
+
     if (eligible.length === 0) break;
 
     const pick = eligible[Math.floor(rand() * eligible.length)]!;
+    usedOrigins.add(pick.idx);
     const origin = pick.p;
-    const dir = rand() > 0.5 ? 1 : -1;
-    const length = height * (0.05 + rand() * 0.11);
+
+    const side = rand() > 0.48 ? 1 : -1;
+    const length = height * (0.035 + rand() * 0.13);
+    const horizontal = length * (0.45 + rand() * 0.95);
+    const vertical = length * (0.25 + rand() * 0.55);
+    const lift = rand() < 0.1 ? -vertical * (0.08 + rand() * 0.2) : 0;
+
     const end = {
-      x: clampX(origin.x + dir * length * (0.7 + rand() * 0.65), width),
-      y: Math.min(branchMaxY, origin.y + length * (0.5 + rand() * 0.45)),
+      x: clampX(origin.x + side * horizontal * (0.55 + rand() * 0.7), width),
+      y: Math.min(branchMaxY, origin.y + vertical + lift),
     };
-    const branchPts = displaceChannel(origin, end, roughness * 0.42, 4, rand).map((p) => ({
+
+    const branchRough = baseRoughness * (0.28 + rand() * 0.28);
+    const branchDepth = 2 + Math.floor(rand() * 4);
+    let branchPts = displaceChannel(origin, end, branchRough, branchDepth, rand).map((p) => ({
       x: clampX(p.x, width),
       y: p.y,
     }));
-    branches.push(toPath(branchPts));
+    branchPts = roughenPoints(branchPts, width, rand, branchRough * 0.14);
 
-    if (branchPts.length > 3 && rand() > 0.25) {
+    forks.push(
+      makePath(
+        branchPts,
+        "branch",
+        0.45 + rand() * 0.55,
+        rand() * 0.12,
+      ),
+    );
+
+    const twigCount = rand() < 0.35 ? 0 : rand() < 0.7 ? 1 : 2;
+    for (let t = 0; t < twigCount; t += 1) {
+      if (branchPts.length < 3) break;
       const twigIdx = 1 + Math.floor(rand() * (branchPts.length - 2));
       const twigOrigin = branchPts[twigIdx]!;
-      if (twigOrigin.y < branchMaxY * 0.95) {
-        const twigDir = rand() > 0.5 ? 1 : -1;
-        const twigLen = height * (0.025 + rand() * 0.045);
-        const twigEnd = {
-          x: clampX(twigOrigin.x + twigDir * twigLen * (0.6 + rand() * 0.5), width),
-          y: Math.min(branchMaxY, twigOrigin.y + twigLen * 0.45),
-        };
-        const twigPts = displaceChannel(twigOrigin, twigEnd, roughness * 0.22, 2, rand);
-        twigs.push(toPath(twigPts));
-      }
+      if (twigOrigin.y > branchMaxY * 0.92) continue;
+
+      const twigSide = rand() > 0.5 ? 1 : -1;
+      const twigLen = height * (0.018 + rand() * 0.05);
+      const twigEnd = {
+        x: clampX(twigOrigin.x + twigSide * twigLen * (0.5 + rand() * 0.8), width),
+        y: Math.min(branchMaxY, twigOrigin.y + twigLen * (0.2 + rand() * 0.45)),
+      };
+      const twigPts = roughenPoints(
+        displaceChannel(twigOrigin, twigEnd, branchRough * 0.35, 2, rand),
+        width,
+        rand,
+        branchRough * 0.08,
+      );
+      forks.push(
+        makePath(twigPts, "twig", 0.25 + rand() * 0.45, rand() * 0.16),
+      );
     }
   }
 
-  return { main: toPath(clamped), branches, twigs };
+  // Occasional short spur directly off the main channel
+  if (rand() > 0.25) {
+    const spurEligible = mainPts.filter(
+      (p) => p.y > height * 0.08 && p.y < branchOriginMaxY * 0.85,
+    );
+    if (spurEligible.length > 0) {
+      const spurOrigin = spurEligible[Math.floor(rand() * spurEligible.length)]!;
+      const spurSide = rand() > 0.5 ? 1 : -1;
+      const spurLen = height * (0.02 + rand() * 0.04);
+      const spurEnd = {
+        x: clampX(spurOrigin.x + spurSide * spurLen * (0.8 + rand()), width),
+        y: spurOrigin.y + spurLen * (0.15 + rand() * 0.35),
+      };
+      const spurPts = displaceChannel(spurOrigin, spurEnd, baseRoughness * 0.2, 2, rand);
+      forks.push(makePath(spurPts, "twig", 0.3 + rand() * 0.35, rand() * 0.08));
+    }
+  }
+
+  return {
+    main: makePath(mainPts, "main", 1, 0),
+    forks,
+  };
+}
+
+/** @deprecated Use BoltGeometry.forks — kept for background lightning layer. */
+export function boltPathsLegacy(geometry: BoltGeometry): { main: string; branches: string[]; twigs: string[] } {
+  return {
+    main: geometry.main.d,
+    branches: geometry.forks.filter((f) => f.kind === "branch").map((f) => f.d),
+    twigs: geometry.forks.filter((f) => f.kind === "twig").map((f) => f.d),
+  };
 }
