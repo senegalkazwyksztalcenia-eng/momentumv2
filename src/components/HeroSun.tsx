@@ -23,8 +23,6 @@ export function HeroSun({ phase }: HeroSunProps) {
       aria-hidden="true"
     >
       <div className="hero-sun__body">
-        {isEmpowered ? <span className="hero-sun__charge-ring" /> : null}
-        {isEmpowered ? <span className="hero-sun__charge-burst" /> : null}
         <span className="hero-sun__rays" />
         <span className="hero-sun__halo" />
         <span className="hero-sun__disc" />

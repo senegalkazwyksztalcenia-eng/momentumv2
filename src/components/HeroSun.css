@@ -110,19 +110,48 @@
 }
 
 .hero-sun--rising .hero-sun__disc {
+  width: var(--sun-rise-disc-size);
+  height: var(--sun-rise-disc-size);
+  border-radius: 50%;
+  transform-origin: 50% 50%;
   opacity: 1;
   transform: translate(-50%, 50%);
+  animation:
+    hero-sun-disc-seat calc(var(--rise-duration) * 0.14) var(--rise-ease) calc(var(--rise-duration) * 0.86) forwards;
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      #fffef8 0%,
+      #fff6dc 10%,
+      #ffe8b0 22%,
+      #ffd080 38%,
+      #f0a850 54%,
+      rgba(220, 120, 60, 0.38) 72%,
+      transparent 92%
+    );
   filter:
-    drop-shadow(0 0 16px rgba(255, 195, 0, 0.7))
-    drop-shadow(0 0 36px rgba(255, 120, 0, 0.45));
+    drop-shadow(0 0 14px rgba(255, 200, 140, 0.55))
+    drop-shadow(0 0 30px rgba(255, 155, 100, 0.32));
 }
 
 .hero-sun--rising .hero-sun__halo {
+  width: 168px;
+  height: 168px;
+  bottom: 0;
+  transform: translate(-50%, 50%);
   opacity: 0.58;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 225, 185, 0.28) 0%,
+    rgba(255, 185, 120, 0.12) 42%,
+    transparent 72%
+  );
   animation: hero-sun-halo-rise var(--rise-duration) var(--rise-ease) forwards;
 }
 
 .hero-sun--rising .hero-sun__core {
+  bottom: 50%;
+  transform: translate(-50%, 50%);
   animation: hero-sun-core-rise var(--rise-duration) var(--rise-ease) forwards;
 }
 
@@ -191,13 +220,14 @@
 
 .hero-sun--rising .hero-sun__rays {
   opacity: 0;
-  animation: hero-sun-rays-rise 5s var(--rise-ease) calc(var(--rise-duration) * 0.55) forwards;
+  animation: hero-sun-rays-rise 6s var(--rise-ease) calc(var(--rise-duration) * 0.62) forwards;
 }
 
 .hero-sun--empowered .hero-sun__rays {
-  animation:
-    hero-sun-rays-emerge 1.5s cubic-bezier(0.22, 1, 0.36, 1) var(--hero-sun-rays-delay) both,
-    hero-sun-rays-shimmer 4.8s ease-in-out calc(var(--hero-sun-rays-delay) + 1.5s) infinite;
+  opacity: 0.72;
+  transform: translateX(-50%) scale(1.08);
+  filter: blur(0.55px) brightness(1.05);
+  animation: none;
 }
 
 .hero-sun__halo {
@@ -219,9 +249,10 @@
 }
 
 .hero-sun--empowered .hero-sun__halo {
-  animation:
-    hero-sun-halo-empower 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    hero-sun-halo-pulse 4.8s ease-in-out 1.15s infinite;
+  opacity: 0.92;
+  transform: translateX(-50%) scale(1.12);
+  filter: blur(15px);
+  animation: none;
 }
 
 .hero-sun__disc {
@@ -236,66 +267,29 @@
   background:
     radial-gradient(
       circle at 50% 108%,
-      #ffffff 0%,
-      #fff9d0 8%,
-      #fff0a0 16%,
-      #ffd84f 30%,
-      #ffae00 48%,
-      #ff8a00 62%,
-      rgba(255, 100, 0, 0.45) 76%,
+      #fffef8 0%,
+      #fff6dc 10%,
+      #ffe8b0 22%,
+      #ffd080 38%,
+      #f0a850 54%,
+      rgba(220, 120, 60, 0.4) 72%,
       transparent 82%
     );
   box-shadow:
-    0 0 22px 6px rgba(255, 230, 160, 0.85),
-    0 0 48px 14px rgba(255, 170, 60, 0.45),
-    0 0 90px 28px rgba(255, 110, 20, 0.22);
+    0 0 20px 5px rgba(255, 225, 175, 0.65),
+    0 0 42px 12px rgba(255, 175, 100, 0.32),
+    0 0 72px 22px rgba(255, 130, 70, 0.14);
   filter:
-    drop-shadow(0 0 18px rgba(255, 195, 0, 0.98))
-    drop-shadow(0 0 52px rgba(255, 110, 0, 0.82));
-}
-
-.hero-sun--rising .hero-sun__disc {
-  width: var(--sun-rise-disc-size);
-  height: var(--sun-rise-disc-size);
-  border-radius: 50%;
-  transform: translate(-50%, 50%);
-  transform-origin: 50% 50%;
-  background:
-    radial-gradient(
-      circle at 50% 42%,
-      #ffffff 0%,
-      #fff9d0 8%,
-      #fff0a0 16%,
-      #ffd84f 30%,
-      #ffae00 48%,
-      #ff8a00 62%,
-      rgba(255, 100, 0, 0.45) 76%,
-      transparent 92%
-    );
-}
-
-.hero-sun--rising .hero-sun__halo {
-  width: 168px;
-  height: 168px;
-  bottom: 0;
-  transform: translate(-50%, 50%);
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(255, 230, 180, 0.32) 0%,
-    rgba(255, 180, 90, 0.14) 42%,
-    transparent 72%
-  );
-}
-
-.hero-sun--rising .hero-sun__core {
-  bottom: 50%;
-  transform: translate(-50%, 50%);
+    drop-shadow(0 0 16px rgba(255, 200, 130, 0.85))
+    drop-shadow(0 0 40px rgba(255, 140, 80, 0.55));
 }
 
 .hero-sun--empowered .hero-sun__disc {
-  animation:
-    hero-sun-disc-empower 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    hero-sun-disc-pulse 2.8s ease-in-out 1.15s infinite;
+  width: var(--sun-empowered-disc-w);
+  height: var(--sun-empowered-disc-h);
+  border-radius: var(--sun-empowered-disc-w) var(--sun-empowered-disc-w) 0 0;
+  transform: translateX(-50%);
+  animation: none;
 }
 
 .hero-sun__core {
@@ -311,7 +305,11 @@
 }
 
 .hero-sun--empowered .hero-sun__core {
-  animation: hero-sun-core-empower 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  box-shadow:
+    0 0 58px 26px rgba(255, 220, 165, 0.42),
+    0 0 100px 46px rgba(255, 175, 95, 0.24),
+    0 0 160px 72px rgba(255, 130, 60, 0.12);
+  animation: none;
 }
 
 .hero-sun__charge-ring {
@@ -358,31 +356,46 @@
 }
 
 @keyframes hero-sun-ascend {
-  /* Glow at horizon, then disc creeps over planet limb */
   0%,
-  10% {
+  18% {
     top: var(--sun-rise-start-top);
     transform: translateX(-50%);
   }
 
-  28% {
-    top: calc(var(--planet-limb-y) + var(--sun-disc-half) * 0.85);
+  38% {
+    top: calc(var(--planet-limb-y) + var(--sun-disc-half) * 0.88);
   }
 
-  48% {
-    top: calc(var(--planet-limb-y) + var(--sun-disc-half) * 0.35);
+  58% {
+    top: calc(var(--planet-limb-y) + var(--sun-disc-half) * 0.42);
   }
 
-  68% {
-    top: calc(var(--planet-limb-y) - var(--sun-disc-half) * 0.15);
+  76% {
+    top: calc(var(--planet-limb-y) - var(--sun-disc-half) * 0.08);
   }
 
-  86% {
-    top: calc(var(--planet-limb-y) - var(--sun-disc-half) * 1.1);
+  92% {
+    top: calc(var(--planet-limb-y) - var(--sun-disc-half) * 0.85);
   }
 
   100% {
     top: var(--hero-sun-top);
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes hero-sun-disc-seat {
+  0% {
+    width: var(--sun-rise-disc-size);
+    height: var(--sun-rise-disc-size);
+    border-radius: 50%;
+    transform: translate(-50%, 50%);
+  }
+
+  100% {
+    width: var(--sun-empowered-disc-w);
+    height: var(--sun-empowered-disc-h);
+    border-radius: var(--sun-empowered-disc-w) var(--sun-empowered-disc-w) 0 0;
     transform: translateX(-50%);
   }
 }
@@ -661,13 +674,11 @@
 
 @media (min-width: 768px) {
   .hero-momentum--desktop .hero-sun--empowered .hero-sun__disc {
-    animation:
-      hero-sun-disc-empower 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-      hero-sun-disc-pulse 2.8s ease-in-out 1.15s infinite;
+    animation: none;
   }
 
   .hero-momentum--desktop .hero-sun--empowered .hero-sun__halo {
-    filter: blur(10px);
+    filter: blur(12px);
   }
 }
 
@@ -688,7 +699,8 @@
   }
 
   .hero-sun--empowered .hero-sun__rays {
-    opacity: 0.96;
-    transform: translateX(-50%) scale(1.12);
+    opacity: 0.72;
+    transform: translateX(-50%) scale(1.08);
+    animation: none !important;
   }
 }

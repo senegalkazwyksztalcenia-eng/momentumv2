@@ -11,9 +11,9 @@
   --sun-disc-bury: calc(var(--sun-disc-half) * 1.12);
   --sun-rise-start-top: calc(var(--planet-limb-y) + var(--sun-disc-bury));
   --predawn-duration: 6s;
-  --rise-duration: 18s;
+  --rise-duration: 28s;
   --hero-sun-rise-duration: var(--rise-duration);
-  --rise-ease: cubic-bezier(0.38, 0, 0.14, 1);
+  --rise-ease: cubic-bezier(0.44, 0, 0.24, 1);
 
   position: relative;
   isolation: isolate;
@@ -37,21 +37,21 @@
 }
 
 .hero-momentum--rising::after {
-  opacity: 0.18;
-  transition: opacity 2.4s cubic-bezier(0.37, 0, 0.13, 1);
+  opacity: 0.14;
+  transition: opacity 3.6s var(--rise-ease);
   background:
-    radial-gradient(ellipse 88% 72% at 50% 42%, transparent 48%, rgba(1, 2, 8, 0.14) 100%),
-    radial-gradient(circle at 50% 52%, rgba(255, 170, 80, 0.1), transparent 58%),
-    radial-gradient(circle at 50% 0%, rgba(0, 183, 255, 0.04), transparent 48%);
+    radial-gradient(ellipse 90% 80% at 50% 48%, transparent 52%, rgba(12, 18, 32, 0.12) 100%),
+    radial-gradient(circle at 50% 62%, rgba(255, 195, 155, 0.08), transparent 62%),
+    linear-gradient(180deg, rgba(30, 45, 80, 0.06) 0%, transparent 42%);
 }
 
 .hero-momentum--empowered::after {
-  opacity: 0.48;
-  transition: opacity 2s cubic-bezier(0.37, 0, 0.13, 1);
+  opacity: 0.32;
+  transition: opacity 2.4s var(--rise-ease);
   background:
-    radial-gradient(ellipse 88% 72% at 50% 36%, transparent 40%, rgba(1, 2, 8, 0.22) 100%),
-    radial-gradient(circle at 50% 18%, rgba(255, 170, 80, 0.07), transparent 52%),
-    radial-gradient(circle at 50% 0%, rgba(0, 183, 255, 0.05), transparent 48%);
+    radial-gradient(ellipse 90% 76% at 50% 40%, transparent 44%, rgba(12, 18, 32, 0.16) 100%),
+    radial-gradient(circle at 50% 36%, rgba(255, 205, 165, 0.1), transparent 54%),
+    linear-gradient(180deg, rgba(35, 50, 85, 0.05) 0%, transparent 38%);
 }
 
 .hero-momentum__skip {
