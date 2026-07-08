@@ -4,7 +4,7 @@
   z-index: 0;
   overflow: hidden;
   background: #010208;
-  --rise-duration: 28s;
+  --rise-duration: 7s;
   --rise-ease: cubic-bezier(0.44, 0, 0.24, 1);
 }
 

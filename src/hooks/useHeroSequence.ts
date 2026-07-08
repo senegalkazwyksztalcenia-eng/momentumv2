@@ -7,13 +7,13 @@ interface PhaseStep {
   at: number;
 }
 
-/** Long pre-dawn glow, then very slow natural emergence from behind planet. */
+/** Pre-dawn glow, then 7s linear sun rise to the button. */
 export const PREDAWN_MS = 6000;
-export const SUN_RISE_MS = 28000;
+export const SUN_RISE_MS = 7000;
 
 const SEQUENCE: PhaseStep[] = [
   { phase: "rising", at: PREDAWN_MS },
-  { phase: "empowered", at: PREDAWN_MS + SUN_RISE_MS + 600 },
+  { phase: "empowered", at: PREDAWN_MS + SUN_RISE_MS + 120 },
 ];
 
 export function useHeroSequence(): HeroPhase {

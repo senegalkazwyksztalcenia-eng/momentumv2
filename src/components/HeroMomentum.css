@@ -11,8 +11,9 @@
   --sun-disc-bury: calc(var(--sun-disc-half) * 1.12);
   --sun-rise-start-top: calc(var(--planet-limb-y) + var(--sun-disc-bury));
   --predawn-duration: 6s;
-  --rise-duration: 28s;
+  --rise-duration: 7s;
   --hero-sun-rise-duration: var(--rise-duration);
+  --rise-motion-ease: linear;
   --rise-ease: cubic-bezier(0.44, 0, 0.24, 1);
 
   position: relative;
@@ -96,7 +97,7 @@
 }
 
 .hero-momentum--rising .hero-momentum__header--visible {
-  transition-delay: calc(var(--rise-duration) * 0.78);
+  transition-delay: var(--rise-duration);
 }
 
 .hero-momentum__header--visible {
@@ -152,12 +153,12 @@
 }
 
 .hero-momentum--rising .hero-momentum__content--visible {
-  transition-delay: calc(var(--rise-duration) * 0.84);
+  transition-delay: var(--rise-duration);
 }
 
 .hero-momentum--rising .sales-cta--visible:not(.sales-cta--forging) .solar-cta {
   opacity: 0;
-  animation: hero-cta-delayed-in 1.4s var(--rise-ease) calc(var(--rise-duration) * 0.88) forwards;
+  animation: hero-cta-delayed-in 0.9s ease-out var(--rise-duration) forwards;
 }
 
 @keyframes hero-cta-delayed-in {
