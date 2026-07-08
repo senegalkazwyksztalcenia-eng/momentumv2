@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-/** Bulb sequence: off → flicker → warming → lit (storyboard ~5s). */
-export type HeroPhase = "off" | "flicker" | "warming" | "lit";
+/** off → underpower flicker → lit (bulb + frame together). */
+export type HeroPhase = "off" | "flicker" | "lit";
 
 interface PhaseStep {
   phase: HeroPhase;
@@ -9,12 +9,10 @@ interface PhaseStep {
 }
 
 export const FLICKER_START_MS = 1200;
-export const WARMING_START_MS = 2600;
-export const LIT_START_MS = 4800;
+export const LIT_START_MS = 5000;
 
 const SEQUENCE: PhaseStep[] = [
   { phase: "flicker", at: FLICKER_START_MS },
-  { phase: "warming", at: WARMING_START_MS },
   { phase: "lit", at: LIT_START_MS },
 ];
 

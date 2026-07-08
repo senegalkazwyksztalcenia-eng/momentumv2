@@ -325,7 +325,7 @@
     0 0 12px rgba(255, 150, 60, 0.5);
 }
 
-/* Planet syncs with bulb phases (storyboard) */
+/* Planet syncs with bulb phases */
 .cosmic-background__planet-scene--off .cosmic-background__city-light {
   opacity: 0;
 }
@@ -335,31 +335,37 @@
 }
 
 .cosmic-background__planet-scene--flicker .cosmic-background__city-light {
-  opacity: 0.12;
+  opacity: 0.1;
+  animation: city-underpower 2.1s ease-in-out infinite;
 }
 
 .cosmic-background__planet-scene--flicker .cosmic-background__planet-limb {
-  opacity: 0.35;
+  opacity: 0.3;
 }
 
-.cosmic-background__planet-scene--warming .cosmic-background__city-light {
-  opacity: 0.52;
-}
+@keyframes city-underpower {
+  0%,
+  100% {
+    opacity: 0.06;
+  }
 
-.cosmic-background__planet-scene--warming .cosmic-background__planet-limb {
-  opacity: 0.55;
-}
+  18%,
+  40%,
+  72% {
+    opacity: 0.22;
+  }
 
-.cosmic-background__planet-scene--warming .cosmic-background__atmosphere {
-  opacity: 0.75;
-  box-shadow:
-    inset 0 8px 40px 7px rgba(120, 190, 255, 0.16),
-    0 -8px 56px rgba(100, 180, 255, 0.2),
-    0 -14px 100px rgba(80, 150, 255, 0.1);
+  20%,
+  42%,
+  74% {
+    opacity: 0.08;
+  }
 }
 
 .cosmic-background__planet-scene--lit .cosmic-background__city-light {
   opacity: 0.88;
+  animation: city-twinkle 7s ease-in-out infinite;
+  transition: opacity var(--bulb-ignite-duration, 0.72s) ease;
 }
 
 .cosmic-background__planet-scene--lit .cosmic-background__planet-limb {
@@ -374,6 +380,7 @@
 
 .cosmic-background__planet-scene--lit .cosmic-background__atmosphere {
   opacity: 1;
+  transition: opacity 0.72s ease, box-shadow 0.72s ease;
   box-shadow:
     inset 0 8px 42px 8px rgba(130, 200, 255, 0.22),
     inset 0 14px 64px 12px rgba(100, 170, 255, 0.12),

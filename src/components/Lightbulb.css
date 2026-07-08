@@ -127,175 +127,136 @@
   stroke: rgba(255, 255, 255, 0.1);
 }
 
-/* ── Flicker ── */
+/* ── Flicker: underpowered — dim, irregular, never fully on ── */
 .lightbulb--flicker .lightbulb__filament,
 .lightbulb--flicker .lightbulb__filament--inner,
 .lightbulb--flicker .lightbulb__filament--core {
-  animation: bulb-filament-flicker 2.4s ease-in-out infinite;
+  animation: bulb-underpower 2.1s ease-in-out infinite;
 }
 
 .lightbulb--flicker .lightbulb__inner {
-  animation: bulb-inner-flicker 2.4s ease-in-out infinite;
+  animation: bulb-inner-underpower 2.1s ease-in-out infinite;
 }
 
 .lightbulb--flicker .lightbulb__glass-tint {
-  animation: bulb-tint-flicker 2.4s ease-in-out infinite;
+  opacity: 0;
 }
 
+.lightbulb--flicker .lightbulb__bloom,
 .lightbulb--flicker .lightbulb__bloom--tight {
-  animation: bulb-bloom-flicker 2.4s ease-in-out infinite;
+  opacity: 0;
 }
 
-@keyframes bulb-filament-flicker {
+.lightbulb--flicker .lightbulb__glass {
+  stroke: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes bulb-underpower {
   0%,
   100% {
-    stroke: #5a4a38;
-    opacity: 0.45;
+    stroke: #4a3e32;
+    opacity: 0.22;
     filter: none;
   }
 
-  7% {
-    stroke: #ffe8b8;
-    opacity: 1;
-    filter: url(#bulb-filament-glow);
+  3% {
+    stroke: #a07038;
+    opacity: 0.48;
+    filter: drop-shadow(0 0 2px rgba(255, 110, 25, 0.22));
   }
 
-  13% {
-    stroke: #4a4035;
-    opacity: 0.3;
+  5% {
+    stroke: #44382c;
+    opacity: 0.15;
     filter: none;
   }
 
-  21% {
-    stroke: #ffd890;
-    opacity: 0.9;
-    filter: url(#bulb-filament-glow);
+  14% {
+    stroke: #907040;
+    opacity: 0.4;
+    filter: drop-shadow(0 0 2px rgba(255, 100, 20, 0.18));
+  }
+
+  16% {
+    stroke: #3e3428;
+    opacity: 0.12;
+    filter: none;
   }
 
   28%,
+  46% {
+    stroke: #4a3e32;
+    opacity: 0.2;
+    filter: none;
+  }
+
   36% {
-    stroke: #5a4a38;
+    stroke: #b08042;
+    opacity: 0.52;
+    filter: drop-shadow(0 0 3px rgba(255, 120, 30, 0.28));
+  }
+
+  38% {
+    stroke: #403428;
+    opacity: 0.14;
+    filter: none;
+  }
+
+  58% {
+    stroke: #987038;
     opacity: 0.38;
+    filter: drop-shadow(0 0 2px rgba(255, 95, 18, 0.2));
+  }
+
+  60% {
+    stroke: #44382c;
+    opacity: 0.16;
     filter: none;
   }
 
-  47% {
-    stroke: #fff0c8;
-    opacity: 0.95;
-    filter: url(#bulb-filament-glow);
-  }
-
-  55% {
-    stroke: #6a5a45;
-    opacity: 0.42;
-    filter: none;
-  }
-
-  66% {
-    stroke: #fff8e0;
-    opacity: 1;
-    filter: url(#bulb-filament-glow);
+  74% {
+    stroke: #c09048;
+    opacity: 0.55;
+    filter: drop-shadow(0 0 4px rgba(255, 130, 35, 0.3));
   }
 
   76% {
-    stroke: #7a6a50;
-    opacity: 0.55;
+    stroke: #3a3026;
+    opacity: 0.1;
+    filter: none;
+  }
+
+  90% {
+    stroke: #886838;
+    opacity: 0.35;
+    filter: drop-shadow(0 0 2px rgba(255, 90, 15, 0.18));
+  }
+
+  92% {
+    stroke: #42382c;
+    opacity: 0.18;
     filter: none;
   }
 }
 
-@keyframes bulb-inner-flicker {
+@keyframes bulb-inner-underpower {
   0%,
   100% {
     opacity: 0;
   }
 
-  7%,
-  21% {
-    opacity: 0.22;
+  36%,
+  74% {
+    opacity: 0.06;
   }
 
-  47%,
-  66% {
-    opacity: 0.32;
-  }
-}
-
-@keyframes bulb-tint-flicker {
-  0%,
-  100% {
+  38%,
+  76% {
     opacity: 0;
   }
-
-  47%,
-  66% {
-    opacity: 0.15;
-  }
 }
 
-@keyframes bulb-bloom-flicker {
-  0%,
-  100% {
-    opacity: 0;
-  }
-
-  47%,
-  66% {
-    opacity: 0.2;
-  }
-}
-
-/* ── Warming ── */
-.lightbulb--warming .lightbulb__filament,
-.lightbulb--warming .lightbulb__filament--inner,
-.lightbulb--warming .lightbulb__filament--core {
-  stroke: #fff4d8;
-  opacity: 1;
-  filter: url(#bulb-filament-glow);
-  animation: bulb-filament-warm 1.8s ease-in-out infinite;
-}
-
-.lightbulb--warming .lightbulb__inner {
-  opacity: 0.62;
-}
-
-.lightbulb--warming .lightbulb__glass-tint {
-  opacity: 0.28;
-}
-
-.lightbulb--warming .lightbulb__glass {
-  stroke: rgba(255, 230, 180, 0.28);
-}
-
-.lightbulb--warming .lightbulb__specular--main {
-  opacity: 0.88;
-}
-
-.lightbulb--warming .lightbulb__bloom {
-  opacity: 0.38;
-}
-
-.lightbulb--warming .lightbulb__bloom--tight {
-  opacity: 0.55;
-}
-
-.lightbulb--warming .lightbulb__stem,
-.lightbulb--warming .lightbulb__wire {
-  stroke: rgba(200, 195, 180, 0.75);
-}
-
-@keyframes bulb-filament-warm {
-  0%,
-  100% {
-    stroke: #ffecc0;
-  }
-
-  50% {
-    stroke: #fffef0;
-  }
-}
-
-/* ── Lit ── */
+/* ── Lit: synchronized snap-on ── */
 .lightbulb--lit .lightbulb__filament,
 .lightbulb--lit .lightbulb__filament--inner,
 .lightbulb--lit .lightbulb__filament--core {
@@ -307,15 +268,17 @@
 
 .lightbulb--lit .lightbulb__inner {
   opacity: 0.95;
+  animation: bulb-inner-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .lightbulb--lit .lightbulb__glass-tint {
   opacity: 0.42;
+  animation: bulb-tint-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .lightbulb--lit .lightbulb__glass {
   stroke: rgba(255, 245, 210, 0.38);
-  filter: drop-shadow(0 0 10px rgba(255, 200, 100, 0.35));
+  animation: bulb-glass-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .lightbulb--lit .lightbulb__specular--main {
@@ -327,13 +290,15 @@
 }
 
 .lightbulb--lit .lightbulb__bloom {
-  opacity: 0.82;
-  animation: bulb-bloom-breathe 5s ease-in-out infinite;
+  animation:
+    bulb-bloom-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    bulb-bloom-breathe 5s ease-in-out 0.72s infinite;
 }
 
 .lightbulb--lit .lightbulb__bloom--tight {
-  opacity: 0.9;
-  animation: bulb-bloom-breathe 5s ease-in-out infinite reverse;
+  animation:
+    bulb-bloom-tight-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    bulb-bloom-breathe 5s ease-in-out 0.72s infinite reverse;
 }
 
 .lightbulb--lit .lightbulb__stem,
@@ -342,10 +307,105 @@
 }
 
 .lightbulb--lit .lightbulb__svg {
-  filter:
-    drop-shadow(0 3px 8px rgba(0, 0, 0, 0.4))
-    drop-shadow(0 0 18px rgba(255, 190, 90, 0.45))
-    drop-shadow(0 0 40px rgba(255, 150, 50, 0.22));
+  animation: bulb-svg-ignite 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes bulb-inner-ignite {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0.85;
+  }
+
+  100% {
+    opacity: 0.95;
+  }
+}
+
+@keyframes bulb-tint-ignite {
+  0% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 0.55;
+  }
+
+  100% {
+    opacity: 0.42;
+  }
+}
+
+@keyframes bulb-glass-ignite {
+  0% {
+    stroke: rgba(255, 255, 255, 0.1);
+    filter: none;
+  }
+
+  20% {
+    stroke: rgba(255, 250, 220, 0.7);
+    filter: drop-shadow(0 0 20px rgba(255, 210, 120, 0.7));
+  }
+
+  100% {
+    stroke: rgba(255, 245, 210, 0.38);
+    filter: drop-shadow(0 0 10px rgba(255, 200, 100, 0.35));
+  }
+}
+
+@keyframes bulb-svg-ignite {
+  0% {
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.45));
+  }
+
+  18% {
+    filter:
+      drop-shadow(0 0 28px rgba(255, 235, 180, 1))
+      drop-shadow(0 0 56px rgba(255, 170, 60, 0.65));
+  }
+
+  100% {
+    filter:
+      drop-shadow(0 3px 8px rgba(0, 0, 0, 0.4))
+      drop-shadow(0 0 18px rgba(255, 190, 90, 0.45))
+      drop-shadow(0 0 40px rgba(255, 150, 50, 0.22));
+  }
+}
+
+@keyframes bulb-bloom-ignite {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+
+  25% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+
+  100% {
+    opacity: 0.82;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes bulb-bloom-tight-ignite {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+
+  25% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+
+  100% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 @keyframes bulb-bloom-breathe {
@@ -364,16 +424,16 @@
 @media (prefers-reduced-motion: reduce) {
   .lightbulb--flicker .lightbulb__filament,
   .lightbulb--flicker .lightbulb__inner,
-  .lightbulb--flicker .lightbulb__glass-tint,
-  .lightbulb--flicker .lightbulb__bloom--tight,
-  .lightbulb--warming .lightbulb__filament,
   .lightbulb--lit .lightbulb__bloom,
-  .lightbulb--lit .lightbulb__bloom--tight {
+  .lightbulb--lit .lightbulb__bloom--tight,
+  .lightbulb--lit .lightbulb__inner,
+  .lightbulb--lit .lightbulb__glass-tint,
+  .lightbulb--lit .lightbulb__glass,
+  .lightbulb--lit .lightbulb__svg {
     animation: none !important;
   }
 
   .lightbulb--flicker .lightbulb__filament,
-  .lightbulb--warming .lightbulb__filament,
   .lightbulb--lit .lightbulb__filament {
     stroke: #fff4d0;
     opacity: 1;

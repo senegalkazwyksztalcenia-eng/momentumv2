@@ -2,7 +2,8 @@
   --cta-anchor-y: 42%;
   --pill-height: 92px;
   --pill-half: calc(var(--pill-height) / 2);
-  --bulb-sequence-ms: 4800ms;
+  --bulb-ignite-duration: 0.72s;
+  --bulb-flicker-cycle: 2.1s;
 
   position: relative;
   isolation: isolate;
@@ -26,16 +27,8 @@
 }
 
 .hero-momentum--flicker::after {
-  opacity: 0.06;
-  background: radial-gradient(circle at 50% 42%, rgba(255, 180, 100, 0.06), transparent 58%);
-}
-
-.hero-momentum--warming::after {
-  opacity: 0.14;
-  transition: opacity 1.8s ease;
-  background:
-    radial-gradient(ellipse 70% 60% at 50% 40%, rgba(255, 200, 130, 0.1), transparent 62%),
-    radial-gradient(circle at 50% 42%, rgba(255, 170, 90, 0.06), transparent 55%);
+  opacity: 0.04;
+  background: radial-gradient(circle at 50% 42%, rgba(255, 150, 60, 0.05), transparent 55%);
 }
 
 .hero-momentum--lit::after {
