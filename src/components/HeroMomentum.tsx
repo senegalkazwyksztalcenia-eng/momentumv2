@@ -3,13 +3,13 @@ import { useBreakpoint } from "../contexts/BreakpointContext";
 import { CosmicBackground } from "./CosmicBackground";
 import { SalesCTA } from "./SalesCTA";
 import { BulbLightningStrike } from "./BulbLightningStrike";
+import { HeroInstagram } from "./HeroInstagram";
 import "./HeroMomentum.css";
 
 export function HeroMomentum() {
   const isDesktop = useBreakpoint();
-  const phase = useHeroSequence();
+  const { phase, strikeKey, contentVisible } = useHeroSequence();
 
-  const showContent = phase === "lit";
   const showStrike = phase === "strike";
 
   return (
@@ -27,18 +27,19 @@ export function HeroMomentum() {
       </a>
 
       <CosmicBackground showPlanet bulbPhase={phase} />
-      {showStrike ? <BulbLightningStrike /> : null}
+      {showStrike ? <BulbLightningStrike key={strikeKey} /> : null}
       <SalesCTA phase={phase} />
+      <HeroInstagram visible={contentVisible} />
 
       <header
-        className={`hero-momentum__header ${showContent ? "hero-momentum__header--visible" : ""}`}
+        className={`hero-momentum__header ${contentVisible ? "hero-momentum__header--visible" : ""}`}
       >
         <p className="hero-momentum__eyebrow">Momentum — ebook</p>
       </header>
 
       <div
         id="odkryj"
-        className={`hero-momentum__content ${showContent ? "hero-momentum__content--visible" : ""}`}
+        className={`hero-momentum__content ${contentVisible ? "hero-momentum__content--visible" : ""}`}
         aria-live="polite"
       >
         <h1 className="hero-momentum__title">Witam.</h1>
