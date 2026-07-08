@@ -7,8 +7,8 @@ interface PhaseStep {
   at: number;
 }
 
-/** Night with planet, then 3s sun rise from the button. */
-export const PREDAWN_MS = 6000;
+/** Button visible from load; sun rises after a short beat. */
+export const PREDAWN_MS = 1800;
 export const SUN_RISE_MS = 3000;
 
 const SEQUENCE: PhaseStep[] = [

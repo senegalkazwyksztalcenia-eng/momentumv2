@@ -15,9 +15,12 @@ interface Star {
 interface CityLight {
   id: number;
   left: string;
-  bottom: string;
+  top: string;
   size: number;
   delay: string;
+  kind: "dot" | "cluster";
+  width?: string;
+  height?: string;
 }
 
 interface StarField {
@@ -58,11 +61,33 @@ function generateStars(
 function generateCityLights(count: number): CityLight[] {
   return Array.from({ length: count }, (_, id) => {
     const s = 9000 + id * 17;
+    const angle = seededUnit(s) * Math.PI * 1.05 + Math.PI * 0.52;
+    const dist = 0.18 + seededUnit(s + 1) * 0.36;
+    const left = 50 + Math.cos(angle) * dist * 88;
+    const top = 50 - Math.sin(angle) * dist * 88;
+    const isCluster = seededUnit(s + 4) > 0.82;
+
+    if (isCluster) {
+      const w = 2.4 + seededUnit(s + 5) * 5.5;
+      const h = 0.5 + seededUnit(s + 6) * 1.2;
+      return {
+        id,
+        kind: "cluster",
+        left: `${left.toFixed(2)}%`,
+        top: `${top.toFixed(2)}%`,
+        size: 0,
+        width: `${w.toFixed(2)}%`,
+        height: `${h.toFixed(2)}%`,
+        delay: `${(seededUnit(s + 3) * 4).toFixed(2)}s`,
+      };
+    }
+
     return {
       id,
-      left: `${8 + seededUnit(s) * 84}%`,
-      bottom: `${4 + seededUnit(s + 1) * 14}%`,
-      size: Math.round((seededUnit(s + 2) * 1.4 + 0.6) * 10) / 10,
+      kind: "dot",
+      left: `${left.toFixed(2)}%`,
+      top: `${top.toFixed(2)}%`,
+      size: Math.round((seededUnit(s + 2) * 1.8 + 0.45) * 10) / 10,
       delay: `${(seededUnit(s + 3) * 4).toFixed(2)}s`,
     };
   });
@@ -73,7 +98,7 @@ function createStarField(): StarField {
     far: generateStars(52, "far", [0.4, 1.1], 100),
     mid: generateStars(30, "mid", [0.8, 1.8], 500),
     near: generateStars(14, "near", [1.4, 2.8], 900),
-    cityLights: generateCityLights(28),
+    cityLights: generateCityLights(96),
   };
 }
 
@@ -98,7 +123,7 @@ export function CosmicBackground({
   const farStars = isDesktop ? far : far.slice(0, 44);
   const midStars = isDesktop ? mid : mid.slice(0, 24);
   const nearStars = isDesktop ? near : near.slice(0, 10);
-  const lights = isDesktop ? cityLights : cityLights.slice(0, 20);
+  const lights = isDesktop ? cityLights : cityLights.slice(0, 64);
 
   const classNames = [
     "cosmic-background",
@@ -163,18 +188,25 @@ export function CosmicBackground({
       >
         <div className="cosmic-background__planet-body">
           <div className="cosmic-background__planet-surface" />
-          <div className="cosmic-background__horizon-blend" />
+          <div className="cosmic-background__planet-day" />
+          <div className="cosmic-background__planet-night" />
+          <div className="cosmic-background__planet-terminator" />
           <div className="cosmic-background__atmosphere" />
           <div className="cosmic-background__city-lights">
             {lights.map((light) => (
               <span
                 key={light.id}
-                className="cosmic-background__city-light"
+                className={[
+                  "cosmic-background__city-light",
+                  light.kind === "cluster" ? "cosmic-background__city-light--cluster" : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
                 style={{
                   left: light.left,
-                  bottom: light.bottom,
-                  width: `${light.size}px`,
-                  height: `${light.size}px`,
+                  top: light.top,
+                  width: light.kind === "cluster" ? light.width : `${light.size}px`,
+                  height: light.kind === "cluster" ? light.height : `${light.size}px`,
                   animationDelay: light.delay,
                 }}
               />
