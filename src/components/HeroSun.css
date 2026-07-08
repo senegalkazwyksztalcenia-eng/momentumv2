@@ -104,13 +104,12 @@
 
 .hero-sun--rising {
   z-index: 1;
-  will-change: top, opacity, transform;
-  animation: hero-sun-ascend var(--hero-sun-rise-duration) var(--rise-ease) forwards;
+  will-change: top;
+  animation: hero-sun-ascend var(--hero-sun-rise-duration) var(--rise-ease) both;
 }
 
 .hero-sun--rising .hero-sun__disc {
-  opacity: 0;
-  animation: hero-sun-disc-reveal calc(var(--rise-duration) * 0.58) var(--rise-ease) var(--sun-disc-reveal-delay) forwards;
+  opacity: 1;
   filter:
     drop-shadow(0 0 18px rgba(255, 195, 0, 0.75))
     drop-shadow(0 0 40px rgba(255, 120, 0, 0.5));
@@ -357,32 +356,29 @@
 }
 
 @keyframes hero-sun-ascend {
-  /* Light phase — hold at horizon while glow builds */
+  /* Continuous climb from below planet limb — disc unmasked by geometry, not opacity */
   0% {
     top: var(--sun-rise-start-top);
     opacity: 1;
-    transform: translateX(-50%) scale(0.88);
+    transform: translateX(-50%);
   }
 
-  38% {
-    top: var(--sun-rise-start-top);
-    transform: translateX(-50%) scale(0.9);
+  18% {
+    top: calc(var(--sun-rise-start-top) - var(--sun-disc-half) * 0.35);
   }
 
-  55% {
-    top: calc(var(--sun-rise-start-top) - 0.6%);
-    transform: translateX(-50%) scale(0.92);
+  42% {
+    top: calc(var(--planet-limb-y) + var(--sun-disc-half) * 0.55);
   }
 
-  75% {
-    top: calc(var(--sun-rise-start-top) - 4%);
-    transform: translateX(-50%) scale(0.96);
+  68% {
+    top: calc(var(--planet-limb-y) - var(--sun-disc-half) * 0.25);
   }
 
   100% {
     top: var(--hero-sun-top);
     opacity: 1;
-    transform: translateX(-50%) scale(1);
+    transform: translateX(-50%);
   }
 }
 
@@ -394,17 +390,17 @@
     filter: blur(20px);
   }
 
-  38% {
-    opacity: 0.78;
-    width: 200px;
-    height: 200px;
+  25% {
+    opacity: 0.72;
+    width: 188px;
+    height: 188px;
     filter: blur(18px);
   }
 
-  58% {
-    opacity: 0.92;
-    width: 220px;
-    height: 220px;
+  55% {
+    opacity: 0.88;
+    width: 210px;
+    height: 210px;
     filter: blur(16px);
   }
 
@@ -433,38 +429,6 @@
     box-shadow:
       0 0 62px 28px rgba(255, 220, 150, 0.55),
       0 0 110px 50px rgba(255, 170, 70, 0.32);
-  }
-}
-
-@keyframes hero-sun-disc-reveal {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, 50%) scale(0.55);
-    filter:
-      drop-shadow(0 0 12px rgba(255, 195, 0, 0.35))
-      drop-shadow(0 0 28px rgba(255, 120, 0, 0.2));
-  }
-
-  35% {
-    opacity: 0.22;
-    transform: translate(-50%, 50%) scale(0.72);
-  }
-
-  65% {
-    opacity: 0.65;
-    transform: translate(-50%, 50%) scale(0.88);
-    filter:
-      drop-shadow(0 0 18px rgba(255, 195, 0, 0.7))
-      drop-shadow(0 0 40px rgba(255, 120, 0, 0.45));
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(-50%, 50%) scale(1);
-    filter:
-      drop-shadow(0 0 22px rgba(255, 195, 0, 0.95))
-      drop-shadow(0 0 48px rgba(255, 120, 0, 0.75))
-      drop-shadow(0 0 80px rgba(255, 80, 0, 0.45));
   }
 }
 

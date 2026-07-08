@@ -372,6 +372,7 @@
   inset: 0;
   border-radius: 50%;
   overflow: hidden;
+  background-color: #020812;
   background:
     radial-gradient(
       ellipse 140% 28% at 50% 0%,

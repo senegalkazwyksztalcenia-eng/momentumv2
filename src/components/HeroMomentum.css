@@ -5,12 +5,13 @@
   /* Disc bottom overlaps pill top — no visible gap */
   --sun-seat-overlap: 0px;
   --hero-sun-top: calc(var(--cta-anchor-y) - var(--pill-half) + var(--sun-seat-overlap));
-  --planet-horizon-y: 50%;
-  --sun-rise-start-top: var(--planet-horizon-y);
+  --planet-limb-y: 54%;
+  --sun-disc-half: calc(var(--sun-rise-disc-size) / 2);
+  /* Disc center starts below limb — only glow, then disc peeks over the curve */
+  --sun-rise-start-top: calc(var(--planet-limb-y) + var(--sun-disc-half));
   --predawn-duration: 6s;
   --rise-duration: 14s;
   --hero-sun-rise-duration: var(--rise-duration);
-  --sun-disc-reveal-delay: calc(var(--rise-duration) * 0.42);
   --rise-ease: cubic-bezier(0.42, 0, 0.18, 1);
 
   position: relative;
@@ -304,8 +305,8 @@
   .hero-momentum {
     --cta-anchor-y: 36%;
     --pill-height: 74px;
-    --planet-horizon-y: 52%;
-    --sun-rise-start-top: var(--planet-horizon-y);
+    --planet-limb-y: 56%;
+    --sun-rise-start-top: calc(var(--planet-limb-y) + var(--sun-disc-half));
   }
 }
 
