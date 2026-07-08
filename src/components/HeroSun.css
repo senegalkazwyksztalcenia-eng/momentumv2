@@ -104,17 +104,17 @@
 
 .hero-sun--rising {
   z-index: 1;
+  opacity: 1;
   will-change: top;
   animation: hero-sun-ascend var(--hero-sun-rise-duration) var(--rise-ease) both;
 }
 
 .hero-sun--rising .hero-sun__disc {
   opacity: 1;
-  transform: translate(-50%, 50%) scale(0.94);
-  animation: hero-sun-disc-emerge var(--rise-duration) var(--rise-ease) both;
+  transform: translate(-50%, 50%);
   filter:
-    drop-shadow(0 0 14px rgba(255, 195, 0, 0.55))
-    drop-shadow(0 0 32px rgba(255, 120, 0, 0.35));
+    drop-shadow(0 0 16px rgba(255, 195, 0, 0.7))
+    drop-shadow(0 0 36px rgba(255, 120, 0, 0.45));
 }
 
 .hero-sun--rising .hero-sun__halo {
@@ -191,7 +191,7 @@
 
 .hero-sun--rising .hero-sun__rays {
   opacity: 0;
-  animation: hero-sun-rays-rise 6s var(--rise-ease) calc(var(--rise-duration) * 0.78) forwards;
+  animation: hero-sun-rays-rise 5s var(--rise-ease) calc(var(--rise-duration) * 0.55) forwards;
 }
 
 .hero-sun--empowered .hero-sun__rays {
@@ -358,59 +358,32 @@
 }
 
 @keyframes hero-sun-ascend {
-  /* Buried below planet — long stillness, then imperceptible creep over the limb */
+  /* Glow at horizon, then disc creeps over planet limb */
   0%,
-  12% {
+  10% {
     top: var(--sun-rise-start-top);
     transform: translateX(-50%);
   }
 
-  38% {
-    top: calc(var(--planet-limb-y) + var(--sun-disc-half) * 1.35);
+  28% {
+    top: calc(var(--planet-limb-y) + var(--sun-disc-half) * 0.85);
   }
 
-  58% {
-    top: calc(var(--planet-limb-y) + var(--sun-disc-half) * 0.92);
+  48% {
+    top: calc(var(--planet-limb-y) + var(--sun-disc-half) * 0.35);
   }
 
-  76% {
-    top: calc(var(--planet-limb-y) + var(--sun-disc-half) * 0.22);
+  68% {
+    top: calc(var(--planet-limb-y) - var(--sun-disc-half) * 0.15);
   }
 
-  92% {
-    top: calc(var(--planet-limb-y) - var(--sun-disc-half) * 0.35);
+  86% {
+    top: calc(var(--planet-limb-y) - var(--sun-disc-half) * 1.1);
   }
 
   100% {
     top: var(--hero-sun-top);
     transform: translateX(-50%);
-  }
-}
-
-@keyframes hero-sun-disc-emerge {
-  0%,
-  34% {
-    opacity: 0;
-    transform: translate(-50%, 50%) scale(0.9);
-    filter:
-      drop-shadow(0 0 8px rgba(255, 195, 0, 0.2))
-      drop-shadow(0 0 18px rgba(255, 120, 0, 0.12));
-  }
-
-  52% {
-    opacity: 0.45;
-    transform: translate(-50%, 50%) scale(0.95);
-    filter:
-      drop-shadow(0 0 14px rgba(255, 195, 0, 0.55))
-      drop-shadow(0 0 32px rgba(255, 120, 0, 0.35));
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(-50%, 50%) scale(1);
-    filter:
-      drop-shadow(0 0 18px rgba(255, 195, 0, 0.75))
-      drop-shadow(0 0 40px rgba(255, 120, 0, 0.5));
   }
 }
 
