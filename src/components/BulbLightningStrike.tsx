@@ -11,8 +11,8 @@ export function BulbLightningStrike() {
       generateBolt(BOLT_WIDTH, BOLT_HEIGHT, 1337, {
         startX: BOLT_WIDTH / 2,
         endX: BOLT_WIDTH / 2,
-        branchCount: 6,
-        roughness: 52,
+        branchCount: 5,
+        roughness: 48,
       }),
     [],
   );
@@ -24,14 +24,30 @@ export function BulbLightningStrike() {
         viewBox={`0 0 ${BOLT_WIDTH} ${BOLT_HEIGHT}`}
         preserveAspectRatio="xMidYMax meet"
       >
-        <path d={bolt.main} className="bulb-strike__glow" />
+        <path d={bolt.main} className="bulb-strike__glow" pathLength={100} />
         {bolt.branches.map((d, i) => (
-          <path key={`g-${i}`} d={d} className="bulb-strike__glow bulb-strike__glow--branch" />
+          <path
+            key={`g-${i}`}
+            d={d}
+            className="bulb-strike__glow bulb-strike__glow--branch"
+            pathLength={100}
+          />
         ))}
-        <path d={bolt.main} className="bulb-strike__core" />
+        <path d={bolt.main} className="bulb-strike__core" pathLength={100} />
         {bolt.branches.map((d, i) => (
-          <path key={`c-${i}`} d={d} className="bulb-strike__core bulb-strike__core--branch" />
+          <path
+            key={`c-${i}`}
+            d={d}
+            className="bulb-strike__core bulb-strike__core--branch"
+            pathLength={100}
+          />
         ))}
+        <circle
+          className="bulb-strike__terminus"
+          cx={BOLT_WIDTH / 2}
+          cy={BOLT_HEIGHT}
+          r={5}
+        />
       </svg>
     </div>
   );

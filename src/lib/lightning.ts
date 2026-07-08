@@ -74,20 +74,29 @@ export function generateBolt(
     y: p.y,
   }));
 
+  clamped[0] = { x: startX, y: 0 };
+  clamped[clamped.length - 1] = { x: endX, y: height };
+
   const branchCount = options?.branchCount ?? 3;
+  const maxBranchOriginY = height * 0.82;
   const branches: string[] = [];
   for (let b = 0; b < branchCount; b += 1) {
-    const idx =
-      4 + Math.floor(rand() * Math.max(1, clamped.length - 12));
-    const origin = clamped[idx]!;
+    const eligible = clamped
+      .map((p, idx) => ({ p, idx }))
+      .filter(({ p, idx }) => idx > 3 && idx < clamped.length - 2 && p.y < maxBranchOriginY);
+    const pick = eligible[Math.floor(rand() * eligible.length)] ?? {
+      p: clamped[Math.floor(clamped.length * 0.55)]!,
+      idx: Math.floor(clamped.length * 0.55),
+    };
+    const origin = pick.p;
     const dir = rand() > 0.5 ? 1 : -1;
-    const length = height * (0.12 + rand() * 0.2);
+    const length = height * (0.08 + rand() * 0.14);
     const end = {
       x: Math.max(
         2,
         Math.min(width - 2, origin.x + dir * length * (0.5 + rand() * 0.5)),
       ),
-      y: origin.y + length,
+      y: Math.min(height, origin.y + length),
     };
     const branchPts = displaceChannel(
       origin,

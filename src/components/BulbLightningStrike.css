@@ -4,7 +4,7 @@
   left: 50%;
   z-index: 6;
   width: min(220px, 36vw);
-  height: var(--cta-anchor-y);
+  height: var(--strike-target-y);
   transform: translateX(-50%);
   pointer-events: none;
   overflow: visible;
@@ -15,8 +15,6 @@
   width: 100%;
   height: 100%;
   overflow: visible;
-  opacity: 0;
-  animation: bolt-strike-hit var(--strike-duration, 1.05s) linear forwards;
 }
 
 .bulb-strike__glow {
@@ -25,13 +23,21 @@
   stroke-width: 10;
   stroke-linecap: round;
   stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
   filter: drop-shadow(0 0 6px rgba(120, 210, 255, 0.9))
     drop-shadow(0 0 18px rgba(0, 170, 255, 0.75));
+  animation:
+    bolt-draw var(--strike-duration, 1.05s) cubic-bezier(0.35, 0, 0.15, 1) forwards,
+    bolt-glow-flicker var(--strike-duration, 1.05s) linear forwards;
 }
 
 .bulb-strike__glow--branch {
   stroke-width: 6;
-  opacity: 0.8;
+  animation:
+    bolt-branch-draw var(--strike-duration, 1.05s) ease-out forwards,
+    bolt-glow-flicker var(--strike-duration, 1.05s) linear forwards;
 }
 
 .bulb-strike__core {
@@ -40,72 +46,104 @@
   stroke-width: 2.8;
   stroke-linecap: round;
   stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
   filter:
     drop-shadow(0 0 4px rgba(255, 255, 255, 1))
     drop-shadow(0 0 14px rgba(200, 240, 255, 0.95))
     drop-shadow(0 0 32px rgba(0, 190, 255, 0.85));
+  animation:
+    bolt-draw var(--strike-duration, 1.05s) cubic-bezier(0.35, 0, 0.15, 1) forwards,
+    bolt-core-flicker var(--strike-duration, 1.05s) linear forwards;
 }
 
 .bulb-strike__core--branch {
   stroke-width: 1.8;
-  opacity: 0.9;
+  animation:
+    bolt-branch-draw var(--strike-duration, 1.05s) ease-out forwards,
+    bolt-core-flicker var(--strike-duration, 1.05s) linear forwards;
 }
 
-@keyframes bolt-strike-hit {
+.bulb-strike__terminus {
+  fill: #ffffff;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  filter:
+    drop-shadow(0 0 6px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 18px rgba(160, 235, 255, 1))
+    drop-shadow(0 0 36px rgba(0, 190, 255, 0.95));
+  animation: bolt-terminus-hit var(--strike-duration, 1.05s) ease-out forwards;
+}
+
+@keyframes bolt-draw {
   0% {
+    stroke-dashoffset: 100;
     opacity: 0;
   }
 
-  3% {
-    opacity: 0.12;
-  }
-
-  7% {
+  4% {
     opacity: 1;
   }
 
-  11% {
-    opacity: 0.18;
-  }
-
-  16% {
+  46% {
+    stroke-dashoffset: 0;
     opacity: 1;
   }
 
-  21% {
-    opacity: 0.28;
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
   }
+}
 
+@keyframes bolt-branch-draw {
+  0%,
   28% {
-    opacity: 1;
+    stroke-dashoffset: 100;
+    opacity: 0;
   }
 
   36% {
-    opacity: 0.42;
+    opacity: 0.85;
   }
 
+  46% {
+    stroke-dashoffset: 0;
+    opacity: 0.9;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes bolt-glow-flicker {
+  0%,
   44% {
-    opacity: 0.98;
+    opacity: 0;
   }
 
-  52% {
-    opacity: 0.22;
+  46% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+
+  54% {
+    opacity: 1;
   }
 
   60% {
-    opacity: 0.88;
+    opacity: 0.45;
   }
 
-  70% {
-    opacity: 0.3;
-  }
-
-  80% {
-    opacity: 0.72;
-  }
-
-  90% {
-    opacity: 0.15;
+  66% {
+    opacity: 0.95;
   }
 
   100% {
@@ -113,8 +151,70 @@
   }
 }
 
+@keyframes bolt-core-flicker {
+  0%,
+  44% {
+    opacity: 0;
+  }
+
+  46% {
+    opacity: 1;
+  }
+
+  51% {
+    opacity: 0.25;
+  }
+
+  56% {
+    opacity: 1;
+  }
+
+  63% {
+    opacity: 0.4;
+  }
+
+  70% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bolt-terminus-hit {
+  0%,
+  44% {
+    opacity: 0;
+    transform: scale(0.15);
+  }
+
+  48% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+
+  54% {
+    opacity: 1;
+    transform: scale(1.85);
+  }
+
+  62% {
+    opacity: 0.85;
+    transform: scale(1.4);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .bulb-strike__svg {
+  .bulb-strike__glow,
+  .bulb-strike__core,
+  .bulb-strike__terminus {
     animation-duration: 0.25s;
+    stroke-dashoffset: 0;
   }
 }
