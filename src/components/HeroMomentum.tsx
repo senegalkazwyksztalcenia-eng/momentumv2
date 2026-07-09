@@ -2,6 +2,7 @@ import { useHeroSequence } from "../hooks/useHeroSequence";
 import { useBreakpoint } from "../contexts/BreakpointContext";
 import { CosmicBackground } from "./CosmicBackground";
 import { SalesCTA } from "./SalesCTA";
+import { PdfReader } from "./PdfReader";
 import "./HeroMomentum.css";
 
 export function HeroMomentum() {
@@ -37,6 +38,8 @@ export function HeroMomentum() {
       >
         <p className="hero-momentum__eyebrow">Momentum — ebook</p>
       </header>
+
+      <PdfReader visible={contentVisible} />
 
       <div
         id="odkryj"
