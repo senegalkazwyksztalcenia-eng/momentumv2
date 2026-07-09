@@ -1,5 +1,5 @@
 .hero-momentum {
-  --cta-anchor-y: 36%;
+  --cta-anchor-y: 40%;
   --pill-height: 92px;
   --pill-half: calc(var(--pill-height) / 2);
   --bulb-w: clamp(58px, 10vw, 82px);
@@ -13,12 +13,6 @@
   --bulb-ignite-duration: 0.72s;
   --bulb-flicker-cycle: 2.1s;
   --strike-duration: 1.2s;
-  --planet-size: 248vmin;
-  --planet-horizon-top: calc(100vh - var(--planet-size) * 0.26);
-  --pdf-reader-top: min(
-    calc(var(--planet-horizon-top) + var(--planet-size) * 0.15),
-    calc(63vh - 1.5rem)
-  );
 
   position: relative;
   isolation: isolate;
@@ -158,7 +152,7 @@
   align-items: center;
   justify-content: flex-end;
   padding: clamp(1.5rem, 5vw, 3rem);
-  padding-bottom: clamp(6rem, 24vh, 30vh);
+  padding-bottom: clamp(3.2rem, 9vh, 6rem);
   text-align: center;
   opacity: 0;
   transform: translateY(24px);
@@ -182,7 +176,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 48%;
+  height: 58%;
   background: linear-gradient(
     180deg,
     transparent 0%,
@@ -309,13 +303,9 @@
 
 @media (max-width: 520px) {
   .hero-momentum {
-    --cta-anchor-y: 34%;
+    --cta-anchor-y: 38%;
     --pill-height: 74px;
     --bulb-w: clamp(52px, 12vw, 64px);
-    --pdf-reader-top: min(
-      calc(var(--planet-horizon-top) + var(--planet-size) * 0.13),
-      calc(58vh - 1rem)
-    );
   }
 }
 
@@ -330,7 +320,7 @@
 
   .hero-momentum__content {
     justify-content: flex-end;
-    padding-bottom: clamp(5rem, 20vh, 26vh);
+    padding-bottom: clamp(2.4rem, 8vh, 4rem);
   }
 
   .hero-momentum__title {

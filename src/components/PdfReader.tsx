@@ -10,11 +10,7 @@ GlobalWorkerOptions.workerSrc = new URL(
 const PDF_SRC = "/documents/spis-tresci.pdf";
 const PAGE_SLICE = 1.5;
 
-interface PdfReaderProps {
-  visible: boolean;
-}
-
-export function PdfReader({ visible }: PdfReaderProps) {
+export function PdfReader() {
   const shellRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const canvasHostRef = useRef<HTMLDivElement>(null);
@@ -112,13 +108,10 @@ export function PdfReader({ visible }: PdfReaderProps) {
   }, []);
 
   useEffect(() => {
-    if (!visible) return;
     void renderPreview();
-  }, [visible, renderPreview]);
+  }, [renderPreview]);
 
   useEffect(() => {
-    if (!visible) return;
-
     const onResize = () => {
       if (isFullscreen) void renderFullscreen();
       else void renderPreview();
@@ -126,7 +119,7 @@ export function PdfReader({ visible }: PdfReaderProps) {
 
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, [visible, isFullscreen, renderPreview, renderFullscreen]);
+  }, [isFullscreen, renderPreview, renderFullscreen]);
 
   useEffect(() => {
     const onFullscreenChange = () => {
@@ -150,14 +143,10 @@ export function PdfReader({ visible }: PdfReaderProps) {
   };
 
   return (
-    <section
-      className={`pdf-reader ${visible ? "pdf-reader--visible" : ""}`}
-      aria-label="Spis treści ebooka"
-      aria-hidden={!visible}
-    >
+    <div className="pdf-reader" aria-label="Podgląd spisu treści ebooka">
       <div className="pdf-reader__shell" ref={shellRef}>
         <div className="pdf-reader__head">
-          <p className="pdf-reader__title">Spis treści</p>
+          <p className="pdf-reader__title">Podgląd</p>
           <button
             type="button"
             className="pdf-reader__expand"
@@ -201,6 +190,6 @@ export function PdfReader({ visible }: PdfReaderProps) {
           </span>
         </span>
       </a>
-    </section>
+    </div>
   );
 }

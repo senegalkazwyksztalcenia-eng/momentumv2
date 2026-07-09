@@ -2,7 +2,6 @@ import { useHeroSequence } from "../hooks/useHeroSequence";
 import { useBreakpoint } from "../contexts/BreakpointContext";
 import { CosmicBackground } from "./CosmicBackground";
 import { SalesCTA } from "./SalesCTA";
-import { PdfReader } from "./PdfReader";
 import "./HeroMomentum.css";
 
 export function HeroMomentum() {
@@ -21,7 +20,7 @@ export function HeroMomentum() {
       data-phase={phase}
       aria-label="Momentum — hero ebooka"
     >
-      <a className="hero-momentum__skip" href="#info">
+      <a className="hero-momentum__skip" href="#ebook">
         Przejdź do treści
       </a>
 
@@ -38,8 +37,6 @@ export function HeroMomentum() {
       >
         <p className="hero-momentum__eyebrow">Momentum — ebook</p>
       </header>
-
-      <PdfReader visible={contentVisible} />
 
       <div
         id="odkryj"
