@@ -13,6 +13,9 @@
   --bulb-ignite-duration: 0.72s;
   --bulb-flicker-cycle: 2.1s;
   --strike-duration: 1.2s;
+  --planet-size: 248vmin;
+  --planet-horizon-top: calc(100vh - var(--planet-size) * 0.26);
+  --pdf-reader-top: calc(var(--planet-horizon-top) + var(--planet-size) * 0.09);
 
   position: relative;
   isolation: isolate;
