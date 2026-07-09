@@ -16,8 +16,8 @@
   --planet-size: 248vmin;
   --planet-horizon-top: calc(100vh - var(--planet-size) * 0.26);
   --pdf-reader-top: min(
-    calc(var(--planet-horizon-top) + var(--planet-size) * 0.1),
-    calc(46vh - 1.5rem)
+    calc(var(--planet-horizon-top) + var(--planet-size) * 0.15),
+    calc(63vh - 1.5rem)
   );
 
   position: relative;
@@ -313,8 +313,8 @@
     --pill-height: 74px;
     --bulb-w: clamp(52px, 12vw, 64px);
     --pdf-reader-top: min(
-      calc(var(--planet-horizon-top) + var(--planet-size) * 0.08),
-      calc(44vh - 1rem)
+      calc(var(--planet-horizon-top) + var(--planet-size) * 0.13),
+      calc(58vh - 1rem)
     );
   }
 }
