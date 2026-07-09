@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.85rem;
+  gap: 1.5rem;
   width: min(680px, 90vw);
   transform: translate(-50%, 16px);
   opacity: 0;
@@ -209,13 +209,9 @@
 }
 
 @media (max-width: 520px) {
-  .hero-momentum {
-    --pdf-reader-top: calc(var(--planet-horizon-top) + var(--planet-size) * 0.07);
-  }
-
   .pdf-reader {
     width: min(680px, 92vw);
-    gap: 0.7rem;
+    gap: 1.15rem;
   }
 
   .pdf-reader__download-pill {

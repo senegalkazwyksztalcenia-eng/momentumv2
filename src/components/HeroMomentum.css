@@ -1,5 +1,5 @@
 .hero-momentum {
-  --cta-anchor-y: 42%;
+  --cta-anchor-y: 36%;
   --pill-height: 92px;
   --pill-half: calc(var(--pill-height) / 2);
   --bulb-w: clamp(58px, 10vw, 82px);
@@ -15,7 +15,7 @@
   --strike-duration: 1.2s;
   --planet-size: 248vmin;
   --planet-horizon-top: calc(100vh - var(--planet-size) * 0.26);
-  --pdf-reader-top: calc(var(--planet-horizon-top) + var(--planet-size) * 0.09);
+  --pdf-reader-top: calc(var(--planet-horizon-top) + var(--planet-size) * 0.14);
 
   position: relative;
   isolation: isolate;
@@ -306,9 +306,10 @@
 
 @media (max-width: 520px) {
   .hero-momentum {
-    --cta-anchor-y: 40%;
+    --cta-anchor-y: 34%;
     --pill-height: 74px;
     --bulb-w: clamp(52px, 12vw, 64px);
+    --pdf-reader-top: calc(var(--planet-horizon-top) + var(--planet-size) * 0.11);
   }
 }
 

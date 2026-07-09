@@ -30,7 +30,7 @@
 .sales-cta__anchor .hero-instagram {
   position: absolute;
   left: 50%;
-  top: calc(100% + 0.65rem);
+  top: calc(100% + 1.35rem);
   margin-top: 0;
   transform: translateX(-50%);
 }
@@ -200,6 +200,10 @@
 }
 
 @media (max-width: 520px) {
+  .sales-cta__anchor .hero-instagram {
+    top: calc(100% + 1.1rem);
+  }
+
   .solar-cta__pill {
     gap: 18px;
   }
