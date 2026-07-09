@@ -15,7 +15,10 @@
   --strike-duration: 1.2s;
   --planet-size: 248vmin;
   --planet-horizon-top: calc(100vh - var(--planet-size) * 0.26);
-  --pdf-reader-top: calc(var(--planet-horizon-top) + var(--planet-size) * 0.14);
+  --pdf-reader-top: min(
+    calc(var(--planet-horizon-top) + var(--planet-size) * 0.1),
+    calc(46vh - 1.5rem)
+  );
 
   position: relative;
   isolation: isolate;
@@ -155,7 +158,7 @@
   align-items: center;
   justify-content: flex-end;
   padding: clamp(1.5rem, 5vw, 3rem);
-  padding-bottom: clamp(3.2rem, 9vh, 6rem);
+  padding-bottom: clamp(6rem, 24vh, 30vh);
   text-align: center;
   opacity: 0;
   transform: translateY(24px);
@@ -179,7 +182,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 58%;
+  height: 48%;
   background: linear-gradient(
     180deg,
     transparent 0%,
@@ -309,7 +312,10 @@
     --cta-anchor-y: 34%;
     --pill-height: 74px;
     --bulb-w: clamp(52px, 12vw, 64px);
-    --pdf-reader-top: calc(var(--planet-horizon-top) + var(--planet-size) * 0.11);
+    --pdf-reader-top: min(
+      calc(var(--planet-horizon-top) + var(--planet-size) * 0.08),
+      calc(44vh - 1rem)
+    );
   }
 }
 
@@ -324,7 +330,7 @@
 
   .hero-momentum__content {
     justify-content: flex-end;
-    padding-bottom: clamp(2.4rem, 8vh, 4rem);
+    padding-bottom: clamp(5rem, 20vh, 26vh);
   }
 
   .hero-momentum__title {
