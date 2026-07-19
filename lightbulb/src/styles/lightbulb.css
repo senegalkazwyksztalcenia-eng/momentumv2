@@ -1,0 +1,872 @@
+.lightbulb {
+  --bulb-warm-return: 0.95s;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.lightbulb__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+}
+
+/* Environmental light pool on button */
+.lightbulb__pool {
+  position: absolute;
+  left: 50%;
+  bottom: 20%;
+  width: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 1.35);
+  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 0.28);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 0%,
+    rgba(255, 190, 110, 0.22) 0%,
+    rgba(255, 155, 70, 0.08) 42%,
+    transparent 70%
+  );
+  opacity: 0;
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+.lightbulb__bloom {
+  position: absolute;
+  left: 50%;
+  top: 36%;
+  width: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 2.1);
+  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 2.1);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 238, 200, 0.32) 0%,
+    rgba(255, 205, 130, 0.14) 38%,
+    rgba(255, 165, 60, 0.04) 58%,
+    transparent 76%
+  );
+  opacity: 0;
+  filter: blur(16px);
+  pointer-events: none;
+}
+
+.lightbulb__bloom--tight {
+  width: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 1.2);
+  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 1.2);
+  top: 37%;
+  filter: blur(5px);
+  background: radial-gradient(
+    circle,
+    rgba(255, 250, 235, 0.45) 0%,
+    rgba(255, 225, 165, 0.22) 45%,
+    transparent 72%
+  );
+}
+
+.lightbulb__inner {
+  opacity: 0;
+}
+
+.lightbulb__thunder-fill,
+.lightbulb__thunder-core,
+.lightbulb__glass-thunder-tint {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lightbulb__glass-tint {
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.lightbulb__flare {
+  opacity: 0;
+}
+
+.lightbulb__filament {
+  fill: none;
+  stroke: #3a3530;
+  opacity: 0.72;
+}
+
+.lightbulb__filament-core {
+  fill: none;
+  stroke: transparent;
+  opacity: 0;
+}
+
+.lightbulb__contact {
+  fill: #141414;
+}
+
+/* ── Off: transparent glass, dark filament, chrome base ── */
+.lightbulb--off .lightbulb__filament {
+  stroke: #2e2a26;
+  opacity: 0.65;
+}
+
+.lightbulb--off .lightbulb__rim {
+  opacity: 0.85;
+}
+
+.lightbulb--off .lightbulb__specular {
+  opacity: 0.55;
+}
+
+/* ── Flicker: low orange pulses, glass stays clear ── */
+.lightbulb--flicker .lightbulb__filament {
+  animation: bulb-underpower 2.1s ease-in-out infinite;
+}
+
+.lightbulb--flicker .lightbulb__filament-core {
+  animation: bulb-core-underpower 2.1s ease-in-out infinite;
+}
+
+.lightbulb--flicker .lightbulb__inner {
+  animation: bulb-inner-underpower 2.1s ease-in-out infinite;
+}
+
+.lightbulb--flicker .lightbulb__glass-tint,
+.lightbulb--flicker .lightbulb__flare,
+.lightbulb--flicker .lightbulb__bloom,
+.lightbulb--flicker .lightbulb__bloom--tight,
+.lightbulb--flicker .lightbulb__pool {
+  opacity: 0;
+}
+
+@keyframes bulb-underpower {
+  0%,
+  100% {
+    stroke: #3a3530;
+    opacity: 0.28;
+    filter: none;
+  }
+
+  4% {
+    stroke: #c87838;
+    opacity: 0.62;
+    filter: drop-shadow(0 0 3px rgba(255, 120, 30, 0.28));
+  }
+
+  6% {
+    stroke: #322e2a;
+    opacity: 0.18;
+    filter: none;
+  }
+
+  15% {
+    stroke: #a06830;
+    opacity: 0.5;
+    filter: drop-shadow(0 0 2px rgba(255, 100, 22, 0.22));
+  }
+
+  17% {
+    stroke: #302c28;
+    opacity: 0.14;
+    filter: none;
+  }
+
+  30%,
+  48% {
+    stroke: #3a3530;
+    opacity: 0.22;
+    filter: none;
+  }
+
+  38% {
+    stroke: #d08040;
+    opacity: 0.58;
+    filter: drop-shadow(0 0 4px rgba(255, 130, 35, 0.3));
+  }
+
+  40% {
+    stroke: #342f2a;
+    opacity: 0.16;
+    filter: none;
+  }
+
+  62% {
+    stroke: #b07038;
+    opacity: 0.48;
+    filter: drop-shadow(0 0 3px rgba(255, 110, 28, 0.24));
+  }
+
+  64% {
+    stroke: #322e2a;
+    opacity: 0.15;
+    filter: none;
+  }
+
+  78% {
+    stroke: #d88848;
+    opacity: 0.6;
+    filter: drop-shadow(0 0 4px rgba(255, 140, 40, 0.32));
+  }
+
+  80% {
+    stroke: #302c28;
+    opacity: 0.12;
+    filter: none;
+  }
+}
+
+@keyframes bulb-core-underpower {
+  0%,
+  100% {
+    stroke: transparent;
+    opacity: 0;
+  }
+
+  38%,
+  78% {
+    stroke: #ffcc80;
+    opacity: 0.35;
+  }
+
+  40%,
+  80% {
+    stroke: transparent;
+    opacity: 0;
+  }
+}
+
+@keyframes bulb-inner-underpower {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  38%,
+  78% {
+    opacity: 0.08;
+  }
+
+  40%,
+  80% {
+    opacity: 0;
+  }
+}
+
+/* ── Strike: thunder glow inside glass only ── */
+.lightbulb--strike .lightbulb__thunder-fill {
+  animation: bulb-thunder-fill-in var(--strike-duration, 1.15s) ease-out forwards;
+}
+
+.lightbulb--strike .lightbulb__thunder-core {
+  animation: bulb-thunder-core-in var(--strike-duration, 1.15s) ease-out forwards;
+}
+
+.lightbulb--strike .lightbulb__glass-thunder-tint {
+  animation: bulb-glass-thunder-in var(--strike-duration, 1.15s) ease-out forwards;
+}
+
+.lightbulb--strike .lightbulb__filament {
+  animation: bulb-filament-strike var(--strike-duration, 1.15s) ease-out forwards;
+  filter: url(#bulb-filament-glow);
+}
+
+.lightbulb--strike .lightbulb__filament-core {
+  animation: bulb-filament-core-strike var(--strike-duration, 1.15s) ease-out forwards;
+  filter: url(#bulb-filament-glow);
+}
+
+@keyframes bulb-filament-strike {
+  0%,
+  18% {
+    stroke: #3a3530;
+    opacity: 0.72;
+  }
+
+  22% {
+    stroke: #f4f7fa;
+    opacity: 1;
+  }
+
+  28%,
+  100% {
+    stroke: #fafcfe;
+    opacity: 1;
+  }
+}
+
+@keyframes bulb-filament-core-strike {
+  0%,
+  20% {
+    stroke: transparent;
+    opacity: 0;
+  }
+
+  26%,
+  100% {
+    stroke: #ffffff;
+    opacity: 1;
+  }
+}
+
+@keyframes bulb-thunder-fill-in {
+  0%,
+  14% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.82;
+  }
+
+  26% {
+    opacity: 0.72;
+  }
+
+  100% {
+    opacity: 0.58;
+  }
+}
+
+@keyframes bulb-thunder-core-in {
+  0%,
+  15% {
+    opacity: 0;
+  }
+
+  21% {
+    opacity: 0.88;
+  }
+
+  100% {
+    opacity: 0.62;
+  }
+}
+
+@keyframes bulb-glass-thunder-in {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.48;
+  }
+
+  100% {
+    opacity: 0.36;
+  }
+}
+
+.lightbulb--strike .lightbulb__inner {
+  animation: bulb-strike-charge var(--strike-duration, 1.15s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.lightbulb--strike .lightbulb__glass-tint {
+  animation: bulb-tint-strike var(--strike-duration, 1.15s) ease-out forwards;
+}
+
+.lightbulb--strike .lightbulb__flare {
+  animation: bulb-flare-thunder var(--strike-duration, 1.15s) ease-out forwards;
+}
+
+.lightbulb--strike .lightbulb__bloom,
+.lightbulb--strike .lightbulb__bloom--tight {
+  opacity: 0;
+  animation: none;
+}
+
+.lightbulb--strike .lightbulb__pool {
+  animation: none;
+  opacity: 0;
+}
+
+.lightbulb--strike .lightbulb__base-glow {
+  animation: bulb-base-ignite var(--strike-duration, 1.15s) ease-out forwards;
+}
+
+@keyframes bulb-strike-charge {
+  0% {
+    opacity: 0.04;
+  }
+
+  14% {
+    opacity: 0.06;
+  }
+
+  19% {
+    opacity: 0.55;
+  }
+
+  24% {
+    opacity: 0.72;
+  }
+
+  100% {
+    opacity: 0.58;
+  }
+}
+
+@keyframes bulb-tint-strike {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.05;
+  }
+
+  28% {
+    opacity: 0.12;
+  }
+
+  100% {
+    opacity: 0.1;
+  }
+}
+
+@keyframes bulb-flare-thunder {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.55;
+  }
+
+  100% {
+    opacity: 0.28;
+  }
+}
+
+/* ── Repeat strike: thunder flashes over steady warm bulb ── */
+.lightbulb--revealed.lightbulb--strike .lightbulb__inner {
+  opacity: 0.94;
+  filter: url(#bulb-inner-scatter);
+  animation: bulb-thunder-overlay-inner var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__thunder-fill {
+  animation: bulb-thunder-overlay-fill var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__thunder-core {
+  animation: bulb-thunder-overlay-core var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__glass-thunder-tint {
+  animation: bulb-thunder-overlay-glass var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__filament {
+  stroke: #ffe8a8;
+  filter: url(#bulb-filament-glow);
+  animation: bulb-filament-overlay-strike var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__filament-core {
+  stroke: #ffffff;
+  opacity: 1;
+  filter: url(#bulb-filament-glow);
+  animation: bulb-filament-core-overlay-strike var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__glass-tint {
+  opacity: 0.38;
+  animation: none;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__bloom {
+  opacity: 0.62;
+  animation: none;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__bloom--tight {
+  opacity: 0.72;
+  animation: none;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__pool {
+  opacity: 0.38;
+  animation: none;
+}
+
+.lightbulb--revealed.lightbulb--strike .lightbulb__flare {
+  opacity: 0.5;
+  animation: bulb-flare-overlay-strike var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+@keyframes bulb-thunder-overlay-fill {
+  0%,
+  12% {
+    opacity: 0;
+  }
+
+  16% {
+    opacity: 0.92;
+  }
+
+  22% {
+    opacity: 0.55;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bulb-thunder-overlay-core {
+  0%,
+  12% {
+    opacity: 0;
+  }
+
+  16% {
+    opacity: 0.95;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bulb-thunder-overlay-glass {
+  0% {
+    opacity: 0;
+  }
+
+  16% {
+    opacity: 0.52;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bulb-thunder-overlay-inner {
+  0%,
+  100% {
+    opacity: 0.94;
+  }
+
+  16% {
+    opacity: 0.78;
+  }
+}
+
+@keyframes bulb-filament-overlay-strike {
+  0%,
+  100% {
+    stroke: #ffe8a8;
+  }
+
+  14%,
+  20% {
+    stroke: #fafcfe;
+  }
+}
+
+@keyframes bulb-filament-core-overlay-strike {
+  0%,
+  100% {
+    stroke: #ffffff;
+    opacity: 1;
+  }
+}
+
+@keyframes bulb-flare-overlay-strike {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  16% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes bulb-bloom-strike {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+
+  22% {
+    opacity: 0.1;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  100% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes bulb-pool-strike {
+  0% {
+    opacity: 0;
+  }
+
+  24% {
+    opacity: 0.05;
+  }
+
+  32% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0.55;
+  }
+}
+
+/* ── Lit: warm yellow returns inside glass ── */
+.lightbulb--lit .lightbulb__thunder-fill {
+  animation: bulb-thunder-fill-out var(--bulb-warm-return, 0.75s) ease-out forwards;
+}
+
+.lightbulb--lit .lightbulb__thunder-core {
+  animation: bulb-thunder-core-out var(--bulb-warm-return, 0.75s) ease-out forwards;
+}
+
+.lightbulb--lit .lightbulb__glass-thunder-tint {
+  animation: bulb-glass-thunder-out var(--bulb-warm-return, 0.75s) ease-out forwards;
+}
+
+.lightbulb--lit .lightbulb__filament {
+  stroke: #ffe8a8;
+  opacity: 1;
+  filter: url(#bulb-filament-glow);
+  animation: bulb-filament-warm-return var(--bulb-warm-return, 0.75s) ease-out forwards;
+}
+
+.lightbulb--lit .lightbulb__filament-core {
+  stroke: #ffffff;
+  opacity: 1;
+  filter: url(#bulb-filament-glow);
+}
+
+.lightbulb--lit .lightbulb__inner {
+  opacity: 0.94;
+  filter: url(#bulb-inner-scatter);
+  animation: bulb-inner-warm-return var(--bulb-warm-return, 0.95s) cubic-bezier(0.33, 0, 0.2, 1) forwards;
+}
+
+.lightbulb--lit .lightbulb__glass-tint {
+  opacity: 0.38;
+  animation: bulb-tint-warm-return var(--bulb-warm-return, 0.75s) ease-out forwards;
+}
+
+.lightbulb--lit .lightbulb__bloom {
+  opacity: 0.62;
+  animation: bulb-bloom-warm-in var(--bulb-warm-return, 0.95s) cubic-bezier(0.33, 0, 0.2, 1) forwards;
+}
+
+.lightbulb--lit .lightbulb__bloom--tight {
+  opacity: 0.72;
+  animation: bulb-bloom-tight-warm-in var(--bulb-warm-return, 0.95s) cubic-bezier(0.33, 0, 0.2, 1) forwards;
+}
+
+.lightbulb--lit .lightbulb__pool {
+  opacity: 0.38;
+  animation: bulb-pool-warm-in var(--bulb-warm-return, 0.95s) cubic-bezier(0.33, 0, 0.2, 1) forwards;
+}
+
+@keyframes bulb-thunder-fill-out {
+  0% {
+    opacity: 0.78;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bulb-thunder-core-out {
+  0% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bulb-glass-thunder-out {
+  0% {
+    opacity: 0.48;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bulb-filament-warm-return {
+  0% {
+    stroke: #fafcfe;
+  }
+
+  100% {
+    stroke: #ffe8a8;
+  }
+}
+
+@keyframes bulb-inner-warm-return {
+  0% {
+    opacity: 0.48;
+  }
+
+  100% {
+    opacity: 0.94;
+  }
+}
+
+@keyframes bulb-tint-warm-return {
+  0% {
+    opacity: 0.1;
+  }
+
+  100% {
+    opacity: 0.38;
+  }
+}
+
+@keyframes bulb-bloom-warm-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.88);
+  }
+
+  100% {
+    opacity: 0.62;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes bulb-bloom-tight-warm-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  100% {
+    opacity: 0.72;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes bulb-pool-warm-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(0.7);
+  }
+
+  100% {
+    opacity: 0.38;
+    transform: translateX(-50%) scaleY(1);
+  }
+}
+
+/* ── Lit: steady constant glow after strike ── */
+.lightbulb--lit .lightbulb__flare {
+  opacity: 0.5;
+}
+
+.lightbulb--lit .lightbulb__rim {
+  stroke: rgba(255, 245, 220, 0.45);
+}
+
+.lightbulb--lit .lightbulb__specular {
+  opacity: 0.92;
+}
+
+.lightbulb--lit .lightbulb__base-glow {
+  opacity: 0.88;
+}
+
+.lightbulb--lit .lightbulb__stem,
+.lightbulb--lit .lightbulb__wire {
+  stroke: rgba(210, 200, 175, 0.8);
+}
+
+.lightbulb--lit .lightbulb__svg {
+  filter:
+    drop-shadow(0 3px 8px rgba(0, 0, 0, 0.38))
+    drop-shadow(0 0 10px rgba(255, 185, 100, 0.18));
+}
+
+.lightbulb--lit .lightbulb__glass {
+  filter: drop-shadow(0 0 4px rgba(255, 195, 120, 0.12));
+}
+
+@keyframes bulb-base-ignite {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.88;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbulb--flicker .lightbulb__filament,
+  .lightbulb--flicker .lightbulb__filament-core,
+  .lightbulb--flicker .lightbulb__inner,
+  .lightbulb--strike .lightbulb__thunder-fill,
+  .lightbulb--strike .lightbulb__thunder-core,
+  .lightbulb--strike .lightbulb__glass-thunder-tint,
+  .lightbulb--lit .lightbulb__thunder-fill,
+  .lightbulb--lit .lightbulb__thunder-core,
+  .lightbulb--lit .lightbulb__glass-thunder-tint,
+  .lightbulb--lit .lightbulb__filament,
+  .lightbulb--lit .lightbulb__inner,
+  .lightbulb--lit .lightbulb__glass-tint,
+  .lightbulb--lit .lightbulb__bloom,
+  .lightbulb--lit .lightbulb__bloom--tight,
+  .lightbulb--strike .lightbulb__filament,
+  .lightbulb--strike .lightbulb__filament-core,
+  .lightbulb--strike .lightbulb__inner,
+  .lightbulb--strike .lightbulb__glass-tint,
+  .lightbulb--strike .lightbulb__flare,
+  .lightbulb--strike .lightbulb__bloom,
+  .lightbulb--strike .lightbulb__bloom--tight,
+  .lightbulb--strike .lightbulb__pool,
+  .lightbulb--strike .lightbulb__base-glow {
+    animation: none !important;
+  }
+
+  .lightbulb--lit .lightbulb__filament {
+    stroke: #ffe8a8;
+    filter: url(#bulb-filament-glow);
+  }
+
+  .lightbulb--lit .lightbulb__filament-core {
+    stroke: #ffffff;
+    opacity: 1;
+  }
+
+  .lightbulb--lit .lightbulb__inner {
+    opacity: 0.94;
+    filter: url(#bulb-inner-scatter);
+  }
+
+  .lightbulb--lit .lightbulb__flare {
+    opacity: 0.5;
+  }
+
+  .lightbulb--lit .lightbulb__pool {
+    opacity: 0.38;
+  }
+
+  .lightbulb--lit .lightbulb__base-glow {
+    opacity: 0.88;
+  }
+}

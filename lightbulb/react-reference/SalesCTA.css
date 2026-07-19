@@ -1,0 +1,229 @@
+/* CTA with lightbulb motif — bulb sits on top of pill */
+.sales-cta {
+  position: absolute;
+  top: var(--cta-anchor-y);
+  left: 50%;
+  z-index: 4;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.sales-cta--visible .solar-cta,
+.sales-cta--visible .hero-instagram {
+  pointer-events: auto;
+}
+
+.sales-cta__anchor {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightbulb-zone {
+  position: relative;
+  width: var(--bulb-w, clamp(58px, 10vw, 82px));
+  height: calc(var(--bulb-w, clamp(58px, 10vw, 82px)) * 1.47);
+  flex-shrink: 0;
+}
+
+.sales-cta__anchor .hero-instagram {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 1.35rem);
+  margin-top: 0;
+  transform: translateX(-50%);
+}
+
+.solar-cta {
+  --gold: #ffb000;
+  --gold-soft: #ffd36a;
+  --pill-width: min(560px, 86vw);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: -12px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.solar-cta__pill {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  width: var(--pill-width);
+  height: var(--pill-height);
+  border-radius: 999px;
+  background: #0a0a0c;
+  border: 2px solid rgba(70, 70, 78, 0.55);
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* Phase: off — dark matte */
+.sales-cta--off .solar-cta__text {
+  opacity: 0.72;
+}
+
+/* Phase: flicker — frame stays dark (no power yet) */
+.sales-cta--flicker .solar-cta__pill {
+  border-color: rgba(68, 66, 62, 0.5);
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+.sales-cta--flicker .solar-cta__text {
+  opacity: 0.74;
+}
+
+/* Phase: strike — flash rim on repeat, dark on first hit */
+.sales-cta--strike .solar-cta__pill {
+  border-color: rgba(68, 66, 62, 0.5);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+}
+
+.sales-cta--lit.sales-cta--strike .solar-cta__pill {
+  border-color: rgba(255, 220, 180, 0.88);
+  box-shadow:
+    0 0 10px rgba(220, 235, 255, 0.35),
+    0 0 22px rgba(255, 185, 90, 0.32),
+    inset 0 0 16px rgba(230, 240, 255, 0.1);
+}
+
+/* Phase: lit — warm tungsten frame after lightning */
+.sales-cta--lit .solar-cta__pill {
+  background: #080808;
+  border-color: rgba(255, 200, 110, 0.82);
+  box-shadow:
+    0 0 8px rgba(255, 185, 90, 0.45),
+    0 0 22px rgba(255, 155, 60, 0.28),
+    0 0 48px rgba(255, 120, 30, 0.1),
+    inset 0 1px 0 rgba(255, 225, 170, 0.12),
+    inset 0 0 18px rgba(255, 175, 55, 0.1);
+  animation: pill-strike-ignite 0.65s cubic-bezier(0.33, 0, 0.2, 1) forwards;
+}
+
+@keyframes pill-strike-ignite {
+  0% {
+    border-color: rgba(68, 66, 62, 0.5);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+  }
+
+  22% {
+    border-color: rgba(240, 248, 255, 0.75);
+    box-shadow:
+      0 0 12px rgba(220, 235, 252, 0.35),
+      0 0 28px rgba(200, 220, 245, 0.15),
+      inset 0 0 14px rgba(230, 240, 252, 0.08);
+  }
+
+  55% {
+    border-color: rgba(255, 230, 180, 0.9);
+    box-shadow:
+      0 0 14px rgba(255, 200, 100, 0.55),
+      0 0 32px rgba(255, 160, 60, 0.32),
+      inset 0 0 20px rgba(255, 185, 70, 0.14);
+  }
+
+  100% {
+    border-color: rgba(255, 200, 110, 0.82);
+    box-shadow:
+      0 0 8px rgba(255, 185, 90, 0.45),
+      0 0 22px rgba(255, 155, 60, 0.28),
+      0 0 48px rgba(255, 120, 30, 0.1),
+      inset 0 1px 0 rgba(255, 225, 170, 0.12),
+      inset 0 0 18px rgba(255, 175, 55, 0.1);
+  }
+}
+
+.sales-cta--lit .solar-cta__text {
+  opacity: 1;
+}
+
+.sales-cta--lit .solar-cta__arrow {
+  opacity: 1;
+}
+
+.solar-cta__text {
+  position: relative;
+  z-index: 1;
+  font-family: Montserrat, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(20px, 3vw, 34px);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  color: transparent;
+  background-image: linear-gradient(180deg, #fff2a8 0%, #ffd24a 35%, #ff9d00 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow:
+    0 0 8px rgba(255, 176, 0, 0.32),
+    0 0 18px rgba(255, 120, 0, 0.18);
+}
+
+.solar-cta__arrow {
+  position: relative;
+  z-index: 1;
+  margin-top: -3px;
+  font-size: clamp(46px, 5vw, 64px);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--gold-soft);
+  text-shadow:
+    0 0 8px rgba(255, 176, 0, 0.5),
+    0 0 16px rgba(255, 122, 0, 0.28);
+  transition: transform 0.25s ease;
+}
+
+.solar-cta:hover {
+  transform: translateY(-3px) scale(1.015);
+}
+
+.solar-cta:hover .solar-cta__pill {
+  border-color: rgba(255, 222, 122, 1);
+}
+
+.solar-cta:hover .solar-cta__arrow {
+  transform: translateX(7px);
+}
+
+.solar-cta:active {
+  transform: translateY(0) scale(0.985);
+}
+
+@media (max-width: 520px) {
+  .sales-cta__anchor .hero-instagram {
+    top: calc(100% + 1.1rem);
+  }
+
+  .solar-cta__pill {
+    gap: 18px;
+  }
+
+  .solar-cta__text {
+    letter-spacing: 0.14em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sales-cta--lit .solar-cta__pill,
+  .sales-cta--lit .solar-cta__text,
+  .sales-cta--lit .solar-cta__arrow {
+    animation: none !important;
+  }
+
+  .sales-cta--lit .solar-cta__pill {
+    border-color: rgba(255, 200, 110, 0.82);
+    box-shadow:
+      0 0 8px rgba(255, 185, 90, 0.45),
+      0 0 22px rgba(255, 155, 60, 0.28);
+  }
+}

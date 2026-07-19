@@ -1,0 +1,327 @@
+.bulb-strike {
+  position: absolute;
+  left: 50%;
+  z-index: 6;
+  width: min(320px, 50vw);
+  height: var(--strike-target-y);
+  top: calc(var(--bulb-height) * var(--bulb-strike-y-ratio) - var(--strike-target-y));
+  transform: translateX(-50%);
+  pointer-events: none;
+  overflow: visible;
+}
+
+.bulb-strike__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Outer violet atmospheric glow — reference photo outer aura */
+.bulb-strike__violet {
+  fill: none;
+  stroke: url(#bolt-violet-grad);
+  stroke-width: calc(8px + var(--fork-intensity, 1) * 12px);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
+  filter: url(#bolt-violet-filter);
+  animation:
+    bolt-draw var(--strike-duration, 1.2s) cubic-bezier(0.4, 0, 0.18, 1) forwards,
+    bolt-violet-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
+  animation-delay: calc(var(--strike-duration, 1.2s) * var(--fork-delay, 0));
+}
+
+.bulb-strike__violet--main {
+  stroke-width: calc(10px + var(--fork-intensity, 1) * 14px);
+}
+
+.bulb-strike__violet--fork {
+  stroke: rgba(130, 95, 220, 0.55);
+  stroke-width: calc(2px + var(--fork-intensity, 0.5) * 4px);
+  animation:
+    bolt-branch-draw var(--strike-duration, 1.2s) ease-out forwards,
+    bolt-violet-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
+  animation-delay: calc(var(--strike-duration, 1.2s) * var(--fork-delay, 0));
+}
+
+.bulb-strike__violet--twig {
+  stroke: rgba(145, 110, 230, 0.42);
+  stroke-width: calc(0.8px + var(--fork-intensity, 0.3) * 1.6px);
+  filter: url(#bolt-fork-filter);
+}
+
+/* Electric blue plasma channel */
+.bulb-strike__blue {
+  fill: none;
+  stroke: url(#bolt-blue-grad);
+  stroke-width: calc(3px + var(--fork-intensity, 1) * 4.5px);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
+  filter: url(#bolt-blue-filter);
+  animation:
+    bolt-draw var(--strike-duration, 1.2s) cubic-bezier(0.4, 0, 0.18, 1) forwards,
+    bolt-blue-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
+  animation-delay: calc(var(--strike-duration, 1.2s) * var(--fork-delay, 0));
+}
+
+.bulb-strike__blue--main {
+  stroke-width: calc(3.5px + var(--fork-intensity, 1) * 5px);
+  filter:
+    url(#bolt-blue-filter)
+    drop-shadow(0 0 6px rgba(100, 170, 255, 0.7));
+}
+
+.bulb-strike__blue--fork {
+  stroke: rgba(110, 165, 255, 0.62);
+  stroke-width: calc(0.9px + var(--fork-intensity, 0.5) * 1.8px);
+  animation:
+    bolt-branch-draw var(--strike-duration, 1.2s) ease-out forwards,
+    bolt-blue-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
+  animation-delay: calc(var(--strike-duration, 1.2s) * var(--fork-delay, 0));
+}
+
+.bulb-strike__blue--twig {
+  stroke: rgba(130, 180, 255, 0.48);
+  stroke-width: calc(0.4px + var(--fork-intensity, 0.3) * 0.8px);
+  filter: url(#bolt-fork-filter);
+}
+
+/* Blinding white core — main trunk only */
+.bulb-strike__core {
+  fill: none;
+  stroke: url(#bolt-core-grad);
+  stroke-width: calc(1.4px + var(--fork-intensity, 1) * 1.8px);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
+  filter:
+    url(#bolt-core-filter)
+    drop-shadow(0 0 3px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 8px rgba(200, 225, 255, 0.85));
+  animation:
+    bolt-draw var(--strike-duration, 1.2s) cubic-bezier(0.4, 0, 0.18, 1) forwards,
+    bolt-core-pulse var(--strike-duration, 1.2s) ease-in-out forwards;
+}
+
+.bulb-strike__terminus {
+  fill: #ffffff;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 10px rgba(180, 215, 255, 0.9));
+  animation: bolt-terminus var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+.bulb-strike__terminus-burst {
+  fill: rgba(200, 225, 255, 0.5);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  filter: blur(1.5px);
+  animation: bolt-terminus-burst var(--strike-duration, 1.2s) ease-out forwards;
+}
+
+@keyframes bolt-draw {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0;
+  }
+
+  2% {
+    opacity: 0.85;
+  }
+
+  13% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes bolt-branch-draw {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0;
+  }
+
+  5% {
+    opacity: 0.5;
+  }
+
+  11% {
+    stroke-dashoffset: 0;
+    opacity: 0.82;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes bolt-violet-pulse {
+  0%,
+  11% {
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.75;
+  }
+
+  18% {
+    opacity: 0.5;
+  }
+
+  22% {
+    opacity: 0.68;
+  }
+
+  30% {
+    opacity: 0.38;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bolt-blue-pulse {
+  0%,
+  11% {
+    opacity: 0;
+  }
+
+  14% {
+    opacity: 0.92;
+  }
+
+  16% {
+    opacity: 0.62;
+  }
+
+  19% {
+    opacity: 0.85;
+  }
+
+  23% {
+    opacity: 0.58;
+  }
+
+  28% {
+    opacity: 0.72;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bolt-core-pulse {
+  0%,
+  11% {
+    opacity: 0;
+  }
+
+  13% {
+    opacity: 1;
+  }
+
+  15% {
+    opacity: 0.7;
+  }
+
+  17% {
+    opacity: 0.95;
+  }
+
+  20% {
+    opacity: 0.72;
+  }
+
+  24% {
+    opacity: 0.88;
+  }
+
+  32% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bolt-terminus {
+  0%,
+  11% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+
+  14% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+
+  17% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+
+  21% {
+    opacity: 0.95;
+    transform: scale(1.15);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+@keyframes bolt-terminus-burst {
+  0%,
+  11% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+
+  15% {
+    opacity: 0.7;
+    transform: scale(1.6);
+  }
+
+  22% {
+    opacity: 0.35;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bulb-strike__violet,
+  .bulb-strike__blue,
+  .bulb-strike__core,
+  .bulb-strike__terminus,
+  .bulb-strike__terminus-burst {
+    animation-duration: 0.25s;
+    stroke-dashoffset: 0;
+  }
+}
