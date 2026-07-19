@@ -13,4 +13,4 @@ if (typeof window !== "undefined") {
   });
 }
 
-export { MomentumLightbulb };
+export default MomentumLightbulb;

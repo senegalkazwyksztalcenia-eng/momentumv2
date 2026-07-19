@@ -42,6 +42,19 @@ Powstają pliki:
 - `dist/lightbulb.js` — jeden skrypt IIFE
 - `dist/lightbulb.css` — wszystkie style
 
+## Nagrywanie wideo animacji
+
+Po każdej zmianie uruchom:
+
+```bash
+cd lightbulb
+npm run record
+```
+
+Zapisuje:
+- `/opt/cursor/artifacts/videos/lightbulb.mp4` (desktop, 9 s, pełna sekwencja 2× błyskawica)
+- `/opt/cursor/artifacts/videos/lightbulb-mobile.mp4`
+
 ## WordPress — szybki start
 
 1. Wgraj `lightbulb.js` i `lightbulb.css` do motywu lub na CDN.
