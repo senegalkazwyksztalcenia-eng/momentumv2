@@ -1,26 +1,12 @@
-# Momentum Lightbulb — standalone
+# Momentum Lightbulb
 
-Samodzielny projekt animowanej żarówki z błyskawicą, wyodrębniony z głównego hero Momentum.
+Samodzielny projekt **tylko żarówki** — bez pioruna, bez przycisku CTA. Czarne tło, powiększona żarówka.
 
-## Co zawiera
+## Sekwencja
 
-- **Żarówka SVG** z fazami: `off` → `strike` → `lit` (×2)
-- **Proceduralna błyskawica** (biały rdzeń, niebieski blask, fioletowa poświata)
-- **Opcjonalny przycisk CTA** w stylu oryginalnego hero
-- **Vanilla JS** — gotowe do wklejenia w WordPress (bez Reacta)
+`off` → `flicker` (0,8 s) → `lit` (2,2 s)
 
-## Struktura
-
-```
-lightbulb/
-├── index.html              # podgląd deweloperski
-├── src/                    # kod źródłowy widgetu
-├── dist/                   # zbudowane pliki (po npm run build)
-├── react-reference/        # oryginalne komponenty React z projektu hero
-└── wordpress/              # gotowy snippet do wklejenia
-```
-
-## Rozwój lokalny
+## Rozwój
 
 ```bash
 cd lightbulb
@@ -28,108 +14,49 @@ npm install
 npm run dev
 ```
 
-Otwórz adres z terminala (zwykle `http://localhost:5173`).
-
-## Build pod WordPress
+## Build
 
 ```bash
-cd lightbulb
-npm install
 npm run build
 ```
 
-Powstają pliki:
-- `dist/lightbulb.js` — jeden skrypt IIFE
-- `dist/lightbulb.css` — wszystkie style
+Pliki: `dist/lightbulb.js`, `dist/lightbulb.css`
 
-## Nagrywanie wideo animacji
-
-Po każdej zmianie uruchom:
+## Wideo po każdej zmianie
 
 ```bash
-cd lightbulb
 npm run record
 ```
 
-Zapisuje:
-- `/opt/cursor/artifacts/videos/lightbulb.mp4` (desktop, 9 s, pełna sekwencja 2× błyskawica)
-- `/opt/cursor/artifacts/videos/lightbulb-mobile.mp4`
+Zapisuje `/opt/cursor/artifacts/videos/lightbulb.mp4` (9 s)
 
-## WordPress — szybki start
+## WordPress
 
-1. Wgraj `lightbulb.js` i `lightbulb.css` do motywu lub na CDN.
-2. W edytorze strony dodaj blok **Własny HTML**.
-3. Wklej zawartość `wordpress/embed.html` (zmień ścieżki do plików).
-
-### Auto-inicjalizacja
+Wgraj pliki z `dist/` i wklej snippet z `wordpress/embed.html`.
 
 ```html
-<div
-  data-momentum-lightbulb
-  data-cta-text="ODKRYJ TERAZ"
-  data-cta-href="https://twoja-strona.pl/#kup"
-></div>
-<script src="/wp-content/uploads/lightbulb/lightbulb.js" defer></script>
-<link rel="stylesheet" href="/wp-content/uploads/lightbulb/lightbulb.css" />
-```
-
-### Ręczna inicjalizacja (JS)
-
-```html
-<div id="moja-zarowka"></div>
-<script src="lightbulb.js"></script>
+<div data-momentum-lightbulb data-size="clamp(140px, 32vw, 280px)"></div>
+<script src="lightbulb.js" defer></script>
 <link rel="stylesheet" href="lightbulb.css" />
-<script>
-  MomentumLightbulb.mount('#moja-zarowka', {
-    ctaText: 'KUP TERAZ',
-    ctaHref: '/sklep',
-    showCta: true,
-    autoplay: true,
-  });
-</script>
 ```
-
-### Opcje
-
-| Opcja | Typ | Domyślnie | Opis |
-|-------|-----|-----------|------|
-| `ctaText` | string | `ODKRYJ TERAZ` | Tekst na przycisku |
-| `ctaHref` | string | `#` | Link przycisku |
-| `showCta` | boolean | `true` | Pokaż / ukryj przycisk |
-| `autoplay` | boolean | `true` | Uruchom sekwencję po załadowaniu |
-
-### Atrybuty `data-*`
-
-| Atrybut | Opis |
-|---------|------|
-| `data-momentum-lightbulb` | Włącza auto-mount |
-| `data-cta-text` | Tekst CTA |
-| `data-cta-href` | URL CTA |
-| `data-show-cta="false"` | Ukrywa przycisk |
-| `data-autoplay="false"` | Nie startuje automatycznie |
-
-## Timing sekwencji
-
-- Pierwsza błyskawica: **2 s**
-- Zapalenie żarówki: **3,2 s**
-- Druga błyskawica: **6,2 s**
-- Drugie zapalenie: **7,4 s**
-
-## Pliki referencyjne React
-
-Folder `react-reference/` zawiera oryginalne komponenty z brancha `cursor/info-section-marketing-video-86aa`:
-
-- `Lightbulb.tsx` / `Lightbulb.css`
-- `BulbLightningStrike.tsx` / `BulbLightningStrike.css`
-- `lib/lightning.ts`, `bulbGeometry.ts`, `useHeroSequence.ts`
-
-Przy ulepszeniach w React możesz przenosić zmiany do `src/` (vanilla) ręcznie lub budować nową wersję widgetu.
 
 ## API
 
 ```js
-const widget = MomentumLightbulb.mount('#element', options);
-widget.play();    // odtwórz sekwencję
-widget.stop();    // zatrzymaj timery
-widget.destroy(); // usuń z DOM
+MomentumLightbulb.mount('#element', {
+  size: 'clamp(140px, 32vw, 280px)', // opcjonalnie
+  autoplay: true,
+});
+widget.play();
+widget.destroy();
 ```
+
+## Struktura
+
+| Plik | Rola |
+|------|------|
+| `src/lightbulb-svg.js` | SVG żarówki |
+| `src/styles/lightbulb.css` | Animacje żarówki |
+| `src/sequence.js` | Timing off → flicker → lit |
+| `src/widget.js` | Widget |
+| `react-reference/` | Stara wersja React (archiwum) |

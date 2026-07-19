@@ -1,40 +1,31 @@
 import { createLightbulbElement, setLightbulbPhase } from "./lightbulb-svg.js";
-import { createStrikeElement } from "./strike.js";
 import { startBulbSequence } from "./sequence.js";
 import "./styles/widget.css";
 import "./styles/lightbulb.css";
-import "./styles/strike.css";
-
-const STRIKE_REMOVE_MS = 1300;
 
 /**
- * Standalone animated lightbulb widget (vanilla JS).
+ * Standalone animated lightbulb (vanilla JS).
  * @example
- * MomentumLightbulb.mount('#my-bulb', { ctaText: 'ODKRYJ TERAZ', ctaHref: '#kup' });
+ * MomentumLightbulb.mount('#my-bulb');
  */
 export class MomentumLightbulb {
   /**
    * @param {HTMLElement} container
    * @param {{
-   *   ctaText?: string;
-   *   ctaHref?: string;
-   *   showCta?: boolean;
+   *   size?: string;
    *   autoplay?: boolean;
    * }} [options]
    */
   constructor(container, options = {}) {
     this.container = container;
     this.options = {
-      ctaText: "ODKRYJ TERAZ",
-      ctaHref: "#",
-      showCta: true,
+      size: "clamp(140px, 32vw, 280px)",
       autoplay: true,
       ...options,
     };
 
     this.phase = "off";
     this.contentVisible = false;
-    this.strikeEl = null;
     this.bulbEl = null;
     this.root = null;
     this.cleanup = null;
@@ -47,27 +38,12 @@ export class MomentumLightbulb {
     this.container.innerHTML = "";
     this.root = document.createElement("div");
     this.root.className = "ms-bulb-widget ms-bulb-widget--off";
+    this.root.style.setProperty("--bulb-w", this.options.size);
     this.root.setAttribute("role", "img");
-    this.root.setAttribute("aria-label", "Animowana żarówka z błyskawicą");
+    this.root.setAttribute("aria-label", "Animowana żarówka");
 
-    const zone = document.createElement("div");
-    zone.className = "ms-bulb-widget__zone";
     this.bulbEl = createLightbulbElement();
-    zone.appendChild(this.bulbEl);
-    this.root.appendChild(zone);
-
-    if (this.options.showCta) {
-      const link = document.createElement("a");
-      link.className = "ms-bulb-widget__cta";
-      link.href = this.options.ctaHref;
-      link.innerHTML = `
-        <span class="ms-bulb-widget__pill">
-          <span class="ms-bulb-widget__text">${this.options.ctaText}</span>
-          <span class="ms-bulb-widget__arrow">›</span>
-        </span>`;
-      this.root.appendChild(link);
-    }
-
+    this.root.appendChild(this.bulbEl);
     this.container.appendChild(this.root);
   }
 
@@ -86,32 +62,11 @@ export class MomentumLightbulb {
     setLightbulbPhase(this.bulbEl, phase, contentVisible);
   }
 
-  showStrike(strikeKey) {
-    if (this.strikeEl) {
-      this.strikeEl.remove();
-      this.strikeEl = null;
-    }
-
-    const zone = this.root.querySelector(".ms-bulb-widget__zone");
-    this.strikeEl = createStrikeElement(strikeKey);
-    zone.insertBefore(this.strikeEl, this.bulbEl);
-
-    window.setTimeout(() => {
-      if (this.strikeEl) {
-        this.strikeEl.remove();
-        this.strikeEl = null;
-      }
-    }, STRIKE_REMOVE_MS);
-  }
-
   play() {
     this.stop();
     this.setPhase("off", false);
 
-    this.cleanup = startBulbSequence(({ phase, strikeKey, contentVisible }) => {
-      if (phase === "strike") {
-        this.showStrike(strikeKey);
-      }
+    this.cleanup = startBulbSequence(({ phase, contentVisible }) => {
       this.setPhase(phase, contentVisible);
     });
   }

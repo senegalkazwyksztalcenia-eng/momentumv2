@@ -5,9 +5,7 @@ if (typeof window !== "undefined") {
 
   document.querySelectorAll("[data-momentum-lightbulb]").forEach((el) => {
     MomentumLightbulb.mount(el, {
-      ctaText: el.dataset.ctaText || "ODKRYJ TERAZ",
-      ctaHref: el.dataset.ctaHref || "#",
-      showCta: el.dataset.showCta !== "false",
+      size: el.dataset.size || undefined,
       autoplay: el.dataset.autoplay !== "false",
     });
   });

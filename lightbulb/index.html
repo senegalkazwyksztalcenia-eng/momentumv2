@@ -3,13 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Momentum — żarówka (standalone)</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <title>Żarówka — standalone</title>
     <style>
       * {
         box-sizing: border-box;
@@ -20,96 +14,23 @@
         min-height: 100vh;
         display: grid;
         place-items: center;
-        background:
-          radial-gradient(ellipse 80% 55% at 50% 18%, rgba(0, 80, 180, 0.14), transparent 62%),
-          #020611;
-        color: #d8f4ff;
-        font-family: Montserrat, ui-sans-serif, system-ui, sans-serif;
+        background: #000;
       }
 
-      .demo {
-        text-align: center;
-        padding: 2rem 1.25rem 3rem;
-      }
-
-      .demo h1 {
-        margin: 0 0 0.5rem;
-        font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: rgba(0, 183, 255, 0.9);
-      }
-
-      .demo p {
-        margin: 0 0 2rem;
-        max-width: 34rem;
-        font-size: 0.92rem;
-        line-height: 1.55;
-        color: rgba(210, 240, 255, 0.78);
-      }
-
-      .demo__mount {
-        min-height: 220px;
+      #bulb-demo {
         display: grid;
         place-items: center;
-      }
-
-      .demo__controls {
-        margin-top: 2rem;
-        display: flex;
-        gap: 0.75rem;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .demo__controls button {
-        padding: 0.55rem 1rem;
-        border-radius: 999px;
-        border: 1px solid rgba(0, 183, 255, 0.35);
-        background: rgba(2, 8, 20, 0.85);
-        color: #b8ecff;
-        font: inherit;
-        font-size: 0.82rem;
-        cursor: pointer;
-      }
-
-      .demo__controls button:hover {
-        border-color: rgba(0, 183, 255, 0.7);
       }
     </style>
   </head>
   <body>
-    <main class="demo">
-      <h1>Żarówka Momentum</h1>
-      <p>
-        Samodzielny widget — 2 błyskawice, ciepłe światło po uderzeniu. Ten folder jest
-        odseparowany od głównego projektu hero, żeby można było go ulepszać osobno i
-        wkleić do WordPressa.
-      </p>
-
-      <div class="demo__mount" id="bulb-demo"></div>
-
-      <div class="demo__controls">
-        <button type="button" id="btn-replay">Odtwórz sekwencję</button>
-        <button type="button" id="btn-bulb-only">Tylko żarówka (bez CTA)</button>
-      </div>
-    </main>
+    <div id="bulb-demo"></div>
 
     <script type="module">
       import { MomentumLightbulb } from "./src/index.js";
 
-      let widget = MomentumLightbulb.mount("#bulb-demo", {
-        ctaText: "ODKRYJ TERAZ",
-        ctaHref: "#",
-      });
-
-      document.getElementById("btn-replay").addEventListener("click", () => widget.play());
-
-      document.getElementById("btn-bulb-only").addEventListener("click", () => {
-        widget.destroy();
-        widget = MomentumLightbulb.mount("#bulb-demo", { showCta: false });
-      });
+      const widget = MomentumLightbulb.mount("#bulb-demo");
+      window.replayBulb = () => widget.play();
     </script>
   </body>
 </html>
